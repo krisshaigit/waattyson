@@ -1,12 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace adminstaffff
 {
-    internal class UserForm
+    public partial class UserForm : Form
     {
+        // Parameterless ctor for Designer
+        public UserForm()
+        {
+            InitializeComponent();
+        }
+
+        // Runtime ctor used by LoginForm to show user's full name
+        public UserForm(string fullName) : this()
+        {
+            if (!string.IsNullOrWhiteSpace(fullName))
+            {
+                lblWelcome.Text = $"Welcome, {fullName}";
+            }
+            lblRole.Text = "Role: User";
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
