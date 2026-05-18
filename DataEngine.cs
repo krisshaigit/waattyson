@@ -82,10 +82,8 @@ namespace adminstaffff
                     "customer1,Welcome to Watsons! Enjoy 10% off your first checkout.,Promotion,2026-05-18"
                 });
 
+                // Load database files directly into memory lists
                 LoadData();
-
-                // Set active user context to the mock customer
-                CurrentUser = new User { Username = "customer1", Password = "password123", Role = "Customer", Name = "Jane Doe", Address = "123 Main St Manila", ContactNumber = "09171234567" };
             }
             catch (Exception ex)
             {
@@ -134,8 +132,11 @@ namespace adminstaffff
 
         public static void SaveUsers()
         {
-            string line = $"{CurrentUser.Username},{CurrentUser.Password},{CurrentUser.Role},{CurrentUser.Name},{CurrentUser.Address},{CurrentUser.ContactNumber}";
-            File.WriteAllLines(UsersFile, new[] { line });
+            if (CurrentUser != null)
+            {
+                string line = $"{CurrentUser.Username},{CurrentUser.Password},{CurrentUser.Role},{CurrentUser.Name},{CurrentUser.Address},{CurrentUser.ContactNumber}";
+                File.WriteAllLines(UsersFile, new[] { line });
+            }
         }
 
         public static void SaveOrders()

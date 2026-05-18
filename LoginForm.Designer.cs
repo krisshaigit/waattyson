@@ -65,6 +65,7 @@ namespace adminstaffff
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(327, 27);
             txtUsername.TabIndex = 1;
+            txtUsername.TextChanged += txtUsername_TextChanged;
             // 
             // lblPassword
             // 
@@ -83,6 +84,7 @@ namespace adminstaffff
             txtPassword.Size = new Size(327, 27);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
+            txtPassword.TextChanged += txtPassword_TextChanged;
             // 
             // btnLogin
             // 
@@ -180,7 +182,6 @@ namespace adminstaffff
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // LoginForm
             // 
