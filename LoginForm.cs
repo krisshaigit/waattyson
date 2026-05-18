@@ -31,10 +31,10 @@ namespace adminstaffff
                 if (!File.Exists(usersFile))
                 {
                     var sample =
-                        "admin01,admin123,Admin,Main Admin," + Environment.NewLine +
-                        "staff01,staff123,Staff,John Cruz,WB-01" + Environment.NewLine +
-                        "user01,user123,User,Juan Dela Cruz," + Environment.NewLine +
-                        "driver01,driver123,Driver,Mark Reyes," + Environment.NewLine;
+                        "1|admin01|admin123|Main Admin|Admin||Active" + Environment.NewLine +
+                        "2|staff01|staff123|John Cruz|Staff|WB-01|Active" + Environment.NewLine +
+                        "3|user01|user123|Juan Dela Cruz|User||Active" + Environment.NewLine +
+                        "4|driver01|driver123|Mark Reyes|Driver||Active" + Environment.NewLine;
                     File.AppendAllText(usersFile, sample);
                 }
 
@@ -55,6 +55,60 @@ namespace adminstaffff
             var username = txtUsername.Text.Trim();
             var password = txtPassword.Text; // do not trim password deliberately
 
+            // LOAD USERS FILE
+            var lines = File.ReadAllLines(usersFile);
+
+            // CHECK IF USER IS BANNED
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i]))
+                    continue;
+
+                var parts = lines[i].Split('|');
+
+                // username,password,role,fullname,extra,status,createdDate,banUntil
+                if (parts.Length < 7)
+                    continue;
+
+                string fileUser = parts[0].Trim();
+                string status = parts[5].Trim();
+                string banUntilText = parts.Length > 7 ? parts[7].Trim() : "";
+
+                if (string.Equals(fileUser, username, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (status == "Banned")
+                    {
+                        DateTime banUntil;
+
+                        if (DateTime.TryParse(banUntilText, out banUntil))
+                        {
+                            // STILL BANNED
+                            if (DateTime.Now < banUntil)
+                            {
+                                TimeSpan remaining = banUntil - DateTime.Now;
+
+                                MessageBox.Show(
+                                    $"Account is banned.\nRemaining time: {remaining.Hours}h {remaining.Minutes}m",
+                                    "Banned",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+
+                                return;
+                            }
+                            else
+                            {
+                                // AUTO UNBAN
+                                parts[5] = "Active";
+                                parts[7] = "";
+
+                                lines[i] = string.Join(",", parts);
+
+                                File.WriteAllLines(usersFile, lines);
+                            }
+                        }
+                    }
+                }
+            }
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Please enter username and password.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -70,7 +124,7 @@ namespace adminstaffff
                 }
 
                 // Find matching user line
-                var lines = File.ReadAllLines(usersFile);
+                
                 string foundRole = null;
                 string foundFullName = null;
                 string foundExtra = null;
@@ -78,17 +132,23 @@ namespace adminstaffff
                 foreach (var line in lines)
                 {
                     if (string.IsNullOrWhiteSpace(line)) continue;
-                    var parts = line.Split(',');
-                    if (parts.Length < 4) continue; // require at least username,password,role,fullname
 
-                    var fileUser = parts[0].Trim();
-                    var filePass = parts[1];
-                    if (!string.Equals(fileUser, username, StringComparison.OrdinalIgnoreCase)) continue;
-                    if (filePass != password) continue;
+                    var parts = line.Split('|');
+                    if (parts.Length < 7) continue;
 
-                    foundRole = parts[2].Trim();
+                    var fileUser = parts[1].Trim();
+                    var filePass = parts[2].Trim();
+
+                    if (!string.Equals(fileUser, username, StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    if (filePass != password)
+                        continue;
+
                     foundFullName = parts[3].Trim();
-                    foundExtra = parts.Length > 4 ? parts[4].Trim() : string.Empty;
+                    foundRole = parts[4].Trim();
+                    foundExtra = parts[5].Trim();
+
                     break;
                 }
 
@@ -151,6 +211,7 @@ namespace adminstaffff
                 MessageBox.Show("Error during login: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+     
 
         // Prompt the user for access code in a small modal dialog; returns null if cancelled
         private string PromptForAccessCode(string role)
