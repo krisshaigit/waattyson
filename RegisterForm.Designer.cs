@@ -64,7 +64,7 @@ namespace adminstaffff
             // 
             lblUsername.AutoSize = true;
             lblUsername.ForeColor = SystemColors.ButtonHighlight;
-            lblUsername.Location = new Point(17, 29);
+            lblUsername.Location = new Point(18, 50);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(75, 20);
             lblUsername.TabIndex = 0;
@@ -72,7 +72,7 @@ namespace adminstaffff
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(137, 25);
+            txtUsername.Location = new Point(138, 46);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(475, 27);
             txtUsername.TabIndex = 1;
@@ -81,7 +81,7 @@ namespace adminstaffff
             // 
             lblPassword.AutoSize = true;
             lblPassword.ForeColor = SystemColors.ButtonHighlight;
-            lblPassword.Location = new Point(17, 65);
+            lblPassword.Location = new Point(18, 86);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(70, 20);
             lblPassword.TabIndex = 2;
@@ -89,7 +89,7 @@ namespace adminstaffff
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(137, 61);
+            txtPassword.Location = new Point(138, 82);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(475, 27);
             txtPassword.TabIndex = 3;
@@ -99,7 +99,7 @@ namespace adminstaffff
             // 
             lblRole.AutoSize = true;
             lblRole.ForeColor = SystemColors.ButtonHighlight;
-            lblRole.Location = new Point(17, 101);
+            lblRole.Location = new Point(18, 122);
             lblRole.Name = "lblRole";
             lblRole.Size = new Size(39, 20);
             lblRole.TabIndex = 4;
@@ -109,7 +109,7 @@ namespace adminstaffff
             // 
             cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbRole.Items.AddRange(new object[] { "Admin", "Staff", "User", "Driver" });
-            cmbRole.Location = new Point(137, 97);
+            cmbRole.Location = new Point(138, 118);
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(475, 28);
             cmbRole.TabIndex = 5;
@@ -119,7 +119,7 @@ namespace adminstaffff
             // 
             lblFullName.AutoSize = true;
             lblFullName.ForeColor = SystemColors.ButtonHighlight;
-            lblFullName.Location = new Point(17, 137);
+            lblFullName.Location = new Point(18, 158);
             lblFullName.Name = "lblFullName";
             lblFullName.Size = new Size(76, 20);
             lblFullName.TabIndex = 6;
@@ -127,7 +127,7 @@ namespace adminstaffff
             // 
             // txtFullName
             // 
-            txtFullName.Location = new Point(137, 133);
+            txtFullName.Location = new Point(138, 154);
             txtFullName.Name = "txtFullName";
             txtFullName.Size = new Size(475, 27);
             txtFullName.TabIndex = 7;
@@ -136,7 +136,7 @@ namespace adminstaffff
             // 
             lblBranchId.AutoSize = true;
             lblBranchId.ForeColor = SystemColors.ButtonHighlight;
-            lblBranchId.Location = new Point(17, 173);
+            lblBranchId.Location = new Point(18, 194);
             lblBranchId.Name = "lblBranchId";
             lblBranchId.Size = new Size(73, 20);
             lblBranchId.TabIndex = 8;
@@ -144,7 +144,7 @@ namespace adminstaffff
             // 
             // txtBranchId
             // 
-            txtBranchId.Location = new Point(137, 169);
+            txtBranchId.Location = new Point(138, 190);
             txtBranchId.Name = "txtBranchId";
             txtBranchId.Size = new Size(160, 27);
             txtBranchId.TabIndex = 9;
@@ -154,7 +154,7 @@ namespace adminstaffff
             // 
             lblAccessCode.AutoSize = true;
             lblAccessCode.ForeColor = SystemColors.ButtonHighlight;
-            lblAccessCode.Location = new Point(472, 190);
+            lblAccessCode.Location = new Point(473, 211);
             lblAccessCode.Name = "lblAccessCode";
             lblAccessCode.Size = new Size(92, 20);
             lblAccessCode.TabIndex = 10;
@@ -162,7 +162,7 @@ namespace adminstaffff
             // 
             // txtAccessCode
             // 
-            txtAccessCode.Location = new Point(472, 212);
+            txtAccessCode.Location = new Point(473, 233);
             txtAccessCode.Name = "txtAccessCode";
             txtAccessCode.Size = new Size(140, 27);
             txtAccessCode.TabIndex = 11;
