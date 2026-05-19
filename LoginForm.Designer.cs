@@ -36,16 +36,16 @@ namespace adminstaffff
             btnClear = new Button();
             btnRegister = new Button();
             splitContainer1 = new SplitContainer();
-            pictureBox3 = new PictureBox();
-            pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            pictureBox3 = new PictureBox();
             ((ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            ((ISupportInitialize)pictureBox3).BeginInit();
-            ((ISupportInitialize)pictureBox2).BeginInit();
             ((ISupportInitialize)pictureBox1).BeginInit();
+            ((ISupportInitialize)pictureBox2).BeginInit();
+            ((ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // lblUsername
@@ -64,7 +64,6 @@ namespace adminstaffff
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(327, 27);
             txtUsername.TabIndex = 1;
-            txtUsername.TextChanged += txtUsername_TextChanged;
             // 
             // lblPassword
             // 
@@ -83,7 +82,6 @@ namespace adminstaffff
             txtPassword.Size = new Size(327, 27);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
-            txtPassword.TextChanged += txtPassword_TextChanged;
             // 
             // btnLogin
             // 
@@ -152,15 +150,15 @@ namespace adminstaffff
             splitContainer1.SplitterDistance = 282;
             splitContainer1.TabIndex = 7;
             // 
-            // pictureBox3
+            // pictureBox1
             // 
-            pictureBox3.Image = Properties.Resources.images;
-            pictureBox3.Location = new Point(10, 123);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(265, 335);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 1;
-            pictureBox3.TabStop = false;
+            pictureBox1.Image = Properties.Resources.Screenshot_2026_05_12_024708;
+            pictureBox1.Location = new Point(-36, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(464, 151);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 7;
+            pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
@@ -172,15 +170,15 @@ namespace adminstaffff
             pictureBox2.TabIndex = 0;
             pictureBox2.TabStop = false;
             // 
-            // pictureBox1
+            // pictureBox3
             // 
-            pictureBox1.Image = Properties.Resources.Screenshot_2026_05_12_024708;
-            pictureBox1.Location = new Point(-36, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(464, 151);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 7;
-            pictureBox1.TabStop = false;
+            pictureBox3.Image = Properties.Resources.images;
+            pictureBox3.Location = new Point(10, 123);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(265, 335);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 1;
+            pictureBox3.TabStop = false;
             // 
             // LoginForm
             // 
@@ -198,9 +196,9 @@ namespace adminstaffff
             splitContainer1.Panel2.PerformLayout();
             ((ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            ((ISupportInitialize)pictureBox3).EndInit();
-            ((ISupportInitialize)pictureBox2).EndInit();
             ((ISupportInitialize)pictureBox1).EndInit();
+            ((ISupportInitialize)pictureBox2).EndInit();
+            ((ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
         }
 

@@ -101,9 +101,9 @@ namespace adminstaffff
                 {
                     File.WriteAllLines("users.txt", new string[] { "1|admin01|Admin123!|Main Admin|Admin||Active" });
                 }
-                if (!File.Exists("product.txt"))
+                if (!File.Exists("products.txt"))
                 {
-                    File.WriteAllLines("product.txt", new string[] {
+                    File.WriteAllLines("products.txt", new string[] {
                         "1|Laptop|Gaming Laptop RTX 4060|55000|10|Electronics|images/laptop.jpg|Available",
                         "2|Mouse|Wireless Mouse RGB|1200|25|Accessories|images/mouse.jpg|Available"
                     });
@@ -176,9 +176,9 @@ namespace adminstaffff
         private void LoadProducts()
         {
             productsList.Clear();
-            if (!File.Exists("product.txt")) return;
+            if (!File.Exists("products.txt")) return;
 
-            string[] lines = File.ReadAllLines("product.txt");
+            string[] lines = File.ReadAllLines("products.txt");
             foreach (string line in lines)
             {
                 if (string.IsNullOrWhiteSpace(line)) continue;
@@ -209,7 +209,7 @@ namespace adminstaffff
                 {
                     lines.Add($"{p.Id}|{p.Name}|{p.Description}|{p.Price}|{p.Stock}|{p.Category}|{p.ImagePath}|{p.Availability}");
                 }
-                File.WriteAllLines("product.txt", lines.ToArray());
+                File.WriteAllLines("products.txt", lines.ToArray());
             }
             catch (Exception ex)
             {

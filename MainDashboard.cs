@@ -10,7 +10,7 @@ namespace adminstaffff
     {
         private Form activeForm = null;
 
-        public MainDashboard()
+        public MainDashboard(string? foundFullName)
         {
             InitializeComponent();
 
