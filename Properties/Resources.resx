@@ -118,16 +118,133 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Watsons_logotype.svg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Watsons_logotype.svg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="foundation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\foundation1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Diatabs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Diatabs1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lotion1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cleanser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cleanser1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="baby pacifier" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\baby pacifier1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Powder1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Solmux" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Solmux1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Advil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Advil1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="baby wash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\baby wash1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Watsons_logotype1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Watsons_logotype.svg1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Screenshot 2026-05-12 024708" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Screenshot 2026-05-12 024708.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Neozep Forte" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Neozep Forte1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="baby lotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\baby lotion1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sunscreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sunscreen.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kremil-S" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kremil-S1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infusion oil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\infusion oil.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Biogesic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Biogesic1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="liner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\liner1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brow Stick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brow Stick1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deodorant" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\deodorant1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="personal care" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\personal care.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="shampoo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shampoo1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vitamins" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vitamins.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toothpaste" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\toothpaste1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lipstick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lipstick1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="night repair" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\night repair.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blush" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blush1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="baby shampoo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\baby shampoo1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="images" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Screenshot 2026-05-12 024708" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Screenshot 2026-05-12 024708.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="derma" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\derma.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gcash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gcash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="baby oil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\baby oil1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="serum" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\serum.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mascara" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mascara1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Solmux1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Solmux2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="baby diaper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\baby diaper1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="beauty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\beauty.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="body wash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\body wash1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="baby powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\baby powder1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="promo sale banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\promo sale banner.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Watsons_logotype.svg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Watsons_logotype.svg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bar soap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bar soap1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Decolgen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Decolgen1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -11,8 +11,9 @@ namespace adminstaffff
         [STAThread]
         static void Main()
         {
-            // Initialize WinForms for .NET 8
-            ApplicationConfiguration.Initialize();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new LoginForm());
         }
     }
