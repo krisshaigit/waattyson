@@ -15,7 +15,6 @@ namespace adminstaffff
         private Button btnClear;
         private Button btnRegister;
 
-       
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))

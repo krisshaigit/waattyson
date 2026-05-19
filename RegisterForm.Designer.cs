@@ -1,4 +1,3 @@
-using adminstaffff;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -17,15 +16,13 @@ namespace adminstaffff
         private ComboBox cmbRole;
         private Label lblFullName;
         private TextBox txtFullName;
-        private Label lblBranchId;
-        private TextBox txtBranchId;
         private Label lblAccessCode;
         private TextBox txtAccessCode;
         private Button btnRegister;
         private Button btnCancel;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
         {
@@ -48,8 +45,6 @@ namespace adminstaffff
             cmbRole = new ComboBox();
             lblFullName = new Label();
             txtFullName = new TextBox();
-            lblBranchId = new Label();
-            txtBranchId = new TextBox();
             lblAccessCode = new Label();
             txtAccessCode = new TextBox();
             btnRegister = new Button();
@@ -108,7 +103,7 @@ namespace adminstaffff
             // cmbRole
             // 
             cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbRole.Items.AddRange(new object[] { "Admin", "Staff", "User", "Driver" });
+            cmbRole.Items.AddRange(new object[] { "Admin", "User", "Driver" });
             cmbRole.Location = new Point(138, 118);
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(475, 28);
@@ -132,50 +127,32 @@ namespace adminstaffff
             txtFullName.Size = new Size(475, 27);
             txtFullName.TabIndex = 7;
             // 
-            // lblBranchId
-            // 
-            lblBranchId.AutoSize = true;
-            lblBranchId.ForeColor = SystemColors.ButtonHighlight;
-            lblBranchId.Location = new Point(18, 194);
-            lblBranchId.Name = "lblBranchId";
-            lblBranchId.Size = new Size(73, 20);
-            lblBranchId.TabIndex = 8;
-            lblBranchId.Text = "Branch ID";
-            // 
-            // txtBranchId
-            // 
-            txtBranchId.Location = new Point(138, 190);
-            txtBranchId.Name = "txtBranchId";
-            txtBranchId.Size = new Size(160, 27);
-            txtBranchId.TabIndex = 9;
-            txtBranchId.TextChanged += txtBranchId_TextChanged;
-            // 
             // lblAccessCode
             // 
             lblAccessCode.AutoSize = true;
             lblAccessCode.ForeColor = SystemColors.ButtonHighlight;
-            lblAccessCode.Location = new Point(473, 211);
+            lblAccessCode.Location = new Point(18, 194);
             lblAccessCode.Name = "lblAccessCode";
             lblAccessCode.Size = new Size(92, 20);
-            lblAccessCode.TabIndex = 10;
+            lblAccessCode.TabIndex = 8;
             lblAccessCode.Text = "Access Code";
             // 
             // txtAccessCode
             // 
-            txtAccessCode.Location = new Point(473, 233);
+            txtAccessCode.Location = new Point(138, 190);
             txtAccessCode.Name = "txtAccessCode";
-            txtAccessCode.Size = new Size(140, 27);
-            txtAccessCode.TabIndex = 11;
+            txtAccessCode.Size = new Size(475, 27);
+            txtAccessCode.TabIndex = 9;
             // 
             // btnRegister
             // 
             btnRegister.BackColor = Color.DarkSlateGray;
             btnRegister.FlatStyle = FlatStyle.Flat;
             btnRegister.ForeColor = SystemColors.ButtonHighlight;
-            btnRegister.Location = new Point(218, 292);
+            btnRegister.Location = new Point(218, 260);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(110, 32);
-            btnRegister.TabIndex = 12;
+            btnRegister.TabIndex = 10;
             btnRegister.Text = "Register";
             btnRegister.UseVisualStyleBackColor = false;
             btnRegister.Click += btnRegister_Click;
@@ -185,10 +162,10 @@ namespace adminstaffff
             btnCancel.BackColor = Color.DarkSlateGray;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.ForeColor = SystemColors.ButtonHighlight;
-            btnCancel.Location = new Point(378, 292);
+            btnCancel.Location = new Point(378, 260);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(110, 32);
-            btnCancel.TabIndex = 13;
+            btnCancel.TabIndex = 11;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
@@ -200,7 +177,7 @@ namespace adminstaffff
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(450, 175);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 14;
+            pictureBox2.TabIndex = 12;
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
             // 
@@ -215,8 +192,6 @@ namespace adminstaffff
             panel1.Controls.Add(cmbRole);
             panel1.Controls.Add(lblFullName);
             panel1.Controls.Add(txtFullName);
-            panel1.Controls.Add(lblBranchId);
-            panel1.Controls.Add(txtBranchId);
             panel1.Controls.Add(lblAccessCode);
             panel1.Controls.Add(txtAccessCode);
             panel1.Controls.Add(btnRegister);
@@ -224,7 +199,7 @@ namespace adminstaffff
             panel1.Location = new Point(-1, 107);
             panel1.Name = "panel1";
             panel1.Size = new Size(678, 390);
-            panel1.TabIndex = 15;
+            panel1.TabIndex = 13;
             // 
             // RegisterForm
             // 

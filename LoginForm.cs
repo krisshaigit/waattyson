@@ -1,6 +1,4 @@
-﻿using adminstaffff;
-
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,7 +13,6 @@ namespace adminstaffff
 
         // Access code constants (stored in code, not in files)
         private const string ADMIN_ACCESS_CODE = "ADMIN-2026";
-        private const string STAFF_ACCESS_CODE = "STAFF-2026";
 
         public LoginForm()
         {
@@ -30,17 +27,17 @@ namespace adminstaffff
             {
                 if (!File.Exists(usersFile))
                 {
+                    // Clean Database Blueprint: No Staff roles present
                     var sample =
                         "1|admin01|admin123|Main Admin|Admin||Active" + Environment.NewLine +
-                        "2|staff01|staff123|John Cruz|Staff|WB-01|Active" + Environment.NewLine +
-                        "3|user01|user123|Juan Dela Cruz|User||Active" + Environment.NewLine +
-                        "4|driver01|driver123|Mark Reyes|Driver||Active" + Environment.NewLine;
+                        "2|user01|user123|Juan Dela Cruz|User||Active" + Environment.NewLine +
+                        "3|driver01|driver123|Mark Reyes|Driver||Active" + Environment.NewLine;
                     File.AppendAllText(usersFile, sample);
                 }
 
                 if (!File.Exists(branchesFile))
                 {
-                    File.AppendAllText(branchesFile, "WB-01," + Environment.NewLine); // name left empty
+                    File.AppendAllText(branchesFile, "WB-01," + Environment.NewLine);
                 }
             }
             catch (Exception ex)
@@ -54,6 +51,12 @@ namespace adminstaffff
         {
             var username = txtUsername.Text.Trim();
             var password = txtPassword.Text; // do not trim password deliberately
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please enter username and password.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             // LOAD USERS FILE
             var lines = File.ReadAllLines(usersFile);
@@ -70,8 +73,8 @@ namespace adminstaffff
                 if (parts.Length < 7)
                     continue;
 
-                string fileUser = parts[0].Trim();
-                string status = parts[5].Trim();
+                string fileUser = parts[1].Trim();
+                string status = parts[6].Trim();
                 string banUntilText = parts.Length > 7 ? parts[7].Trim() : "";
 
                 if (string.Equals(fileUser, username, StringComparison.OrdinalIgnoreCase))
@@ -98,21 +101,16 @@ namespace adminstaffff
                             else
                             {
                                 // AUTO UNBAN
-                                parts[5] = "Active";
+                                parts[6] = "Active";
                                 parts[7] = "";
 
-                                lines[i] = string.Join(",", parts);
+                                lines[i] = string.Join("|", parts);
 
                                 File.WriteAllLines(usersFile, lines);
                             }
                         }
                     }
                 }
-            }
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-            {
-                MessageBox.Show("Please enter username and password.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
             }
 
             try
@@ -124,17 +122,16 @@ namespace adminstaffff
                 }
 
                 // Find matching user line
-                
+                string foundUsername = null;
                 string foundRole = null;
                 string foundFullName = null;
-                string foundExtra = null;
 
                 foreach (var line in lines)
                 {
                     if (string.IsNullOrWhiteSpace(line)) continue;
 
                     var parts = line.Split('|');
-                    if (parts.Length < 7) continue;
+                    if (parts.Length < 5) continue;
 
                     var fileUser = parts[1].Trim();
                     var filePass = parts[2].Trim();
@@ -145,9 +142,9 @@ namespace adminstaffff
                     if (filePass != password)
                         continue;
 
+                    foundUsername = fileUser;
                     foundFullName = parts[3].Trim();
                     foundRole = parts[4].Trim();
-                    foundExtra = parts[5].Trim();
 
                     break;
                 }
@@ -158,9 +155,8 @@ namespace adminstaffff
                     return;
                 }
 
-                // If Admin or Staff, require access code before proceeding
-                if (string.Equals(foundRole, "Admin", StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(foundRole, "Staff", StringComparison.OrdinalIgnoreCase))
+                // Security Authorization Wall: Only verified Admin accounts trigger an access challenge query
+                if (string.Equals(foundRole, "Admin", StringComparison.OrdinalIgnoreCase))
                 {
                     var accessCode = PromptForAccessCode(foundRole);
                     if (accessCode == null) // user cancelled
@@ -175,16 +171,11 @@ namespace adminstaffff
                     }
                 }
 
-                // All checks passed — open appropriate dashboard (uses existing forms if present)
+                // Route checked account matrix identifiers safely to target execution canvases
                 switch (foundRole)
                 {
                     case "Admin":
-                        OpenFormByName("adminstaffff.AdminForm", new object[] { foundFullName });
-                        break;
-
-                    case "Staff":
-                        var branchName = LookupBranchName(foundExtra) ?? foundExtra;
-                        OpenFormByName("adminstaffff.StaffForm", new object[] { foundFullName, branchName });
+                        OpenFormByName("adminstaffff.AdminForm", new object[] { foundUsername, foundRole });
                         break;
 
                     case "User":
@@ -208,10 +199,9 @@ namespace adminstaffff
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error during login: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error during login execution sequence: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-     
 
         // Prompt the user for access code in a small modal dialog; returns null if cancelled
         private string PromptForAccessCode(string role)
@@ -248,29 +238,7 @@ namespace adminstaffff
         {
             if (string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase))
                 return string.Equals(code, ADMIN_ACCESS_CODE, StringComparison.Ordinal);
-            if (string.Equals(role, "Staff", StringComparison.OrdinalIgnoreCase))
-                return string.Equals(code, STAFF_ACCESS_CODE, StringComparison.Ordinal);
-            return true; // Users/Drivers do not require codes
-        }
-
-        // Lookup branch name by ID from branches.txt, return null if not found
-        private string LookupBranchName(string branchId)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(branchId) || !File.Exists(branchesFile)) return null;
-                var lines = File.ReadAllLines(branchesFile);
-                foreach (var line in lines)
-                {
-                    if (string.IsNullOrWhiteSpace(line)) continue;
-                    var p = line.Split(',');
-                    if (p.Length < 1) continue;
-                    if (string.Equals(p[0].Trim(), branchId, StringComparison.OrdinalIgnoreCase))
-                        return p.Length > 1 ? p[1].Trim() : branchId;
-                }
-            }
-            catch { /* ignore */ }
-            return null;
+            return false;
         }
 
         // Try to open a Form by full type name via reflection. Returns true if shown.
@@ -314,17 +282,9 @@ namespace adminstaffff
             }
         }
 
-        // Designer-loaded event stub (if wired)
-        private void LoginForm_Load(object sender, EventArgs e) { /* no-op */ }
-
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        // Designer-loaded event stubs
+        private void LoginForm_Load(object sender, EventArgs e) { }
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e) { }
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e) { }
     }
 }
