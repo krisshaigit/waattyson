@@ -17,522 +17,1419 @@
 
         private void InitializeComponent()
         {
-            this.panelSidebar = new System.Windows.Forms.Panel();
-            this.lblLogo = new System.Windows.Forms.Label();
-            this.btnDashboard = new System.Windows.Forms.Button();
-            this.btnUserMgmt = new System.Windows.Forms.Button();
-            this.btnComplaints = new System.Windows.Forms.Button();
-            this.btnProfile = new System.Windows.Forms.Button();
-            this.btnLogout = new System.Windows.Forms.Button();
-            this.panelMainContainer = new System.Windows.Forms.Panel();
-            this.panelDashboard = new System.Windows.Forms.Panel();
-            this.lblAdminName = new System.Windows.Forms.Label();
-            this.pnlStat1 = new System.Windows.Forms.Panel();
-            this.lblTotalUsersTitle = new System.Windows.Forms.Label();
-            this.lblTotalUsersVal = new System.Windows.Forms.Label();
-            this.pnlStat2 = new System.Windows.Forms.Panel();
-            this.lblTotalComplaintsTitle = new System.Windows.Forms.Label();
-            this.lblTotalComplaintsVal = new System.Windows.Forms.Label();
-            this.panelUserMgmt = new System.Windows.Forms.Panel();
-            this.dgvUsers = new System.Windows.Forms.DataGridView();
-            this.colUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnOpenAdd = new System.Windows.Forms.Button();
-            this.btnOpenEdit = new System.Windows.Forms.Button();
-            this.btnDeleteUser = new System.Windows.Forms.Button();
-            this.btnBanUser = new System.Windows.Forms.Button();
-            this.numBanHours = new System.Windows.Forms.NumericUpDown();
-            this.lblBanHrs = new System.Windows.Forms.Label();
-            this.grpAddUser = new System.Windows.Forms.GroupBox();
-            this.lblAddU = new System.Windows.Forms.Label();
-            this.lblAddP = new System.Windows.Forms.Label();
-            this.lblAddF = new System.Windows.Forms.Label();
-            this.txtAddUsername = new System.Windows.Forms.TextBox();
-            this.txtAddPassword = new System.Windows.Forms.TextBox();
-            this.txtAddFullName = new System.Windows.Forms.TextBox();
-            this.cmbAddRole = new System.Windows.Forms.ComboBox();
-            this.btnConfirmAdd = new System.Windows.Forms.Button();
-            this.btnCancelAdd = new System.Windows.Forms.Button();
-            this.grpEditUser = new System.Windows.Forms.GroupBox();
-            this.lblEditU = new System.Windows.Forms.Label();
-            this.lblEditP = new System.Windows.Forms.Label();
-            this.lblEditR = new System.Windows.Forms.Label();
-            this.lblEditS = new System.Windows.Forms.Label();
-            this.txtEditUsername = new System.Windows.Forms.TextBox();
-            this.txtEditPassword = new System.Windows.Forms.TextBox();
-            this.cmbEditRole = new System.Windows.Forms.ComboBox();
-            this.cmbEditStatus = new System.Windows.Forms.ComboBox();
-            this.btnConfirmEdit = new System.Windows.Forms.Button();
-            this.btnCancelEdit = new System.Windows.Forms.Button();
-            this.panelComplaints = new System.Windows.Forms.Panel();
-            this.dgvComplaints = new System.Windows.Forms.DataGridView();
-            this.colCmpUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCmpMsg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCmpStat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCmpDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnRefreshComplaints = new System.Windows.Forms.Button();
-            this.btnResolveComplaint = new System.Windows.Forms.Button();
-            this.btnDeleteComplaint = new System.Windows.Forms.Button();
-            this.panelProfile = new System.Windows.Forms.Panel();
-            this.lblP1 = new System.Windows.Forms.Label();
-            this.lblP2 = new System.Windows.Forms.Label();
-            this.lblP3 = new System.Windows.Forms.Label();
-            this.lblP4 = new System.Windows.Forms.Label();
-            this.txtProfUsername = new System.Windows.Forms.TextBox();
-            this.txtProfFullName = new System.Windows.Forms.TextBox();
-            this.txtProfRole = new System.Windows.Forms.TextBox();
-            this.txtProfPassword = new System.Windows.Forms.TextBox();
-            this.btnSaveProfile = new System.Windows.Forms.Button();
-
-            this.panelSidebar.SuspendLayout();
-            this.panelMainContainer.SuspendLayout();
-            this.panelDashboard.SuspendLayout();
-            this.pnlStat1.SuspendLayout();
-            this.pnlStat2.SuspendLayout();
-            this.panelUserMgmt.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numBanHours)).BeginInit();
-            this.grpAddUser.SuspendLayout();
-            this.grpEditUser.SuspendLayout();
-            this.panelComplaints.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvComplaints)).BeginInit();
-            this.panelProfile.SuspendLayout();
-            this.SuspendLayout();
-
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            panelSidebar = new Panel();
+            lblLogo = new Label();
+            btnDashboard = new Button();
+            btnUserMgmt = new Button();
+            btnInventory = new Button();
+            btnOrders = new Button();
+            btnProfile = new Button();
+            btnLogout = new Button();
+            btnProducts = new Button();
+            panelMainContainer = new Panel();
+            panelProductMgmt = new Panel();
+            dgvProducts = new DataGridView();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
+            txtSearchProduct = new TextBox();
+            txtProdName = new TextBox();
+            txtProdDesc = new TextBox();
+            txtProdPrice = new TextBox();
+            txtProdStock = new TextBox();
+            txtProdCategory = new TextBox();
+            txtProdImagePath = new TextBox();
+            cmbProdStatus = new ComboBox();
+            btnProdClear = new Button();
+            btnProdBrowseImage = new Button();
+            picProductPreview = new PictureBox();
+            lblSearchLabel = new Label();
+            lblN = new Label();
+            lblD = new Label();
+            lblP = new Label();
+            lblS = new Label();
+            lblC = new Label();
+            lblI = new Label();
+            lblSt = new Label();
+            panelUserMgmt = new Panel();
+            dgvUsers = new DataGridView();
+            dataGridViewTextBoxColumn16 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn17 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn18 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn19 = new DataGridViewTextBoxColumn();
+            btnOpenAdd = new Button();
+            btnOpenEdit = new Button();
+            btnDeleteUser = new Button();
+            btnBanUser = new Button();
+            numBanHours = new NumericUpDown();
+            lblBanHrs = new Label();
+            grpAddUser = new GroupBox();
+            lblAddU = new Label();
+            lblAddP = new Label();
+            lblAddF = new Label();
+            txtAddUsername = new TextBox();
+            txtAddPassword = new TextBox();
+            txtAddFullName = new TextBox();
+            cmbAddRole = new ComboBox();
+            btnConfirmAdd = new Button();
+            btnCancelAdd = new Button();
+            grpEditUser = new GroupBox();
+            lblEditU = new Label();
+            lblEditP = new Label();
+            lblEditR = new Label();
+            lblEditS = new Label();
+            txtEditUsername = new TextBox();
+            txtEditPassword = new TextBox();
+            cmbEditRole = new ComboBox();
+            cmbEditStatus = new ComboBox();
+            btnConfirmEdit = new Button();
+            btnCancelEdit = new Button();
+            panelDashboard = new Panel();
+            lblAdminName = new Label();
+            pnlStat1 = new Panel();
+            lblTotalUsersTitle = new Label();
+            lblTotalUsersVal = new Label();
+            panelInventory = new Panel();
+            dgvInventory = new DataGridView();
+            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn11 = new DataGridViewTextBoxColumn();
+            numInventoryStock = new NumericUpDown();
+            cmbInventoryStatus = new ComboBox();
+            btnUpdateInventory = new Button();
+            btnProdAdd = new Button();
+            btnProdUpdate = new Button();
+            btnProdDelete = new Button();
+            lblInvSelectedName = new Label();
+            picInventoryPreview = new PictureBox();
+            lblInvStockLabel = new Label();
+            lblInvAvLabel = new Label();
+            panelOrders = new Panel();
+            dgvOrders = new DataGridView();
+            dataGridViewTextBoxColumn12 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn13 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn14 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn15 = new DataGridViewTextBoxColumn();
+            lstOrderItemsView = new ListBox();
+            cmbOrderStatus = new ComboBox();
+            btnUpdateOrderStatus = new Button();
+            lblOrderSelectedTrack = new Label();
+            lblLineItems = new Label();
+            lblStatusTransition = new Label();
+            panelProfile = new Panel();
+            lblP1 = new Label();
+            lblP2 = new Label();
+            lblP3 = new Label();
+            lblP4 = new Label();
+            txtProfUsername = new TextBox();
+            txtProfFullName = new TextBox();
+            txtProfRole = new TextBox();
+            txtProfPassword = new TextBox();
+            btnSaveProfile = new Button();
+            colUser = new DataGridViewTextBoxColumn();
+            colRole = new DataGridViewTextBoxColumn();
+            colName = new DataGridViewTextBoxColumn();
+            colStatus = new DataGridViewTextBoxColumn();
+            panelSidebar.SuspendLayout();
+            panelMainContainer.SuspendLayout();
+            panelProductMgmt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picProductPreview).BeginInit();
+            panelUserMgmt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numBanHours).BeginInit();
+            grpAddUser.SuspendLayout();
+            grpEditUser.SuspendLayout();
+            panelDashboard.SuspendLayout();
+            pnlStat1.SuspendLayout();
+            panelInventory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numInventoryStock).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picInventoryPreview).BeginInit();
+            panelOrders.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
+            panelProfile.SuspendLayout();
+            SuspendLayout();
             // 
-            // panelSidebar (Dark Slate Grey Theme)
+            // panelSidebar
             // 
-            this.panelSidebar.BackColor = System.Drawing.Color.FromArgb(47, 79, 79);
-            this.panelSidebar.Controls.Add(this.lblLogo);
-            this.panelSidebar.Controls.Add(this.btnDashboard);
-            this.panelSidebar.Controls.Add(this.btnUserMgmt);
-            this.panelSidebar.Controls.Add(this.btnComplaints);
-            this.panelSidebar.Controls.Add(this.btnProfile);
-            this.panelSidebar.Controls.Add(this.btnLogout);
-            this.panelSidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSidebar.Location = new System.Drawing.Point(0, 0);
-            this.panelSidebar.Size = new System.Drawing.Size(220, 650);
-
+            panelSidebar.BackColor = Color.FromArgb(47, 79, 79);
+            panelSidebar.Controls.Add(lblLogo);
+            panelSidebar.Controls.Add(btnDashboard);
+            panelSidebar.Controls.Add(btnUserMgmt);
+            panelSidebar.Controls.Add(btnInventory);
+            panelSidebar.Controls.Add(btnOrders);
+            panelSidebar.Controls.Add(btnProfile);
+            panelSidebar.Controls.Add(btnLogout);
+            panelSidebar.Controls.Add(btnProducts);
+            panelSidebar.Dock = DockStyle.Left;
+            panelSidebar.Location = new Point(0, 0);
+            panelSidebar.Margin = new Padding(3, 4, 3, 4);
+            panelSidebar.Name = "panelSidebar";
+            panelSidebar.Size = new Size(220, 812);
+            panelSidebar.TabIndex = 1;
+            // 
             // lblLogo
-            this.lblLogo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblLogo.ForeColor = System.Drawing.Color.White;
-            this.lblLogo.Location = new System.Drawing.Point(12, 20);
-            this.lblLogo.Size = new System.Drawing.Size(196, 40);
-            this.lblLogo.Text = "ADMIN SUITE";
-            this.lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
+            // 
+            lblLogo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblLogo.ForeColor = Color.White;
+            lblLogo.Location = new Point(12, 19);
+            lblLogo.Name = "lblLogo";
+            lblLogo.Size = new Size(196, 44);
+            lblLogo.TabIndex = 0;
+            lblLogo.Text = "ADMIN SUITE";
+            lblLogo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // btnDashboard
-            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDashboard.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnDashboard.ForeColor = System.Drawing.Color.White;
-            this.btnDashboard.FlatAppearance.BorderSize = 0;
-            this.btnDashboard.Size = new System.Drawing.Size(220, 50);
-            this.btnDashboard.Location = new System.Drawing.Point(0, 100);
-            this.btnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDashboard.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnDashboard.Text = "Dashboard";
-            this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
-
+            // 
+            btnDashboard.FlatAppearance.BorderSize = 0;
+            btnDashboard.FlatStyle = FlatStyle.Flat;
+            btnDashboard.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnDashboard.ForeColor = Color.White;
+            btnDashboard.Location = new Point(0, 88);
+            btnDashboard.Margin = new Padding(3, 4, 3, 4);
+            btnDashboard.Name = "btnDashboard";
+            btnDashboard.Padding = new Padding(15, 0, 0, 0);
+            btnDashboard.Size = new Size(220, 56);
+            btnDashboard.TabIndex = 1;
+            btnDashboard.Text = "Dashboard";
+            btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
+            btnDashboard.Click += btnDashboard_Click;
+            // 
             // btnUserMgmt
-            this.btnUserMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUserMgmt.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnUserMgmt.ForeColor = System.Drawing.Color.White;
-            this.btnUserMgmt.FlatAppearance.BorderSize = 0;
-            this.btnUserMgmt.Size = new System.Drawing.Size(220, 50);
-            this.btnUserMgmt.Location = new System.Drawing.Point(0, 155);
-            this.btnUserMgmt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUserMgmt.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnUserMgmt.Text = "User Management";
-            this.btnUserMgmt.Click += new System.EventHandler(this.btnUserMgmt_Click);
-
-            // btnComplaints
-            this.btnComplaints.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnComplaints.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnComplaints.ForeColor = System.Drawing.Color.White;
-            this.btnComplaints.FlatAppearance.BorderSize = 0;
-            this.btnComplaints.Size = new System.Drawing.Size(220, 50);
-            this.btnComplaints.Location = new System.Drawing.Point(0, 210);
-            this.btnComplaints.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnComplaints.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnComplaints.Text = "Manage Complaints";
-            this.btnComplaints.Click += new System.EventHandler(this.btnComplaints_Click);
-
+            // 
+            btnUserMgmt.FlatAppearance.BorderSize = 0;
+            btnUserMgmt.FlatStyle = FlatStyle.Flat;
+            btnUserMgmt.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnUserMgmt.ForeColor = Color.White;
+            btnUserMgmt.Location = new Point(0, 148);
+            btnUserMgmt.Margin = new Padding(3, 4, 3, 4);
+            btnUserMgmt.Name = "btnUserMgmt";
+            btnUserMgmt.Padding = new Padding(15, 0, 0, 0);
+            btnUserMgmt.Size = new Size(220, 56);
+            btnUserMgmt.TabIndex = 2;
+            btnUserMgmt.Text = "User Management";
+            btnUserMgmt.TextAlign = ContentAlignment.MiddleLeft;
+            btnUserMgmt.Click += btnUserMgmt_Click;
+            // 
+            // btnInventory
+            // 
+            btnInventory.FlatAppearance.BorderSize = 0;
+            btnInventory.FlatStyle = FlatStyle.Flat;
+            btnInventory.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnInventory.ForeColor = Color.White;
+            btnInventory.Location = new Point(0, 200);
+            btnInventory.Margin = new Padding(3, 4, 3, 4);
+            btnInventory.Name = "btnInventory";
+            btnInventory.Padding = new Padding(15, 0, 0, 0);
+            btnInventory.Size = new Size(220, 56);
+            btnInventory.TabIndex = 4;
+            btnInventory.Text = "Inventory";
+            btnInventory.TextAlign = ContentAlignment.MiddleLeft;
+            btnInventory.Click += btnInventory_Click;
+            // 
+            // btnOrders
+            // 
+            btnOrders.FlatAppearance.BorderSize = 0;
+            btnOrders.FlatStyle = FlatStyle.Flat;
+            btnOrders.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnOrders.ForeColor = Color.White;
+            btnOrders.Location = new Point(0, 253);
+            btnOrders.Margin = new Padding(3, 4, 3, 4);
+            btnOrders.Name = "btnOrders";
+            btnOrders.Padding = new Padding(15, 0, 0, 0);
+            btnOrders.Size = new Size(220, 56);
+            btnOrders.TabIndex = 5;
+            btnOrders.Text = "Orders";
+            btnOrders.TextAlign = ContentAlignment.MiddleLeft;
+            btnOrders.Click += btnOrders_Click;
+            // 
             // btnProfile
-            this.btnProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProfile.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnProfile.ForeColor = System.Drawing.Color.White;
-            this.btnProfile.FlatAppearance.BorderSize = 0;
-            this.btnProfile.Size = new System.Drawing.Size(220, 50);
-            this.btnProfile.Location = new System.Drawing.Point(0, 265);
-            this.btnProfile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProfile.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnProfile.Text = "Profile Settings";
-            this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
-
+            // 
+            btnProfile.FlatAppearance.BorderSize = 0;
+            btnProfile.FlatStyle = FlatStyle.Flat;
+            btnProfile.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnProfile.ForeColor = Color.White;
+            btnProfile.Location = new Point(0, 312);
+            btnProfile.Margin = new Padding(3, 4, 3, 4);
+            btnProfile.Name = "btnProfile";
+            btnProfile.Padding = new Padding(15, 0, 0, 0);
+            btnProfile.Size = new Size(220, 56);
+            btnProfile.TabIndex = 6;
+            btnProfile.Text = "Profile Settings";
+            btnProfile.TextAlign = ContentAlignment.MiddleLeft;
+            btnProfile.Click += btnProfile_Click;
+            // 
             // btnLogout
-            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnLogout.ForeColor = System.Drawing.Color.White;
-            this.btnLogout.FlatAppearance.BorderSize = 0;
-            this.btnLogout.Size = new System.Drawing.Size(220, 50);
-            this.btnLogout.Location = new System.Drawing.Point(0, 550);
-            this.btnLogout.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogout.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnLogout.Text = "Logout";
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
-
+            // 
+            btnLogout.FlatAppearance.BorderSize = 0;
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(0, 725);
+            btnLogout.Margin = new Padding(3, 4, 3, 4);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Padding = new Padding(15, 0, 0, 0);
+            btnLogout.Size = new Size(220, 56);
+            btnLogout.TabIndex = 7;
+            btnLogout.Text = "Logout";
+            btnLogout.TextAlign = ContentAlignment.MiddleLeft;
+            btnLogout.Click += btnLogout_Click;
+            // 
+            // btnProducts
+            // 
+            btnProducts.FlatAppearance.BorderSize = 0;
+            btnProducts.FlatStyle = FlatStyle.Flat;
+            btnProducts.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnProducts.ForeColor = Color.White;
+            btnProducts.Location = new Point(3, 200);
+            btnProducts.Margin = new Padding(3, 4, 3, 4);
+            btnProducts.Name = "btnProducts";
+            btnProducts.Padding = new Padding(15, 0, 0, 0);
+            btnProducts.Size = new Size(220, 56);
+            btnProducts.TabIndex = 3;
+            btnProducts.Text = "Product Management";
+            btnProducts.TextAlign = ContentAlignment.MiddleLeft;
+            btnProducts.Click += btnProducts_Click;
             // 
             // panelMainContainer
             // 
-            this.panelMainContainer.Controls.Add(this.panelDashboard);
-            this.panelMainContainer.Controls.Add(this.panelUserMgmt);
-            this.panelMainContainer.Controls.Add(this.panelComplaints);
-            this.panelMainContainer.Controls.Add(this.panelProfile);
-            this.panelMainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMainContainer.Location = new System.Drawing.Point(220, 0);
-            this.panelMainContainer.Size = new System.Drawing.Size(814, 650);
-
+            panelMainContainer.Controls.Add(panelDashboard);
+            panelMainContainer.Controls.Add(panelUserMgmt);
+            panelMainContainer.Controls.Add(panelInventory);
+            panelMainContainer.Controls.Add(panelOrders);
+            panelMainContainer.Controls.Add(panelProfile);
+            panelMainContainer.Dock = DockStyle.Fill;
+            panelMainContainer.Location = new Point(220, 0);
+            panelMainContainer.Margin = new Padding(3, 4, 3, 4);
+            panelMainContainer.Name = "panelMainContainer";
+            panelMainContainer.Size = new Size(814, 812);
+            panelMainContainer.TabIndex = 0;
             // 
-            // panelDashboard Page
+            // panelProductMgmt
             // 
-            this.panelDashboard.BackColor = System.Drawing.Color.White;
-            this.panelDashboard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDashboard.Controls.Add(this.lblAdminName);
-            this.panelDashboard.Controls.Add(this.pnlStat1);
-            this.panelDashboard.Controls.Add(this.pnlStat2);
-            this.panelDashboard.Location = new System.Drawing.Point(0, 0);
-            this.panelDashboard.Size = new System.Drawing.Size(814, 650);
-
-            this.lblAdminName.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.lblAdminName.ForeColor = System.Drawing.Color.FromArgb(47, 79, 79);
-            this.lblAdminName.Location = new System.Drawing.Point(30, 30);
-            this.lblAdminName.Size = new System.Drawing.Size(500, 40);
-
-            // Cards
-            Color color = System.Drawing.Color.FromArgb(0, 128, 128);
-            this.pnlStat1.BackColor = color;
-            this.pnlStat1.Controls.Add(this.lblTotalUsersTitle);
-            this.pnlStat1.Controls.Add(this.lblTotalUsersVal);
-            this.pnlStat1.Location = new System.Drawing.Point(35, 110);
-            this.pnlStat1.Size = new System.Drawing.Size(220, 120);
-
-            this.lblTotalUsersTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTotalUsersTitle.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblTotalUsersTitle.Text = "Total Registered Users";
-            this.lblTotalUsersTitle.Location = new System.Drawing.Point(10, 15);
-            this.lblTotalUsersTitle.Size = new System.Drawing.Size(200, 25);
-
-            this.lblTotalUsersVal.ForeColor = System.Drawing.Color.White;
-            this.lblTotalUsersVal.Font = new System.Drawing.Font("Segoe UI", 26F, System.Drawing.FontStyle.Bold);
-            this.lblTotalUsersVal.Text = "0";
-            this.lblTotalUsersVal.Location = new System.Drawing.Point(10, 50);
-            this.lblTotalUsersVal.Size = new System.Drawing.Size(200, 50);
-
-            this.pnlStat2.BackColor = color;
-            this.pnlStat2.Controls.Add(this.lblTotalComplaintsTitle);
-            this.pnlStat2.Controls.Add(this.lblTotalComplaintsVal);
-            this.pnlStat2.Location = new System.Drawing.Point(290, 110);
-            this.pnlStat2.Size = new System.Drawing.Size(220, 120);
-
-            this.lblTotalComplaintsTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTotalComplaintsTitle.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblTotalComplaintsTitle.Text = "System Complaints";
-            this.lblTotalComplaintsTitle.Location = new System.Drawing.Point(10, 15);
-            this.lblTotalComplaintsTitle.Size = new System.Drawing.Size(200, 25);
-
-            this.lblTotalComplaintsVal.ForeColor = System.Drawing.Color.White;
-            this.lblTotalComplaintsVal.Font = new System.Drawing.Font("Segoe UI", 26F, System.Drawing.FontStyle.Bold);
-            this.lblTotalComplaintsVal.Text = "0";
-            this.lblTotalComplaintsVal.Location = new System.Drawing.Point(10, 50);
-            this.lblTotalComplaintsVal.Size = new System.Drawing.Size(200, 50);
-
+            panelProductMgmt.BackColor = Color.White;
+            panelProductMgmt.Controls.Add(dgvProducts);
+            panelProductMgmt.Controls.Add(txtSearchProduct);
+            panelProductMgmt.Controls.Add(txtProdName);
+            panelProductMgmt.Controls.Add(txtProdDesc);
+            panelProductMgmt.Controls.Add(txtProdPrice);
+            panelProductMgmt.Controls.Add(txtProdStock);
+            panelProductMgmt.Controls.Add(txtProdCategory);
+            panelProductMgmt.Controls.Add(txtProdImagePath);
+            panelProductMgmt.Controls.Add(cmbProdStatus);
+            panelProductMgmt.Controls.Add(btnProdClear);
+            panelProductMgmt.Controls.Add(btnProdBrowseImage);
+            panelProductMgmt.Controls.Add(picProductPreview);
+            panelProductMgmt.Controls.Add(lblSearchLabel);
+            panelProductMgmt.Controls.Add(lblN);
+            panelProductMgmt.Controls.Add(lblD);
+            panelProductMgmt.Controls.Add(lblP);
+            panelProductMgmt.Controls.Add(lblS);
+            panelProductMgmt.Controls.Add(lblC);
+            panelProductMgmt.Controls.Add(lblI);
+            panelProductMgmt.Controls.Add(lblSt);
+            panelProductMgmt.Dock = DockStyle.Fill;
+            panelProductMgmt.Location = new Point(0, 0);
+            panelProductMgmt.Margin = new Padding(3, 4, 3, 4);
+            panelProductMgmt.Name = "panelProductMgmt";
+            panelProductMgmt.Size = new Size(814, 812);
+            panelProductMgmt.TabIndex = 2;
             // 
-            // panelUserMgmt Page
+            // dgvProducts
             // 
-            this.panelUserMgmt.BackColor = System.Drawing.Color.White;
-            this.panelUserMgmt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelUserMgmt.Controls.Add(this.dgvUsers);
-            this.panelUserMgmt.Controls.Add(this.btnOpenAdd);
-            this.panelUserMgmt.Controls.Add(this.btnOpenEdit);
-            this.panelUserMgmt.Controls.Add(this.btnDeleteUser);
-            this.panelUserMgmt.Controls.Add(this.btnBanUser);
-            this.panelUserMgmt.Controls.Add(this.numBanHours);
-            this.panelUserMgmt.Controls.Add(this.lblBanHrs);
-            this.panelUserMgmt.Controls.Add(this.grpAddUser);
-            this.panelUserMgmt.Controls.Add(this.grpEditUser);
-            this.panelUserMgmt.Location = new System.Drawing.Point(0, 0);
-            this.panelUserMgmt.Size = new System.Drawing.Size(814, 650);
-
+            dgvProducts.AllowUserToAddRows = false;
+            dgvProducts.BackgroundColor = Color.White;
+            dgvProducts.ColumnHeadersHeight = 29;
+            dgvProducts.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6 });
+            dgvProducts.Location = new Point(20, 88);
+            dgvProducts.Margin = new Padding(3, 4, 3, 4);
+            dgvProducts.MultiSelect = false;
+            dgvProducts.Name = "dgvProducts";
+            dgvProducts.RowHeadersWidth = 51;
+            dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProducts.Size = new Size(460, 525);
+            dgvProducts.TabIndex = 0;
+            dgvProducts.CellClick += dgvProducts_CellClick;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            dataGridViewTextBoxColumn4.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            dataGridViewTextBoxColumn5.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            dataGridViewTextBoxColumn6.MinimumWidth = 6;
+            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            dataGridViewTextBoxColumn6.Width = 125;
+            // 
+            // txtSearchProduct
+            // 
+            txtSearchProduct.Location = new Point(20, 31);
+            txtSearchProduct.Margin = new Padding(3, 4, 3, 4);
+            txtSearchProduct.Name = "txtSearchProduct";
+            txtSearchProduct.Size = new Size(460, 27);
+            txtSearchProduct.TabIndex = 1;
+            txtSearchProduct.TextChanged += txtSearchProduct_TextChanged;
+            // 
+            // txtProdName
+            // 
+            txtProdName.Location = new Point(500, 88);
+            txtProdName.Margin = new Padding(3, 4, 3, 4);
+            txtProdName.Name = "txtProdName";
+            txtProdName.Size = new Size(280, 27);
+            txtProdName.TabIndex = 2;
+            // 
+            // txtProdDesc
+            // 
+            txtProdDesc.Location = new Point(500, 88);
+            txtProdDesc.Margin = new Padding(3, 4, 3, 4);
+            txtProdDesc.Name = "txtProdDesc";
+            txtProdDesc.Size = new Size(280, 27);
+            txtProdDesc.TabIndex = 3;
+            // 
+            // txtProdPrice
+            // 
+            txtProdPrice.Location = new Point(500, 88);
+            txtProdPrice.Margin = new Padding(3, 4, 3, 4);
+            txtProdPrice.Name = "txtProdPrice";
+            txtProdPrice.Size = new Size(130, 27);
+            txtProdPrice.TabIndex = 4;
+            // 
+            // txtProdStock
+            // 
+            txtProdStock.Location = new Point(500, 88);
+            txtProdStock.Margin = new Padding(3, 4, 3, 4);
+            txtProdStock.Name = "txtProdStock";
+            txtProdStock.Size = new Size(130, 27);
+            txtProdStock.TabIndex = 5;
+            // 
+            // txtProdCategory
+            // 
+            txtProdCategory.Location = new Point(500, 88);
+            txtProdCategory.Margin = new Padding(3, 4, 3, 4);
+            txtProdCategory.Name = "txtProdCategory";
+            txtProdCategory.Size = new Size(280, 27);
+            txtProdCategory.TabIndex = 6;
+            // 
+            // txtProdImagePath
+            // 
+            txtProdImagePath.Location = new Point(500, 88);
+            txtProdImagePath.Margin = new Padding(3, 4, 3, 4);
+            txtProdImagePath.Name = "txtProdImagePath";
+            txtProdImagePath.Size = new Size(190, 27);
+            txtProdImagePath.TabIndex = 7;
+            // 
+            // cmbProdStatus
+            // 
+            cmbProdStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbProdStatus.Items.AddRange(new object[] { "Available", "Unavailable" });
+            cmbProdStatus.Location = new Point(500, 88);
+            cmbProdStatus.Margin = new Padding(3, 4, 3, 4);
+            cmbProdStatus.Name = "cmbProdStatus";
+            cmbProdStatus.Size = new Size(280, 28);
+            cmbProdStatus.TabIndex = 8;
+            // 
+            // btnProdClear
+            // 
+            btnProdClear.BackColor = Color.Gray;
+            btnProdClear.FlatStyle = FlatStyle.Flat;
+            btnProdClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnProdClear.ForeColor = Color.White;
+            btnProdClear.Location = new Point(415, 350);
+            btnProdClear.Margin = new Padding(3, 4, 3, 4);
+            btnProdClear.Name = "btnProdClear";
+            btnProdClear.Size = new Size(120, 44);
+            btnProdClear.TabIndex = 12;
+            btnProdClear.Text = "Clear Fields";
+            btnProdClear.UseVisualStyleBackColor = false;
+            btnProdClear.Click += btnProdClear_Click;
+            // 
+            // btnProdBrowseImage
+            // 
+            btnProdBrowseImage.Location = new Point(500, 88);
+            btnProdBrowseImage.Margin = new Padding(3, 4, 3, 4);
+            btnProdBrowseImage.Name = "btnProdBrowseImage";
+            btnProdBrowseImage.Size = new Size(80, 32);
+            btnProdBrowseImage.TabIndex = 13;
+            btnProdBrowseImage.Text = "Browse";
+            btnProdBrowseImage.Click += btnProdBrowseImage_Click;
+            // 
+            // picProductPreview
+            // 
+            picProductPreview.BorderStyle = BorderStyle.FixedSingle;
+            picProductPreview.Location = new Point(500, 425);
+            picProductPreview.Margin = new Padding(3, 4, 3, 4);
+            picProductPreview.Name = "picProductPreview";
+            picProductPreview.Size = new Size(280, 187);
+            picProductPreview.SizeMode = PictureBoxSizeMode.Zoom;
+            picProductPreview.TabIndex = 14;
+            picProductPreview.TabStop = false;
+            // 
+            // lblSearchLabel
+            // 
+            lblSearchLabel.Location = new Point(0, 0);
+            lblSearchLabel.Name = "lblSearchLabel";
+            lblSearchLabel.Size = new Size(100, 29);
+            lblSearchLabel.TabIndex = 15;
+            // 
+            // lblN
+            // 
+            lblN.Location = new Point(0, 0);
+            lblN.Name = "lblN";
+            lblN.Size = new Size(100, 29);
+            lblN.TabIndex = 16;
+            // 
+            // lblD
+            // 
+            lblD.Location = new Point(0, 0);
+            lblD.Name = "lblD";
+            lblD.Size = new Size(100, 29);
+            lblD.TabIndex = 17;
+            // 
+            // lblP
+            // 
+            lblP.Location = new Point(0, 0);
+            lblP.Name = "lblP";
+            lblP.Size = new Size(100, 29);
+            lblP.TabIndex = 18;
+            // 
+            // lblS
+            // 
+            lblS.Location = new Point(0, 0);
+            lblS.Name = "lblS";
+            lblS.Size = new Size(100, 29);
+            lblS.TabIndex = 19;
+            // 
+            // lblC
+            // 
+            lblC.Location = new Point(0, 0);
+            lblC.Name = "lblC";
+            lblC.Size = new Size(100, 29);
+            lblC.TabIndex = 20;
+            // 
+            // lblI
+            // 
+            lblI.Location = new Point(0, 0);
+            lblI.Name = "lblI";
+            lblI.Size = new Size(100, 29);
+            lblI.TabIndex = 21;
+            // 
+            // lblSt
+            // 
+            lblSt.Location = new Point(0, 0);
+            lblSt.Name = "lblSt";
+            lblSt.Size = new Size(100, 29);
+            lblSt.TabIndex = 22;
+            // 
+            // panelUserMgmt
+            // 
+            panelUserMgmt.BackColor = Color.White;
+            panelUserMgmt.Controls.Add(dgvUsers);
+            panelUserMgmt.Controls.Add(btnOpenAdd);
+            panelUserMgmt.Controls.Add(btnOpenEdit);
+            panelUserMgmt.Controls.Add(btnDeleteUser);
+            panelUserMgmt.Controls.Add(btnBanUser);
+            panelUserMgmt.Controls.Add(numBanHours);
+            panelUserMgmt.Controls.Add(lblBanHrs);
+            panelUserMgmt.Controls.Add(grpAddUser);
+            panelUserMgmt.Controls.Add(grpEditUser);
+            panelUserMgmt.Dock = DockStyle.Fill;
+            panelUserMgmt.Location = new Point(0, 0);
+            panelUserMgmt.Margin = new Padding(3, 4, 3, 4);
+            panelUserMgmt.Name = "panelUserMgmt";
+            panelUserMgmt.Size = new Size(814, 812);
+            panelUserMgmt.TabIndex = 1;
+            // 
             // dgvUsers
-            this.dgvUsers.AllowUserToAddRows = false;
-            this.dgvUsers.BackgroundColor = System.Drawing.Color.White;
-            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.colUser, this.colRole, this.colName, this.colStatus });
-            this.dgvUsers.Location = new System.Drawing.Point(25, 25);
-            this.dgvUsers.Size = new System.Drawing.Size(760, 240);
-            this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsers.MultiSelect = false;
-
-            this.colUser.HeaderText = "Username"; this.colUser.Width = 140;
-            this.colRole.HeaderText = "Role"; this.colRole.Width = 110;
-            this.colName.HeaderText = "Full Name"; this.colName.Width = 220;
-            this.colStatus.HeaderText = "Status"; this.colStatus.Width = 140;
-
-            // Management Action Buttons
-            this.btnOpenAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenAdd.BackColor = color;
-            this.btnOpenAdd.ForeColor = System.Drawing.Color.White;
-            this.btnOpenAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnOpenAdd.Size = new System.Drawing.Size(120, 35);
-            this.btnOpenAdd.Location = new System.Drawing.Point(25, 280);
-            this.btnOpenAdd.Text = "Add User";
-            this.btnOpenAdd.Click += new System.EventHandler(this.btnOpenAdd_Click);
-
-            this.btnOpenEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenEdit.BackColor = color;
-            this.btnOpenEdit.ForeColor = System.Drawing.Color.White;
-            this.btnOpenEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnOpenEdit.Size = new System.Drawing.Size(120, 35);
-            this.btnOpenEdit.Location = new System.Drawing.Point(155, 280);
-            this.btnOpenEdit.Text = "Edit User";
-            this.btnOpenEdit.Click += new System.EventHandler(this.btnOpenEdit_Click);
-
-            this.btnDeleteUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteUser.BackColor = System.Drawing.Color.Firebrick;
-            this.btnDeleteUser.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnDeleteUser.Size = new System.Drawing.Size(120, 35);
-            this.btnDeleteUser.Location = new System.Drawing.Point(285, 280);
-            this.btnDeleteUser.Text = "Delete User";
-            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
-
-            this.btnBanUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBanUser.BackColor = color;
-            this.btnBanUser.ForeColor = System.Drawing.Color.White;
-            this.btnBanUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnBanUser.Size = new System.Drawing.Size(120, 35);
-            this.btnBanUser.Location = new System.Drawing.Point(665, 280);
-            this.btnBanUser.Text = "Apply Ban";
-            this.btnBanUser.Click += new System.EventHandler(this.btnBanUser_Click);
-
-            this.lblBanHrs.Text = "Hrs:";
-            this.lblBanHrs.Location = new System.Drawing.Point(545, 290);
-            this.lblBanHrs.Size = new System.Drawing.Size(35, 20);
-
-            this.numBanHours.Location = new System.Drawing.Point(585, 285);
-            this.numBanHours.Size = new System.Drawing.Size(70, 22);
-            this.numBanHours.Maximum = new decimal(new int[] { 8760, 0, 0, 0 });
-            this.numBanHours.Value = new decimal(new int[] { 24, 0, 0, 0 });
-
             // 
-            // grpAddUser Box
+            dgvUsers.AllowUserToAddRows = false;
+            dgvUsers.BackgroundColor = Color.White;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn16, dataGridViewTextBoxColumn17, dataGridViewTextBoxColumn18, dataGridViewTextBoxColumn19 });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvUsers.Location = new Point(25, 31);
+            dgvUsers.Margin = new Padding(3, 4, 3, 4);
+            dgvUsers.MultiSelect = false;
+            dgvUsers.Name = "dgvUsers";
+            dgvUsers.RowHeadersWidth = 51;
+            dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvUsers.Size = new Size(760, 300);
+            dgvUsers.TabIndex = 0;
             // 
-            this.grpAddUser.Text = "Create System User";
-            this.grpAddUser.Location = new System.Drawing.Point(25, 330);
-            this.grpAddUser.Size = new System.Drawing.Size(360, 290);
-            this.grpAddUser.Controls.Add(this.lblAddU);
-            this.grpAddUser.Controls.Add(this.lblAddP);
-            this.grpAddUser.Controls.Add(this.lblAddF);
-            this.grpAddUser.Controls.Add(this.txtAddUsername);
-            this.grpAddUser.Controls.Add(this.txtAddPassword);
-            this.grpAddUser.Controls.Add(this.txtAddFullName);
-            this.grpAddUser.Controls.Add(this.cmbAddRole);
-            this.grpAddUser.Controls.Add(this.btnConfirmAdd);
-            this.grpAddUser.Controls.Add(this.btnCancelAdd);
-
-            this.lblAddU.Text = "Username:"; this.lblAddU.Location = new System.Drawing.Point(20, 25); this.lblAddU.Size = new System.Drawing.Size(100, 20);
-            this.txtAddUsername.Location = new System.Drawing.Point(20, 45); this.txtAddUsername.Size = new System.Drawing.Size(310, 22);
-
-            this.lblAddP.Text = "Password:"; this.lblAddP.Location = new System.Drawing.Point(20, 75); this.lblAddP.Size = new System.Drawing.Size(100, 20);
-            this.txtAddPassword.Location = new System.Drawing.Point(20, 95); this.txtAddPassword.Size = new System.Drawing.Size(310, 22);
-
-            this.lblAddF.Text = "Full Name:"; this.lblAddF.Location = new System.Drawing.Point(20, 125); this.lblAddF.Size = new System.Drawing.Size(100, 20);
-            this.txtAddFullName.Location = new System.Drawing.Point(20, 145); this.txtAddFullName.Size = new System.Drawing.Size(310, 22);
-
-            this.cmbAddRole.Location = new System.Drawing.Point(20, 185);
-            this.cmbAddRole.Size = new System.Drawing.Size(310, 22);
-            this.cmbAddRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAddRole.Items.AddRange(new object[] { "Admin", "Staff", "User", "Driver" });
-
-            this.btnConfirmAdd.Text = "Finish"; this.btnConfirmAdd.Location = new System.Drawing.Point(20, 230);
-            this.btnConfirmAdd.Size = new System.Drawing.Size(140, 35);
-            this.btnConfirmAdd.BackColor = color;
-            this.btnConfirmAdd.ForeColor = System.Drawing.Color.White;
-            this.btnConfirmAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirmAdd.Click += new System.EventHandler(this.btnConfirmAdd_Click);
-
-            this.btnCancelAdd.Text = "Cancel"; this.btnCancelAdd.Location = new System.Drawing.Point(190, 230);
-            this.btnCancelAdd.Size = new System.Drawing.Size(140, 35);
-            this.btnCancelAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelAdd.Click += new System.EventHandler(this.btnCancelAdd_Click);
-
+            // dataGridViewTextBoxColumn16
             // 
-            // grpEditUser Box
+            dataGridViewTextBoxColumn16.HeaderText = "Username";
+            dataGridViewTextBoxColumn16.MinimumWidth = 6;
+            dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            dataGridViewTextBoxColumn16.Width = 125;
             // 
-            this.grpEditUser.Text = "Modify User Account";
-            this.grpEditUser.Location = new System.Drawing.Point(425, 330);
-            this.grpEditUser.Size = new System.Drawing.Size(360, 290);
-            this.grpEditUser.Controls.Add(this.lblEditU);
-            this.grpEditUser.Controls.Add(this.lblEditP);
-            this.grpEditUser.Controls.Add(this.lblEditR);
-            this.grpEditUser.Controls.Add(this.lblEditS);
-            this.grpEditUser.Controls.Add(this.txtEditUsername);
-            this.grpEditUser.Controls.Add(this.txtEditPassword);
-            this.grpEditUser.Controls.Add(this.cmbEditRole);
-            this.grpEditUser.Controls.Add(this.cmbEditStatus);
-            this.grpEditUser.Controls.Add(this.btnConfirmEdit);
-            this.grpEditUser.Controls.Add(this.btnCancelEdit);
-
-            this.lblEditU.Text = "Username:"; this.lblEditU.Location = new System.Drawing.Point(20, 25); this.lblEditU.Size = new System.Drawing.Size(100, 20);
-            this.txtEditUsername.Location = new System.Drawing.Point(20, 45); this.txtEditUsername.Size = new System.Drawing.Size(310, 22);
-
-            this.lblEditP.Text = "Password:"; this.lblEditP.Location = new System.Drawing.Point(20, 75); this.lblEditP.Size = new System.Drawing.Size(100, 20);
-            this.txtEditPassword.Location = new System.Drawing.Point(20, 95); this.txtEditPassword.Size = new System.Drawing.Size(310, 22);
-
-            this.lblEditR.Text = "Role:"; this.lblEditR.Location = new System.Drawing.Point(20, 125); this.lblEditR.Size = new System.Drawing.Size(100, 20);
-            this.cmbEditRole.Location = new System.Drawing.Point(20, 145);
-            this.cmbEditRole.Size = new System.Drawing.Size(310, 22);
-            this.cmbEditRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEditRole.Items.AddRange(new object[] { "Admin", "Staff", "User", "Driver" });
-
-            this.lblEditS.Text = "Status:"; this.lblEditS.Location = new System.Drawing.Point(20, 175); this.lblEditS.Size = new System.Drawing.Size(100, 20);
-            this.cmbEditStatus.Location = new System.Drawing.Point(20, 195);
-            this.cmbEditStatus.Size = new System.Drawing.Size(310, 22);
-            this.cmbEditStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEditStatus.Items.AddRange(new object[] { "Active", "Inactive" });
-
-            this.btnConfirmEdit.Text = "Save"; this.btnConfirmEdit.Location = new System.Drawing.Point(20, 235);
-            this.btnConfirmEdit.Size = new System.Drawing.Size(140, 35);
-            this.btnConfirmEdit.BackColor = color;
-            this.btnConfirmEdit.ForeColor = System.Drawing.Color.White;
-            this.btnConfirmEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirmEdit.Click += new System.EventHandler(this.btnConfirmEdit_Click);
-
-            this.btnCancelEdit.Text = "Cancel"; this.btnCancelEdit.Location = new System.Drawing.Point(190, 235);
-            this.btnCancelEdit.Size = new System.Drawing.Size(140, 35);
-            this.btnCancelEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelEdit.Click += new System.EventHandler(this.btnCancelEdit_Click);
-
+            // dataGridViewTextBoxColumn17
             // 
-            // panelComplaints Page
+            dataGridViewTextBoxColumn17.HeaderText = "Role";
+            dataGridViewTextBoxColumn17.MinimumWidth = 6;
+            dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            dataGridViewTextBoxColumn17.Width = 125;
             // 
-            this.panelComplaints.BackColor = System.Drawing.Color.White;
-            this.panelComplaints.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelComplaints.Controls.Add(this.dgvComplaints);
-            this.panelComplaints.Controls.Add(this.btnRefreshComplaints);
-            this.panelComplaints.Controls.Add(this.btnResolveComplaint);
-            this.panelComplaints.Controls.Add(this.btnDeleteComplaint);
-            this.panelComplaints.Location = new System.Drawing.Point(0, 0);
-            this.panelComplaints.Size = new System.Drawing.Size(814, 650);
-
-            // dgvComplaints
-            this.dgvComplaints.AllowUserToAddRows = false;
-            this.dgvComplaints.BackgroundColor = System.Drawing.Color.White;
-            this.dgvComplaints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvComplaints.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.colCmpUser, this.colCmpMsg, this.colCmpStat, this.colCmpDate });
-            this.dgvComplaints.Location = new System.Drawing.Point(25, 25);
-            this.dgvComplaints.Size = new System.Drawing.Size(760, 450);
-            this.dgvComplaints.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-
-            this.colCmpUser.HeaderText = "Filer Username"; this.colCmpUser.Width = 140;
-            this.colCmpMsg.HeaderText = "Complaint Message"; this.colCmpMsg.Width = 320;
-            this.colCmpStat.HeaderText = "Status"; this.colCmpStat.Width = 120;
-            this.colCmpDate.HeaderText = "Filing Date"; this.colCmpDate.Width = 130;
-
-            // Complaint Actions
-            this.btnRefreshComplaints.Text = "Refresh List"; this.btnRefreshComplaints.Location = new System.Drawing.Point(25, 500);
-            this.btnRefreshComplaints.Size = new System.Drawing.Size(140, 40);
-            this.btnRefreshComplaints.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefreshComplaints.BackColor = color;
-            this.btnRefreshComplaints.ForeColor = System.Drawing.Color.White;
-            this.btnRefreshComplaints.Click += new System.EventHandler(this.btnRefreshComplaints_Click);
-
-            this.btnResolveComplaint.Text = "Mark Resolved"; this.btnResolveComplaint.Location = new System.Drawing.Point(185, 500);
-            this.btnResolveComplaint.Size = new System.Drawing.Size(140, 40);
-            this.btnResolveComplaint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnResolveComplaint.BackColor = color;
-            this.btnResolveComplaint.ForeColor = System.Drawing.Color.White;
-            this.btnResolveComplaint.Click += new System.EventHandler(this.btnResolveComplaint_Click);
-
-            this.btnDeleteComplaint.Text = "Delete Log"; this.btnDeleteComplaint.Location = new System.Drawing.Point(645, 500);
-            this.btnDeleteComplaint.Size = new System.Drawing.Size(140, 40);
-            this.btnDeleteComplaint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteComplaint.BackColor = System.Drawing.Color.Firebrick;
-            this.btnDeleteComplaint.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteComplaint.Click += new System.EventHandler(this.btnDeleteComplaint_Click);
-
+            // dataGridViewTextBoxColumn18
             // 
-            // panelProfile Page
+            dataGridViewTextBoxColumn18.HeaderText = "Full Name";
+            dataGridViewTextBoxColumn18.MinimumWidth = 6;
+            dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            dataGridViewTextBoxColumn18.Width = 125;
             // 
-            this.panelProfile.BackColor = System.Drawing.Color.White;
-            this.panelProfile.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelProfile.Controls.Add(this.lblP1);
-            this.panelProfile.Controls.Add(this.lblP2);
-            this.panelProfile.Controls.Add(this.lblP3);
-            this.panelProfile.Controls.Add(this.lblP4);
-            this.panelProfile.Controls.Add(this.txtProfUsername);
-            this.panelProfile.Controls.Add(this.txtProfFullName);
-            this.panelProfile.Controls.Add(this.txtProfRole);
-            this.panelProfile.Controls.Add(this.txtProfPassword);
-            this.panelProfile.Controls.Add(this.btnSaveProfile);
-            this.panelProfile.Location = new System.Drawing.Point(0, 0);
-            this.panelProfile.Size = new System.Drawing.Size(814, 650);
-
-            this.lblP1.Text = "Account Username (Static)"; this.lblP1.Location = new System.Drawing.Point(40, 40); this.lblP1.Size = new System.Drawing.Size(300, 20);
-            this.txtProfUsername.Location = new System.Drawing.Point(40, 65); this.txtProfUsername.Size = new System.Drawing.Size(400, 22); this.txtProfUsername.ReadOnly = true;
-
-            this.lblP2.Text = "Administrative Role"; this.lblP2.Location = new System.Drawing.Point(40, 115); this.lblP2.Size = new System.Drawing.Size(300, 20);
-            this.txtProfRole.Location = new System.Drawing.Point(40, 140); this.txtProfRole.Size = new System.Drawing.Size(400, 22); this.txtProfRole.ReadOnly = true;
-
-            this.lblP3.Text = "Display Full Name"; this.lblP3.Location = new System.Drawing.Point(40, 190); this.lblP3.Size = new System.Drawing.Size(300, 20);
-            this.txtProfFullName.Location = new System.Drawing.Point(40, 215); this.txtProfFullName.Size = new System.Drawing.Size(400, 22);
-
-            this.lblP4.Text = "Update Security Password"; this.lblP4.Location = new System.Drawing.Point(40, 265); this.lblP4.Size = new System.Drawing.Size(300, 20);
-            this.txtProfPassword.Location = new System.Drawing.Point(40, 290); this.txtProfPassword.Size = new System.Drawing.Size(400, 22);
-
-            this.btnSaveProfile.Text = "Save Changes"; this.btnSaveProfile.Location = new System.Drawing.Point(40, 350);
-            this.btnSaveProfile.Size = new System.Drawing.Size(180, 40);
-            this.btnSaveProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveProfile.BackColor = color;
-            this.btnSaveProfile.ForeColor = System.Drawing.Color.White;
-            this.btnSaveProfile.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSaveProfile.Click += new System.EventHandler(this.btnSaveProfile_Click);
-
+            // dataGridViewTextBoxColumn19
             // 
-            // AdminForm General Form Settings
+            dataGridViewTextBoxColumn19.HeaderText = "Status";
+            dataGridViewTextBoxColumn19.MinimumWidth = 6;
+            dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            dataGridViewTextBoxColumn19.Width = 125;
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1034, 650);
-            this.Controls.Add(this.panelMainContainer);
-            this.Controls.Add(this.panelSidebar);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.Name = "AdminForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "System Management Console";
-            this.Load += new System.EventHandler(this.AdminForm_Load);
-
-            this.panelSidebar.ResumeLayout(false);
-            this.panelMainContainer.ResumeLayout(false);
-            this.panelDashboard.ResumeLayout(false);
-            this.pnlStat1.ResumeLayout(false);
-            this.pnlStat2.ResumeLayout(false);
-            this.panelUserMgmt.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numBanHours)).EndInit();
-            this.grpAddUser.ResumeLayout(false);
-            this.grpAddUser.PerformLayout();
-            this.grpEditUser.ResumeLayout(false);
-            this.grpEditUser.PerformLayout();
-            this.panelComplaints.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvComplaints)).EndInit();
-            this.panelProfile.ResumeLayout(false);
-            this.panelProfile.PerformLayout();
-            this.ResumeLayout(false);
+            // btnOpenAdd
+            // 
+            btnOpenAdd.BackColor = Color.FromArgb(0, 128, 128);
+            btnOpenAdd.FlatStyle = FlatStyle.Flat;
+            btnOpenAdd.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnOpenAdd.ForeColor = Color.White;
+            btnOpenAdd.Location = new Point(25, 350);
+            btnOpenAdd.Margin = new Padding(3, 4, 3, 4);
+            btnOpenAdd.Name = "btnOpenAdd";
+            btnOpenAdd.Size = new Size(120, 44);
+            btnOpenAdd.TabIndex = 1;
+            btnOpenAdd.Text = "Add User";
+            btnOpenAdd.UseVisualStyleBackColor = false;
+            btnOpenAdd.Click += btnOpenAdd_Click;
+            // 
+            // btnOpenEdit
+            // 
+            btnOpenEdit.BackColor = Color.FromArgb(0, 128, 128);
+            btnOpenEdit.FlatStyle = FlatStyle.Flat;
+            btnOpenEdit.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnOpenEdit.ForeColor = Color.White;
+            btnOpenEdit.Location = new Point(155, 350);
+            btnOpenEdit.Margin = new Padding(3, 4, 3, 4);
+            btnOpenEdit.Name = "btnOpenEdit";
+            btnOpenEdit.Size = new Size(120, 44);
+            btnOpenEdit.TabIndex = 2;
+            btnOpenEdit.Text = "Edit User";
+            btnOpenEdit.UseVisualStyleBackColor = false;
+            btnOpenEdit.Click += btnOpenEdit_Click;
+            // 
+            // btnDeleteUser
+            // 
+            btnDeleteUser.BackColor = Color.Firebrick;
+            btnDeleteUser.FlatStyle = FlatStyle.Flat;
+            btnDeleteUser.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnDeleteUser.ForeColor = Color.White;
+            btnDeleteUser.Location = new Point(285, 350);
+            btnDeleteUser.Margin = new Padding(3, 4, 3, 4);
+            btnDeleteUser.Name = "btnDeleteUser";
+            btnDeleteUser.Size = new Size(120, 44);
+            btnDeleteUser.TabIndex = 3;
+            btnDeleteUser.Text = "Delete User";
+            btnDeleteUser.UseVisualStyleBackColor = false;
+            btnDeleteUser.Click += btnDeleteUser_Click;
+            // 
+            // btnBanUser
+            // 
+            btnBanUser.BackColor = Color.FromArgb(0, 128, 128);
+            btnBanUser.FlatStyle = FlatStyle.Flat;
+            btnBanUser.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnBanUser.ForeColor = Color.White;
+            btnBanUser.Location = new Point(665, 350);
+            btnBanUser.Margin = new Padding(3, 4, 3, 4);
+            btnBanUser.Name = "btnBanUser";
+            btnBanUser.Size = new Size(120, 44);
+            btnBanUser.TabIndex = 4;
+            btnBanUser.Text = "Apply Ban";
+            btnBanUser.UseVisualStyleBackColor = false;
+            btnBanUser.Click += btnBanUser_Click;
+            // 
+            // numBanHours
+            // 
+            numBanHours.Location = new Point(585, 356);
+            numBanHours.Margin = new Padding(3, 4, 3, 4);
+            numBanHours.Maximum = new decimal(new int[] { 8760, 0, 0, 0 });
+            numBanHours.Name = "numBanHours";
+            numBanHours.Size = new Size(70, 27);
+            numBanHours.TabIndex = 5;
+            numBanHours.Value = new decimal(new int[] { 24, 0, 0, 0 });
+            // 
+            // lblBanHrs
+            // 
+            lblBanHrs.Location = new Point(545, 362);
+            lblBanHrs.Name = "lblBanHrs";
+            lblBanHrs.Size = new Size(35, 25);
+            lblBanHrs.TabIndex = 6;
+            lblBanHrs.Text = "Hrs:";
+            // 
+            // grpAddUser
+            // 
+            grpAddUser.Controls.Add(lblAddU);
+            grpAddUser.Controls.Add(lblAddP);
+            grpAddUser.Controls.Add(lblAddF);
+            grpAddUser.Controls.Add(txtAddUsername);
+            grpAddUser.Controls.Add(txtAddPassword);
+            grpAddUser.Controls.Add(txtAddFullName);
+            grpAddUser.Controls.Add(cmbAddRole);
+            grpAddUser.Controls.Add(btnConfirmAdd);
+            grpAddUser.Controls.Add(btnCancelAdd);
+            grpAddUser.Location = new Point(25, 412);
+            grpAddUser.Margin = new Padding(3, 4, 3, 4);
+            grpAddUser.Name = "grpAddUser";
+            grpAddUser.Padding = new Padding(3, 4, 3, 4);
+            grpAddUser.Size = new Size(360, 362);
+            grpAddUser.TabIndex = 7;
+            grpAddUser.TabStop = false;
+            grpAddUser.Text = "Create System User";
+            // 
+            // lblAddU
+            // 
+            lblAddU.Location = new Point(20, 31);
+            lblAddU.Name = "lblAddU";
+            lblAddU.Size = new Size(100, 29);
+            lblAddU.TabIndex = 0;
+            lblAddU.Text = "Username:";
+            // 
+            // lblAddP
+            // 
+            lblAddP.Location = new Point(20, 94);
+            lblAddP.Name = "lblAddP";
+            lblAddP.Size = new Size(100, 29);
+            lblAddP.TabIndex = 1;
+            lblAddP.Text = "Password:";
+            // 
+            // lblAddF
+            // 
+            lblAddF.Location = new Point(20, 156);
+            lblAddF.Name = "lblAddF";
+            lblAddF.Size = new Size(100, 29);
+            lblAddF.TabIndex = 2;
+            lblAddF.Text = "Full Name:";
+            // 
+            // txtAddUsername
+            // 
+            txtAddUsername.Location = new Point(20, 56);
+            txtAddUsername.Margin = new Padding(3, 4, 3, 4);
+            txtAddUsername.Name = "txtAddUsername";
+            txtAddUsername.Size = new Size(310, 27);
+            txtAddUsername.TabIndex = 3;
+            // 
+            // txtAddPassword
+            // 
+            txtAddPassword.Location = new Point(20, 119);
+            txtAddPassword.Margin = new Padding(3, 4, 3, 4);
+            txtAddPassword.Name = "txtAddPassword";
+            txtAddPassword.Size = new Size(310, 27);
+            txtAddPassword.TabIndex = 4;
+            // 
+            // txtAddFullName
+            // 
+            txtAddFullName.Location = new Point(20, 181);
+            txtAddFullName.Margin = new Padding(3, 4, 3, 4);
+            txtAddFullName.Name = "txtAddFullName";
+            txtAddFullName.Size = new Size(310, 27);
+            txtAddFullName.TabIndex = 5;
+            // 
+            // cmbAddRole
+            // 
+            cmbAddRole.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbAddRole.Location = new Point(20, 231);
+            cmbAddRole.Margin = new Padding(3, 4, 3, 4);
+            cmbAddRole.Name = "cmbAddRole";
+            cmbAddRole.Size = new Size(310, 28);
+            cmbAddRole.TabIndex = 6;
+            // 
+            // btnConfirmAdd
+            // 
+            btnConfirmAdd.BackColor = Color.FromArgb(0, 128, 128);
+            btnConfirmAdd.FlatStyle = FlatStyle.Flat;
+            btnConfirmAdd.ForeColor = Color.White;
+            btnConfirmAdd.Location = new Point(20, 288);
+            btnConfirmAdd.Margin = new Padding(3, 4, 3, 4);
+            btnConfirmAdd.Name = "btnConfirmAdd";
+            btnConfirmAdd.Size = new Size(140, 44);
+            btnConfirmAdd.TabIndex = 7;
+            btnConfirmAdd.Text = "Save User";
+            btnConfirmAdd.UseVisualStyleBackColor = false;
+            btnConfirmAdd.Click += btnConfirmAdd_Click_1;
+            // 
+            // btnCancelAdd
+            // 
+            btnCancelAdd.FlatStyle = FlatStyle.Flat;
+            btnCancelAdd.Location = new Point(190, 288);
+            btnCancelAdd.Margin = new Padding(3, 4, 3, 4);
+            btnCancelAdd.Name = "btnCancelAdd";
+            btnCancelAdd.Size = new Size(140, 44);
+            btnCancelAdd.TabIndex = 8;
+            btnCancelAdd.Text = "Cancel";
+            // 
+            // grpEditUser
+            // 
+            grpEditUser.Controls.Add(lblEditU);
+            grpEditUser.Controls.Add(lblEditP);
+            grpEditUser.Controls.Add(lblEditR);
+            grpEditUser.Controls.Add(lblEditS);
+            grpEditUser.Controls.Add(txtEditUsername);
+            grpEditUser.Controls.Add(txtEditPassword);
+            grpEditUser.Controls.Add(cmbEditRole);
+            grpEditUser.Controls.Add(cmbEditStatus);
+            grpEditUser.Controls.Add(btnConfirmEdit);
+            grpEditUser.Controls.Add(btnCancelEdit);
+            grpEditUser.Location = new Point(425, 412);
+            grpEditUser.Margin = new Padding(3, 4, 3, 4);
+            grpEditUser.Name = "grpEditUser";
+            grpEditUser.Padding = new Padding(3, 4, 3, 4);
+            grpEditUser.Size = new Size(360, 362);
+            grpEditUser.TabIndex = 8;
+            grpEditUser.TabStop = false;
+            grpEditUser.Text = "Modify User Account";
+            // 
+            // lblEditU
+            // 
+            lblEditU.Location = new Point(20, 31);
+            lblEditU.Name = "lblEditU";
+            lblEditU.Size = new Size(100, 29);
+            lblEditU.TabIndex = 0;
+            lblEditU.Text = "Username:";
+            // 
+            // lblEditP
+            // 
+            lblEditP.Location = new Point(20, 94);
+            lblEditP.Name = "lblEditP";
+            lblEditP.Size = new Size(100, 29);
+            lblEditP.TabIndex = 1;
+            lblEditP.Text = "Password:";
+            // 
+            // lblEditR
+            // 
+            lblEditR.Location = new Point(20, 156);
+            lblEditR.Name = "lblEditR";
+            lblEditR.Size = new Size(100, 29);
+            lblEditR.TabIndex = 2;
+            lblEditR.Text = "Role:";
+            // 
+            // lblEditS
+            // 
+            lblEditS.Location = new Point(20, 219);
+            lblEditS.Name = "lblEditS";
+            lblEditS.Size = new Size(100, 29);
+            lblEditS.TabIndex = 3;
+            lblEditS.Text = "Status:";
+            // 
+            // txtEditUsername
+            // 
+            txtEditUsername.Location = new Point(20, 56);
+            txtEditUsername.Margin = new Padding(3, 4, 3, 4);
+            txtEditUsername.Name = "txtEditUsername";
+            txtEditUsername.Size = new Size(310, 27);
+            txtEditUsername.TabIndex = 4;
+            // 
+            // txtEditPassword
+            // 
+            txtEditPassword.Location = new Point(20, 119);
+            txtEditPassword.Margin = new Padding(3, 4, 3, 4);
+            txtEditPassword.Name = "txtEditPassword";
+            txtEditPassword.Size = new Size(310, 27);
+            txtEditPassword.TabIndex = 5;
+            // 
+            // cmbEditRole
+            // 
+            cmbEditRole.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbEditRole.Location = new Point(20, 181);
+            cmbEditRole.Margin = new Padding(3, 4, 3, 4);
+            cmbEditRole.Name = "cmbEditRole";
+            cmbEditRole.Size = new Size(310, 28);
+            cmbEditRole.TabIndex = 6;
+            // 
+            // cmbEditStatus
+            // 
+            cmbEditStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbEditStatus.Location = new Point(20, 244);
+            cmbEditStatus.Margin = new Padding(3, 4, 3, 4);
+            cmbEditStatus.Name = "cmbEditStatus";
+            cmbEditStatus.Size = new Size(310, 28);
+            cmbEditStatus.TabIndex = 7;
+            // 
+            // btnConfirmEdit
+            // 
+            btnConfirmEdit.BackColor = Color.FromArgb(0, 128, 128);
+            btnConfirmEdit.FlatStyle = FlatStyle.Flat;
+            btnConfirmEdit.ForeColor = Color.White;
+            btnConfirmEdit.Location = new Point(20, 294);
+            btnConfirmEdit.Margin = new Padding(3, 4, 3, 4);
+            btnConfirmEdit.Name = "btnConfirmEdit";
+            btnConfirmEdit.Size = new Size(140, 44);
+            btnConfirmEdit.TabIndex = 8;
+            btnConfirmEdit.Text = "Update Account";
+            btnConfirmEdit.UseVisualStyleBackColor = false;
+            // 
+            // btnCancelEdit
+            // 
+            btnCancelEdit.FlatStyle = FlatStyle.Flat;
+            btnCancelEdit.Location = new Point(190, 294);
+            btnCancelEdit.Margin = new Padding(3, 4, 3, 4);
+            btnCancelEdit.Name = "btnCancelEdit";
+            btnCancelEdit.Size = new Size(140, 44);
+            btnCancelEdit.TabIndex = 9;
+            btnCancelEdit.Text = "Cancel";
+            // 
+            // panelDashboard
+            // 
+            panelDashboard.BackColor = Color.White;
+            panelDashboard.Controls.Add(lblAdminName);
+            panelDashboard.Controls.Add(pnlStat1);
+            panelDashboard.Dock = DockStyle.Fill;
+            panelDashboard.Location = new Point(0, 0);
+            panelDashboard.Margin = new Padding(3, 4, 3, 4);
+            panelDashboard.Name = "panelDashboard";
+            panelDashboard.Size = new Size(814, 812);
+            panelDashboard.TabIndex = 0;
+            // 
+            // lblAdminName
+            // 
+            lblAdminName.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblAdminName.ForeColor = Color.FromArgb(47, 79, 79);
+            lblAdminName.Location = new Point(30, 38);
+            lblAdminName.Name = "lblAdminName";
+            lblAdminName.Size = new Size(500, 50);
+            lblAdminName.TabIndex = 0;
+            // 
+            // pnlStat1
+            // 
+            pnlStat1.BackColor = Color.FromArgb(0, 128, 128);
+            pnlStat1.Controls.Add(lblTotalUsersTitle);
+            pnlStat1.Controls.Add(lblTotalUsersVal);
+            pnlStat1.Location = new Point(35, 138);
+            pnlStat1.Margin = new Padding(3, 4, 3, 4);
+            pnlStat1.Name = "pnlStat1";
+            pnlStat1.Size = new Size(220, 150);
+            pnlStat1.TabIndex = 1;
+            // 
+            // lblTotalUsersTitle
+            // 
+            lblTotalUsersTitle.Font = new Font("Segoe UI", 11F);
+            lblTotalUsersTitle.ForeColor = Color.White;
+            lblTotalUsersTitle.Location = new Point(10, 19);
+            lblTotalUsersTitle.Name = "lblTotalUsersTitle";
+            lblTotalUsersTitle.Size = new Size(200, 31);
+            lblTotalUsersTitle.TabIndex = 0;
+            lblTotalUsersTitle.Text = "Total Registered Users";
+            // 
+            // lblTotalUsersVal
+            // 
+            lblTotalUsersVal.Font = new Font("Segoe UI", 26F, FontStyle.Bold);
+            lblTotalUsersVal.ForeColor = Color.White;
+            lblTotalUsersVal.Location = new Point(10, 62);
+            lblTotalUsersVal.Name = "lblTotalUsersVal";
+            lblTotalUsersVal.Size = new Size(200, 62);
+            lblTotalUsersVal.TabIndex = 1;
+            lblTotalUsersVal.Text = "0";
+            // 
+            // panelInventory
+            // 
+            panelInventory.BackColor = Color.White;
+            panelInventory.Controls.Add(dgvInventory);
+            panelInventory.Controls.Add(numInventoryStock);
+            panelInventory.Controls.Add(cmbInventoryStatus);
+            panelInventory.Controls.Add(btnUpdateInventory);
+            panelInventory.Controls.Add(btnProdAdd);
+            panelInventory.Controls.Add(btnProdUpdate);
+            panelInventory.Controls.Add(btnProdDelete);
+            panelInventory.Controls.Add(lblInvSelectedName);
+            panelInventory.Controls.Add(picInventoryPreview);
+            panelInventory.Controls.Add(lblInvStockLabel);
+            panelInventory.Controls.Add(lblInvAvLabel);
+            panelInventory.Dock = DockStyle.Fill;
+            panelInventory.Location = new Point(0, 0);
+            panelInventory.Margin = new Padding(3, 4, 3, 4);
+            panelInventory.Name = "panelInventory";
+            panelInventory.Size = new Size(814, 812);
+            panelInventory.TabIndex = 3;
+            // 
+            // dgvInventory
+            // 
+            dgvInventory.AllowUserToAddRows = false;
+            dgvInventory.BackgroundColor = Color.White;
+            dgvInventory.ColumnHeadersHeight = 29;
+            dgvInventory.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10, dataGridViewTextBoxColumn11 });
+            dgvInventory.Location = new Point(25, 31);
+            dgvInventory.Margin = new Padding(3, 4, 3, 4);
+            dgvInventory.Name = "dgvInventory";
+            dgvInventory.RowHeadersWidth = 51;
+            dgvInventory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvInventory.Size = new Size(480, 625);
+            dgvInventory.TabIndex = 0;
+            dgvInventory.CellClick += dgvInventory_CellClick;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            dataGridViewTextBoxColumn7.MinimumWidth = 6;
+            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            dataGridViewTextBoxColumn7.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            dataGridViewTextBoxColumn8.MinimumWidth = 6;
+            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            dataGridViewTextBoxColumn8.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            dataGridViewTextBoxColumn9.MinimumWidth = 6;
+            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            dataGridViewTextBoxColumn9.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            dataGridViewTextBoxColumn10.MinimumWidth = 6;
+            dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            dataGridViewTextBoxColumn10.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            dataGridViewTextBoxColumn11.MinimumWidth = 6;
+            dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            dataGridViewTextBoxColumn11.Width = 125;
+            // 
+            // numInventoryStock
+            // 
+            numInventoryStock.Location = new Point(530, 106);
+            numInventoryStock.Margin = new Padding(3, 4, 3, 4);
+            numInventoryStock.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
+            numInventoryStock.Name = "numInventoryStock";
+            numInventoryStock.Size = new Size(250, 27);
+            numInventoryStock.TabIndex = 1;
+            // 
+            // cmbInventoryStatus
+            // 
+            cmbInventoryStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbInventoryStatus.Items.AddRange(new object[] { "Available", "Unavailable" });
+            cmbInventoryStatus.Location = new Point(530, 181);
+            cmbInventoryStatus.Margin = new Padding(3, 4, 3, 4);
+            cmbInventoryStatus.Name = "cmbInventoryStatus";
+            cmbInventoryStatus.Size = new Size(250, 28);
+            cmbInventoryStatus.TabIndex = 2;
+            // 
+            // btnUpdateInventory
+            // 
+            btnUpdateInventory.BackColor = Color.FromArgb(0, 128, 128);
+            btnUpdateInventory.FlatStyle = FlatStyle.Flat;
+            btnUpdateInventory.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnUpdateInventory.ForeColor = Color.White;
+            btnUpdateInventory.Location = new Point(530, 445);
+            btnUpdateInventory.Margin = new Padding(3, 4, 3, 4);
+            btnUpdateInventory.Name = "btnUpdateInventory";
+            btnUpdateInventory.Size = new Size(250, 45);
+            btnUpdateInventory.TabIndex = 3;
+            btnUpdateInventory.Text = "Save Records";
+            btnUpdateInventory.UseVisualStyleBackColor = false;
+            btnUpdateInventory.Click += btnUpdateInventory_Click;
+            // 
+            // btnProdAdd
+            // 
+            btnProdAdd.BackColor = Color.FromArgb(0, 128, 128);
+            btnProdAdd.FlatStyle = FlatStyle.Flat;
+            btnProdAdd.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnProdAdd.ForeColor = Color.White;
+            btnProdAdd.Location = new Point(530, 500);
+            btnProdAdd.Margin = new Padding(3, 4, 3, 4);
+            btnProdAdd.Name = "btnProdAdd";
+            btnProdAdd.Size = new Size(250, 45);
+            btnProdAdd.TabIndex = 8;
+            btnProdAdd.Text = "Add Product";
+            btnProdAdd.UseVisualStyleBackColor = false;
+            btnProdAdd.Click += btnProdAdd_Click;
+            // 
+            // btnProdUpdate
+            // 
+            btnProdUpdate.BackColor = Color.FromArgb(0, 128, 128);
+            btnProdUpdate.FlatStyle = FlatStyle.Flat;
+            btnProdUpdate.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnProdUpdate.ForeColor = Color.White;
+            btnProdUpdate.Location = new Point(530, 555);
+            btnProdUpdate.Margin = new Padding(3, 4, 3, 4);
+            btnProdUpdate.Name = "btnProdUpdate";
+            btnProdUpdate.Size = new Size(250, 45);
+            btnProdUpdate.TabIndex = 9;
+            btnProdUpdate.Text = "Edit Product";
+            btnProdUpdate.UseVisualStyleBackColor = false;
+            btnProdUpdate.Click += btnProdUpdate_Click;
+            // 
+            // btnProdDelete
+            // 
+            btnProdDelete.BackColor = Color.Firebrick;
+            btnProdDelete.FlatStyle = FlatStyle.Flat;
+            btnProdDelete.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnProdDelete.ForeColor = Color.White;
+            btnProdDelete.Location = new Point(530, 610);
+            btnProdDelete.Margin = new Padding(3, 4, 3, 4);
+            btnProdDelete.Name = "btnProdDelete";
+            btnProdDelete.Size = new Size(250, 45);
+            btnProdDelete.TabIndex = 10;
+            btnProdDelete.Text = "Delete Product";
+            btnProdDelete.UseVisualStyleBackColor = false;
+            btnProdDelete.Click += btnProdDelete_Click;
+            // 
+            // lblInvSelectedName
+            // 
+            lblInvSelectedName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblInvSelectedName.Location = new Point(530, 31);
+            lblInvSelectedName.Name = "lblInvSelectedName";
+            lblInvSelectedName.Size = new Size(260, 31);
+            lblInvSelectedName.TabIndex = 4;
+            lblInvSelectedName.Text = "Selected Item: None";
+            // 
+            // picInventoryPreview
+            // 
+            picInventoryPreview.BorderStyle = BorderStyle.FixedSingle;
+            picInventoryPreview.Location = new Point(530, 238);
+            picInventoryPreview.Margin = new Padding(3, 4, 3, 4);
+            picInventoryPreview.Name = "picInventoryPreview";
+            picInventoryPreview.Size = new Size(250, 187);
+            picInventoryPreview.SizeMode = PictureBoxSizeMode.Zoom;
+            picInventoryPreview.TabIndex = 5;
+            picInventoryPreview.TabStop = false;
+            // 
+            // lblInvStockLabel
+            // 
+            lblInvStockLabel.Location = new Point(530, 78);
+            lblInvStockLabel.Name = "lblInvStockLabel";
+            lblInvStockLabel.Size = new Size(120, 25);
+            lblInvStockLabel.TabIndex = 6;
+            lblInvStockLabel.Text = "Stock Level:";
+            // 
+            // lblInvAvLabel
+            // 
+            lblInvAvLabel.Location = new Point(530, 153);
+            lblInvAvLabel.Name = "lblInvAvLabel";
+            lblInvAvLabel.Size = new Size(120, 25);
+            lblInvAvLabel.TabIndex = 7;
+            lblInvAvLabel.Text = "Status:";
+            // 
+            // panelOrders
+            // 
+            panelOrders.BackColor = Color.White;
+            panelOrders.Controls.Add(dgvOrders);
+            panelOrders.Controls.Add(lstOrderItemsView);
+            panelOrders.Controls.Add(cmbOrderStatus);
+            panelOrders.Controls.Add(btnUpdateOrderStatus);
+            panelOrders.Controls.Add(lblOrderSelectedTrack);
+            panelOrders.Controls.Add(lblLineItems);
+            panelOrders.Controls.Add(lblStatusTransition);
+            panelOrders.Dock = DockStyle.Fill;
+            panelOrders.Location = new Point(0, 0);
+            panelOrders.Margin = new Padding(3, 4, 3, 4);
+            panelOrders.Name = "panelOrders";
+            panelOrders.Size = new Size(814, 812);
+            panelOrders.TabIndex = 4;
+            // 
+            // dgvOrders
+            // 
+            dgvOrders.AllowUserToAddRows = false;
+            dgvOrders.BackgroundColor = Color.White;
+            dgvOrders.ColumnHeadersHeight = 29;
+            dgvOrders.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn12, dataGridViewTextBoxColumn13, dataGridViewTextBoxColumn14, dataGridViewTextBoxColumn15 });
+            dgvOrders.Location = new Point(25, 31);
+            dgvOrders.Margin = new Padding(3, 4, 3, 4);
+            dgvOrders.Name = "dgvOrders";
+            dgvOrders.RowHeadersWidth = 51;
+            dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvOrders.Size = new Size(460, 625);
+            dgvOrders.TabIndex = 0;
+            dgvOrders.CellClick += dgvOrders_CellClick;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            dataGridViewTextBoxColumn12.MinimumWidth = 6;
+            dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            dataGridViewTextBoxColumn12.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            dataGridViewTextBoxColumn13.MinimumWidth = 6;
+            dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            dataGridViewTextBoxColumn13.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            dataGridViewTextBoxColumn14.MinimumWidth = 6;
+            dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            dataGridViewTextBoxColumn14.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            dataGridViewTextBoxColumn15.MinimumWidth = 6;
+            dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            dataGridViewTextBoxColumn15.Width = 125;
+            // 
+            // lstOrderItemsView
+            // 
+            lstOrderItemsView.Location = new Point(505, 106);
+            lstOrderItemsView.Margin = new Padding(3, 4, 3, 4);
+            lstOrderItemsView.Name = "lstOrderItemsView";
+            lstOrderItemsView.Size = new Size(280, 244);
+            lstOrderItemsView.TabIndex = 1;
+            // 
+            // cmbOrderStatus
+            // 
+            cmbOrderStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbOrderStatus.Items.AddRange(new object[] { "Pending", "Preparing", "Packed", "Out for Delivery", "Completed", "Cancelled" });
+            cmbOrderStatus.Location = new Point(505, 406);
+            cmbOrderStatus.Margin = new Padding(3, 4, 3, 4);
+            cmbOrderStatus.Name = "cmbOrderStatus";
+            cmbOrderStatus.Size = new Size(280, 28);
+            cmbOrderStatus.TabIndex = 2;
+            // 
+            // btnUpdateOrderStatus
+            // 
+            btnUpdateOrderStatus.BackColor = Color.FromArgb(0, 128, 128);
+            btnUpdateOrderStatus.FlatStyle = FlatStyle.Flat;
+            btnUpdateOrderStatus.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnUpdateOrderStatus.ForeColor = Color.White;
+            btnUpdateOrderStatus.Location = new Point(505, 462);
+            btnUpdateOrderStatus.Margin = new Padding(3, 4, 3, 4);
+            btnUpdateOrderStatus.Name = "btnUpdateOrderStatus";
+            btnUpdateOrderStatus.Size = new Size(280, 52);
+            btnUpdateOrderStatus.TabIndex = 3;
+            btnUpdateOrderStatus.Text = "Update Order Matrix";
+            btnUpdateOrderStatus.UseVisualStyleBackColor = false;
+            btnUpdateOrderStatus.Click += btnUpdateOrderStatus_Click;
+            // 
+            // lblOrderSelectedTrack
+            // 
+            lblOrderSelectedTrack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblOrderSelectedTrack.Location = new Point(505, 31);
+            lblOrderSelectedTrack.Name = "lblOrderSelectedTrack";
+            lblOrderSelectedTrack.Size = new Size(280, 31);
+            lblOrderSelectedTrack.TabIndex = 4;
+            lblOrderSelectedTrack.Text = "Tracking vector: None Selected";
+            // 
+            // lblLineItems
+            // 
+            lblLineItems.Location = new Point(0, 0);
+            lblLineItems.Name = "lblLineItems";
+            lblLineItems.Size = new Size(100, 29);
+            lblLineItems.TabIndex = 5;
+            // 
+            // lblStatusTransition
+            // 
+            lblStatusTransition.Location = new Point(0, 0);
+            lblStatusTransition.Name = "lblStatusTransition";
+            lblStatusTransition.Size = new Size(100, 29);
+            lblStatusTransition.TabIndex = 6;
+            // 
+            // panelProfile
+            // 
+            panelProfile.BackColor = Color.White;
+            panelProfile.Controls.Add(panelProductMgmt);
+            panelProfile.Controls.Add(lblP1);
+            panelProfile.Controls.Add(lblP2);
+            panelProfile.Controls.Add(lblP3);
+            panelProfile.Controls.Add(lblP4);
+            panelProfile.Controls.Add(txtProfUsername);
+            panelProfile.Controls.Add(txtProfFullName);
+            panelProfile.Controls.Add(txtProfRole);
+            panelProfile.Controls.Add(txtProfPassword);
+            panelProfile.Controls.Add(btnSaveProfile);
+            panelProfile.Dock = DockStyle.Fill;
+            panelProfile.Location = new Point(0, 0);
+            panelProfile.Margin = new Padding(3, 4, 3, 4);
+            panelProfile.Name = "panelProfile";
+            panelProfile.Size = new Size(814, 812);
+            panelProfile.TabIndex = 5;
+            // 
+            // lblP1
+            // 
+            lblP1.Location = new Point(40, 50);
+            lblP1.Name = "lblP1";
+            lblP1.Size = new Size(300, 25);
+            lblP1.TabIndex = 0;
+            lblP1.Text = "Account Username (Editable)";
+            // 
+            // lblP2
+            // 
+            lblP2.Location = new Point(40, 144);
+            lblP2.Name = "lblP2";
+            lblP2.Size = new Size(300, 25);
+            lblP2.TabIndex = 1;
+            lblP2.Text = "Administrative Role (Read-Only)";
+            // 
+            // lblP3
+            // 
+            lblP3.Location = new Point(40, 238);
+            lblP3.Name = "lblP3";
+            lblP3.Size = new Size(300, 25);
+            lblP3.TabIndex = 2;
+            lblP3.Text = "Display Full Name (Read-Only)";
+            // 
+            // lblP4
+            // 
+            lblP4.Location = new Point(40, 331);
+            lblP4.Name = "lblP4";
+            lblP4.Size = new Size(300, 25);
+            lblP4.TabIndex = 3;
+            lblP4.Text = "Update Security Password (Editable)";
+            // 
+            // txtProfUsername
+            // 
+            txtProfUsername.Location = new Point(40, 81);
+            txtProfUsername.Margin = new Padding(3, 4, 3, 4);
+            txtProfUsername.Name = "txtProfUsername";
+            txtProfUsername.Size = new Size(400, 27);
+            txtProfUsername.TabIndex = 4;
+            // 
+            // txtProfFullName
+            // 
+            txtProfFullName.Location = new Point(40, 269);
+            txtProfFullName.Margin = new Padding(3, 4, 3, 4);
+            txtProfFullName.Name = "txtProfFullName";
+            txtProfFullName.ReadOnly = true;
+            txtProfFullName.Size = new Size(400, 27);
+            txtProfFullName.TabIndex = 5;
+            // 
+            // txtProfRole
+            // 
+            txtProfRole.Location = new Point(40, 175);
+            txtProfRole.Margin = new Padding(3, 4, 3, 4);
+            txtProfRole.Name = "txtProfRole";
+            txtProfRole.ReadOnly = true;
+            txtProfRole.Size = new Size(400, 27);
+            txtProfRole.TabIndex = 6;
+            // 
+            // txtProfPassword
+            // 
+            txtProfPassword.Location = new Point(40, 362);
+            txtProfPassword.Margin = new Padding(3, 4, 3, 4);
+            txtProfPassword.Name = "txtProfPassword";
+            txtProfPassword.Size = new Size(400, 27);
+            txtProfPassword.TabIndex = 7;
+            // 
+            // btnSaveProfile
+            // 
+            btnSaveProfile.BackColor = Color.FromArgb(0, 128, 128);
+            btnSaveProfile.FlatStyle = FlatStyle.Flat;
+            btnSaveProfile.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnSaveProfile.ForeColor = Color.White;
+            btnSaveProfile.Location = new Point(40, 438);
+            btnSaveProfile.Margin = new Padding(3, 4, 3, 4);
+            btnSaveProfile.Name = "btnSaveProfile";
+            btnSaveProfile.Size = new Size(180, 50);
+            btnSaveProfile.TabIndex = 8;
+            btnSaveProfile.Text = "Save Changes";
+            btnSaveProfile.UseVisualStyleBackColor = false;
+            btnSaveProfile.Click += btnSaveProfile_Click;
+            // 
+            // colUser
+            // 
+            colUser.MinimumWidth = 6;
+            colUser.Name = "colUser";
+            colUser.Width = 125;
+            // 
+            // colRole
+            // 
+            colRole.MinimumWidth = 6;
+            colRole.Name = "colRole";
+            colRole.Width = 125;
+            // 
+            // colName
+            // 
+            colName.MinimumWidth = 6;
+            colName.Name = "colName";
+            colName.Width = 125;
+            // 
+            // colStatus
+            // 
+            colStatus.MinimumWidth = 6;
+            colStatus.Name = "colStatus";
+            colStatus.Width = 125;
+            // 
+            // AdminForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1034, 812);
+            Controls.Add(panelMainContainer);
+            Controls.Add(panelSidebar);
+            Font = new Font("Segoe UI", 9F);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
+            Name = "AdminForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "System Management Console Workspace";
+            Load += AdminForm_Load;
+            panelSidebar.ResumeLayout(false);
+            panelMainContainer.ResumeLayout(false);
+            panelProductMgmt.ResumeLayout(false);
+            panelProductMgmt.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picProductPreview).EndInit();
+            panelUserMgmt.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numBanHours).EndInit();
+            grpAddUser.ResumeLayout(false);
+            grpAddUser.PerformLayout();
+            grpEditUser.ResumeLayout(false);
+            grpEditUser.PerformLayout();
+            panelDashboard.ResumeLayout(false);
+            pnlStat1.ResumeLayout(false);
+            panelInventory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numInventoryStock).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picInventoryPreview).EndInit();
+            panelOrders.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
+            panelProfile.ResumeLayout(false);
+            panelProfile.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -541,7 +1438,9 @@
         private System.Windows.Forms.Label lblLogo;
         private System.Windows.Forms.Button btnDashboard;
         private System.Windows.Forms.Button btnUserMgmt;
-        private System.Windows.Forms.Button btnComplaints;
+        private System.Windows.Forms.Button btnProducts;
+        private System.Windows.Forms.Button btnInventory;
+        private System.Windows.Forms.Button btnOrders;
         private System.Windows.Forms.Button btnProfile;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Panel panelMainContainer;
@@ -550,15 +1449,8 @@
         private System.Windows.Forms.Panel pnlStat1;
         private System.Windows.Forms.Label lblTotalUsersTitle;
         private System.Windows.Forms.Label lblTotalUsersVal;
-        private System.Windows.Forms.Panel pnlStat2;
-        private System.Windows.Forms.Label lblTotalComplaintsTitle;
-        private System.Windows.Forms.Label lblTotalComplaintsVal;
         private System.Windows.Forms.Panel panelUserMgmt;
         private System.Windows.Forms.DataGridView dgvUsers;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colUser;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colRole;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.Button btnOpenAdd;
         private System.Windows.Forms.Button btnOpenEdit;
         private System.Windows.Forms.Button btnDeleteUser;
@@ -586,15 +1478,6 @@
         private System.Windows.Forms.ComboBox cmbEditStatus;
         private System.Windows.Forms.Button btnConfirmEdit;
         private System.Windows.Forms.Button btnCancelEdit;
-        private System.Windows.Forms.Panel panelComplaints;
-        private System.Windows.Forms.DataGridView dgvComplaints;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCmpUser;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCmpMsg;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCmpStat;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCmpDate;
-        private System.Windows.Forms.Button btnRefreshComplaints;
-        private System.Windows.Forms.Button btnResolveComplaint;
-        private System.Windows.Forms.Button btnDeleteComplaint;
         private System.Windows.Forms.Panel panelProfile;
         private System.Windows.Forms.Label lblP1;
         private System.Windows.Forms.Label lblP2;
@@ -605,5 +1488,73 @@
         private System.Windows.Forms.TextBox txtProfRole;
         private System.Windows.Forms.TextBox txtProfPassword;
         private System.Windows.Forms.Button btnSaveProfile;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colUser;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colRole;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
+
+        // New Submodule Canvas Forms UI Control Mappings
+        private System.Windows.Forms.Panel panelProductMgmt;
+        private System.Windows.Forms.DataGridView dgvProducts;
+        private System.Windows.Forms.TextBox txtSearchProduct;
+        private System.Windows.Forms.TextBox txtProdName;
+        private System.Windows.Forms.TextBox txtProdDesc;
+        private System.Windows.Forms.TextBox txtProdPrice;
+        private System.Windows.Forms.TextBox txtProdStock;
+        private System.Windows.Forms.TextBox txtProdCategory;
+        private System.Windows.Forms.TextBox txtProdImagePath;
+        private System.Windows.Forms.ComboBox cmbProdStatus;
+        private System.Windows.Forms.Button btnProdAdd;
+        private System.Windows.Forms.Button btnProdUpdate;
+        private System.Windows.Forms.Button btnProdDelete;
+        private System.Windows.Forms.Button btnProdClear;
+        private System.Windows.Forms.Button btnProdBrowseImage;
+        private System.Windows.Forms.PictureBox picProductPreview;
+
+        private System.Windows.Forms.Panel panelInventory;
+        private System.Windows.Forms.DataGridView dgvInventory;
+        private System.Windows.Forms.NumericUpDown numInventoryStock;
+        private System.Windows.Forms.ComboBox cmbInventoryStatus;
+        private System.Windows.Forms.Button btnUpdateInventory;
+        private System.Windows.Forms.Label lblInvSelectedName;
+        private System.Windows.Forms.PictureBox picInventoryPreview;
+
+        private System.Windows.Forms.Panel panelOrders;
+        private System.Windows.Forms.DataGridView dgvOrders;
+        private System.Windows.Forms.ListBox lstOrderItemsView;
+        private System.Windows.Forms.ComboBox cmbOrderStatus;
+        private System.Windows.Forms.Button btnUpdateOrderStatus;
+        private System.Windows.Forms.Label lblOrderSelectedTrack;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private Label lblSearchLabel;
+        private Label lblN;
+        private Label lblD;
+        private Label lblP;
+        private Label lblS;
+        private Label lblC;
+        private Label lblI;
+        private Label lblSt;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private Label lblInvStockLabel;
+        private Label lblInvAvLabel;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private Label lblLineItems;
+        private Label lblStatusTransition;
     }
 }

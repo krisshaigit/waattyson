@@ -1,6 +1,4 @@
-﻿using adminstaffff;
-
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,7 +11,6 @@ namespace adminstaffff
         private readonly string branchesFile = "branches.txt";
 
         private const string ADMIN_ACCESS_CODE = "ADMIN-2026";
-        private const string STAFF_ACCESS_CODE = "STAFF-2026";
 
         public LoginForm()
         {
@@ -38,6 +35,17 @@ namespace adminstaffff
                 if (!File.Exists(branchesFile))
                 {
                     File.WriteAllText(branchesFile, "WB-01,Main Branch" + Environment.NewLine);
+                    // Clean Database Blueprint: No Staff roles present
+                    var sample =
+                        "1|admin01|admin123|Main Admin|Admin||Active" + Environment.NewLine +
+                        "2|user01|user123|Juan Dela Cruz|User||Active" + Environment.NewLine +
+                        "3|driver01|driver123|Mark Reyes|Driver||Active" + Environment.NewLine;
+                    File.AppendAllText(usersFile, sample);
+                }
+
+                if (!File.Exists(branchesFile))
+                {
+                    File.AppendAllText(branchesFile, "WB-01," + Environment.NewLine);
                 }
             }
             catch (Exception ex)
@@ -50,6 +58,16 @@ namespace adminstaffff
         {
             var username = txtUsername.Text.Trim();
             var password = txtPassword.Text;
+            var password = txtPassword.Text; // do not trim password deliberately
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please enter username and password.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // LOAD USERS FILE
+            var lines = File.ReadAllLines(usersFile);
 
             // Hardcoded Fail-safe bypass: If everything else breaks, typing this will let you into the MainDashboard instantly
             if (username == "master" && password == "123")
@@ -65,6 +83,54 @@ namespace adminstaffff
             {
                 MessageBox.Show("Please enter username and password.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
+            }
+                if (string.IsNullOrWhiteSpace(lines[i]))
+                    continue;
+
+                var parts = lines[i].Split('|');
+
+                // username,password,role,fullname,extra,status,createdDate,banUntil
+                if (parts.Length < 7)
+                    continue;
+
+                string fileUser = parts[1].Trim();
+                string status = parts[6].Trim();
+                string banUntilText = parts.Length > 7 ? parts[7].Trim() : "";
+
+                if (string.Equals(fileUser, username, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (status == "Banned")
+                    {
+                        DateTime banUntil;
+
+                        if (DateTime.TryParse(banUntilText, out banUntil))
+                        {
+                            // STILL BANNED
+                            if (DateTime.Now < banUntil)
+                            {
+                                TimeSpan remaining = banUntil - DateTime.Now;
+
+                                MessageBox.Show(
+                                    $"Account is banned.\nRemaining time: {remaining.Hours}h {remaining.Minutes}m",
+                                    "Banned",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+
+                                return;
+                            }
+                            else
+                            {
+                                // AUTO UNBAN
+                                parts[6] = "Active";
+                                parts[7] = "";
+
+                                lines[i] = string.Join("|", parts);
+
+                                File.WriteAllLines(usersFile, lines);
+                            }
+                        }
+                    }
+                }
             }
 
             if (!File.Exists(usersFile))
@@ -82,6 +148,10 @@ namespace adminstaffff
                 string foundExtra = null;
                 string authenticatedUser = null;
                 string authenticatedPass = null;
+                // Find matching user line
+                string foundUsername = null;
+                string foundRole = null;
+                string foundFullName = null;
 
                 foreach (var line in lines)
                 {
@@ -102,6 +172,17 @@ namespace adminstaffff
                         foundExtra = parts.Length > 5 ? parts[5].Trim() : "";
                         break;
                     }
+                    if (!string.Equals(fileUser, username, StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    if (filePass != password)
+                        continue;
+
+                    foundUsername = fileUser;
+                    foundFullName = parts[3].Trim();
+                    foundRole = parts[4].Trim();
+
+                    break;
                 }
 
                 if (foundRole == null)
@@ -112,6 +193,8 @@ namespace adminstaffff
 
                 if (string.Equals(foundRole, "Admin", StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(foundRole, "Staff", StringComparison.OrdinalIgnoreCase))
+                // Security Authorization Wall: Only verified Admin accounts trigger an access challenge query
+                if (string.Equals(foundRole, "Admin", StringComparison.OrdinalIgnoreCase))
                 {
                     var accessCode = PromptForAccessCode(foundRole);
                     if (accessCode == null) return;
@@ -132,6 +215,12 @@ namespace adminstaffff
                     Address = "",
                     ContactNumber = ""
                 };
+                // Route checked account matrix identifiers safely to target execution canvases
+                switch (foundRole)
+                {
+                    case "Admin":
+                        OpenFormByName("adminstaffff.AdminForm", new object[] { foundUsername, foundRole });
+                        break;
 
                 Form targetForm = null;
 
@@ -163,6 +252,7 @@ namespace adminstaffff
             catch (Exception ex)
             {
                 MessageBox.Show("System processing engine error: " + ex.Message, "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error during login execution sequence: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -213,6 +303,7 @@ namespace adminstaffff
             }
             catch { }
             return null;
+            return false;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -234,5 +325,15 @@ namespace adminstaffff
 
         private void txtUsername_TextChanged(object sender, EventArgs e) { }
         private void txtPassword_TextChanged(object sender, EventArgs e) { }
+            if (reg.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Account registered successfully.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Designer-loaded event stubs
+        private void LoginForm_Load(object sender, EventArgs e) { }
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e) { }
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e) { }
     }
 }
