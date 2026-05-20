@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SQLite;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -46,31 +47,73 @@ namespace adminstaffff
             if (!DataEngine.Cart.Any()) { MessageBox.Show("Cart is empty."); return; }
             if (string.IsNullOrWhiteSpace(txtAddress.Text)) { MessageBox.Show("Please provide a shipping address."); return; }
 
+            // 1. Generate the values using your exact existing data objects
+            string orderId = "TRK-" + new Random().Next(1000, 9999).ToString("X");
+
+            // We isolate the username cleanly so your HistoryPageForm's WHERE clause can find it!
+            string usernameOnly = DataEngine.CurrentUser != null ? DataEngine.CurrentUser.Username : "Guest";
+
+            // Format the items text block exactly how you had it
+            string itemsDetails = string.Join(Environment.NewLine, DataEngine.Cart.Select(c =>
+                c.Product != null
+                    ? $"{c.Quantity}x|{c.Product.ProductId}|{c.Product.Name}|₱{c.Product.Price:N2}"
+                    : $"{c.Quantity}x|UNKNOWN_ID|Unknown Product Name|₱0.00"
+            ));
+
+            decimal totalAmount = DataEngine.Cart.Sum(c => c.TotalPrice);
+            string status = "Pending";
+            string dateStamp = DateTime.Now.ToString("yyyy-MM-dd");
+
+            // Combine username and address for the in-memory object so your other pages don't break
+            string formattedUsernameWithAddress = $"{usernameOnly}|Address:{txtAddress.Text}";
+
+            // 2. Keep your runtime memory engine updated
             Order newOrder = new Order
             {
-                OrderId = "TRK-" + new Random().Next(1000, 9999).ToString("X"),
-
-                // Fallback if CurrentUser is null
-                Username = $"{(DataEngine.CurrentUser != null ? DataEngine.CurrentUser.Username : "Guest")}|Address:{txtAddress.Text}",
-
-                // Fallback if Product details are missing from products.txt
-                Items = string.Join(Environment.NewLine, DataEngine.Cart.Select(c =>
-                    c.Product != null
-                        ? $"{c.Quantity}x|{c.Product.ProductId}|{c.Product.Name}|₱{c.Product.Price:N2}"
-                        : $"{c.Quantity}x|UNKNOWN_ID|Unknown Product Name|₱0.00"
-    )),
-
-                Total = DataEngine.Cart.Sum(c => c.TotalPrice),
-                Status = "Pending",
-                Date = DateTime.Now.ToString("yyyy-MM-dd")
+                OrderId = orderId,
+                Username = usernameOnly, // Set to clean username for history mapping consistency
+                Items = itemsDetails,
+                Total = totalAmount,
+                Status = status,
+                Date = dateStamp
             };
-
             DataEngine.Orders.Add(newOrder);
-            DataEngine.SaveOrders();
+
+            // 3. WRITE DIRECTLY TO SQLITE 
+            string dbConnectionPath = "Data Source=watson_shop.db;Version=3;";
+            string insertQuery = @"
+        INSERT INTO Orders (OrderId, Username, Items, Total, Status, Date) 
+        VALUES (@OrderId, @Username, @Items, @Total, @Status, @Date);";
+
+            try
+            {
+                using (var connection = new SQLiteConnection(dbConnectionPath))
+                {
+                    connection.Open();
+                    using (var command = new SQLiteCommand(insertQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@OrderId", orderId);
+                        command.Parameters.AddWithValue("@Username", usernameOnly); // Saved clean for user history lookups!
+                        command.Parameters.AddWithValue("@Items", itemsDetails);
+                        command.Parameters.AddWithValue("@Total", totalAmount);
+                        command.Parameters.AddWithValue("@Status", status);
+                        command.Parameters.AddWithValue("@Date", dateStamp);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Database save failed, but proceeding in-memory: {ex.Message}", "Database Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            // 4. Run your remaining app state cleanup routines
+            DataEngine.SaveOrders(); // Keeps your legacy backup files safe
             DataEngine.SaveProducts();
             DataEngine.Cart.Clear();
 
-            MessageBox.Show($"Order processed successfully!\nTracking ID: {newOrder.OrderId}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Order processed successfully!\nTracking ID: {orderId}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             RefreshCartDisplay();
         }
 

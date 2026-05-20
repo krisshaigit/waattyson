@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -495,81 +497,104 @@ namespace adminstaffff
         #region --- ORDER MANAGEMENT ---
         private void LoadOrders()
         {
-            ordersList.Clear();
-            using (StreamReader reader = new StreamReader(ordersFile))
+            string dbConnectionString = "Data Source=watson_shop.db;Version=3;";
+            // Pull real database column structures, matching your DataGridView headers via SQL Aliases
+            string selectQuery = "SELECT OrderId AS Tracking, Username AS [Customer Name], Status, Date FROM Orders ORDER BY OrderId DESC;";
+
+            try
             {
-                string line;
-                Order currentOrder = null;
-                while ((line = reader.ReadLine()) != null)
+                using (var connection = new SQLiteConnection(dbConnectionString))
                 {
-                    if (line.StartsWith("Order|"))
+                    connection.Open();
+                    using (var command = new SQLiteCommand(selectQuery, connection))
+                    using (var adapter = new SQLiteDataAdapter(command))
                     {
-                        var parts = line.Split(',');
-                        currentOrder = new Order
-                        {
-                            Date = parts[1],
-                            Tracking = parts[2].Split(',')[1],
-                            Status = parts[3].Split(',')[1],
-                            CustomerName = parts[4].Split(',')[1] + " " + parts[5].Split(',')[1],
-                            Address = parts[6].Split(',')[1],
-                            Details = ""
-                        };
-                    }
-                    else if (line == "EndOrder")
-                    {
-                        if (currentOrder != null) ordersList.Add(currentOrder);
-                    }
-                    else if (currentOrder != null && line.Contains("x|"))
-                    {
-                        currentOrder.Details += line + Environment.NewLine;
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+
+                        dgvOrders.DataSource = null;
+                        dgvOrders.DataSource = table;
                     }
                 }
             }
-            dgvOrders.DataSource = null;
-            dgvOrders.DataSource = ordersList.Select(o => new { o.Tracking, o.CustomerName, o.Status, o.Date }).ToList();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Admin Error reading orders: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dgvOrders_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvOrders.CurrentRow != null)
+            if (dgvOrders.CurrentRow == null) return;
+
+            string dbConnectionString = "Data Source=watson_shop.db;Version=3;";
+            try
             {
-                string tracking = dgvOrders.CurrentRow.Cells["Tracking"].Value.ToString();
-                var order = ordersList.FirstOrDefault(o => o.Tracking == tracking);
-                if (order != null)
+                // Pull tracking ID from the actively selected row
+                string trackingId = dgvOrders.CurrentRow.Cells["Tracking"].Value.ToString();
+                string query = "SELECT Username, Items, Status FROM Orders WHERE OrderId = @OrderId;";
+
+                using (var connection = new SQLiteConnection(dbConnectionString))
                 {
-                    txtOrderDetails.Text = $"Customer: {order.CustomerName}\r\nAddress: {order.Address}\r\n\r\nItems:\r\n{order.Details}";
-                    cmbOrderStatus.Text = order.Status;
+                    connection.Open();
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@OrderId", trackingId);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string customer = reader["Username"].ToString();
+                                string items = reader["Items"].ToString();
+                                string status = reader["Status"].ToString();
+
+                                // Fill the layout UI text box inputs directly
+                                txtOrderDetails.Text = $"Customer Account: {customer}\r\nTracking ID: {trackingId}\r\n\r\nItems Ordered:\r\n{items}";
+                                cmbOrderStatus.Text = status;
+                            }
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading order details: {ex.Message}", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void btnUpdateOrder_Click(object sender, EventArgs e)
         {
             if (dgvOrders.CurrentRow == null || string.IsNullOrEmpty(cmbOrderStatus.Text)) return;
+
+            string dbConnectionString = "Data Source=watson_shop.db;Version=3;";
             string trackingToUpdate = dgvOrders.CurrentRow.Cells["Tracking"].Value.ToString();
             string newStatus = cmbOrderStatus.Text;
 
-            // Update file contents
-            var allLines = File.ReadAllLines(ordersFile).ToList();
-            for (int i = 0; i < allLines.Count; i++)
+            string updateQuery = "UPDATE Orders SET Status = @Status WHERE OrderId = @OrderId;";
+
+            try
             {
-                if (allLines[i].StartsWith("Order|") && allLines[i].Contains("Tracking:" + trackingToUpdate))
+                using (var connection = new SQLiteConnection(dbConnectionString))
                 {
-                    var parts = allLines[i].Split('|');
-                    parts[3] = "Status:" + newStatus;
-                    allLines[i] = string.Join("|", parts);
-                    break;
+                    connection.Open();
+                    using (var command = new SQLiteCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Status", newStatus);
+                        command.Parameters.AddWithValue("@OrderId", trackingToUpdate);
+
+                        command.ExecuteNonQuery();
+                    }
                 }
-            }
 
-            // Strictly write back using StreamWriter to fulfill requirements
-            using (StreamWriter writer = new StreamWriter(ordersFile, false))
+                MessageBox.Show("Order Status Updated Successfully in Database!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Reload table contents from SQLite
+                LoadOrders();
+            }
+            catch (Exception ex)
             {
-                foreach (var line in allLines) writer.WriteLine(line);
+                MessageBox.Show($"Failed to update order status: {ex.Message}", "Write Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            MessageBox.Show("Order Status Updated!");
-            LoadOrders();
         }
         #endregion
 

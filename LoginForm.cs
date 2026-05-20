@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Data.SQLite;
 
 namespace adminstaffff
 {
@@ -182,13 +183,13 @@ namespace adminstaffff
                         break;
 
                     case "User":
-                        MainDashboard dashboard = new MainDashboard(foundFullName);
-                        BrowsePageForm browseForm = new BrowsePageForm();
-                        dashboard.OpenChildForm(browseForm);
+                        // Pass BOTH the full name AND the raw username into the dashboard
+                        MainDashboard dashboard = new MainDashboard(foundFullName, foundUsername);
+
+                        // The dashboard's constructor handles loading BrowsePageForm automatically on startup now!
                         dashboard.Show();
                         this.Hide();
 
-                        MessageBox.Show($"Welcome, {foundFullName} (Role: User).", "Logged In", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
 
                     case "Driver":
@@ -287,9 +288,55 @@ namespace adminstaffff
                 MessageBox.Show("Account registered successfully.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        public void InitializeDatabase()
+        {
+            string dbFile = "watson_shop.db";
 
-        // Designer-loaded event stubs
-        private void LoginForm_Load(object sender, EventArgs e) { }
+            try
+            {
+                using (var connection = new SQLiteConnection($"Data Source={dbFile};Version=3;"))
+                {
+                    connection.Open();
+
+                    // Active Orders Table
+                    string createOrdersTable = @"
+                        CREATE TABLE IF NOT EXISTS Orders (
+                            OrderId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Username TEXT NOT NULL,       -- Set as TEXT to easily tie to your flat-file user system
+                            DriverName TEXT,             -- Set as TEXT to assign to drivers easily
+                            ItemDetails TEXT NOT NULL,
+                            TotalPrice REAL NOT NULL,
+                            Status TEXT DEFAULT 'Pending',
+                            OrderDate DATETIME DEFAULT CURRENT_TIMESTAMP
+                        );";
+
+                    // Order History Table
+                    string createHistoryTable = @"
+                        CREATE TABLE IF NOT EXISTS OrderHistory (
+                            HistoryId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            OrderId INTEGER NOT NULL,
+                            Username TEXT NOT NULL,
+                            ItemDetails TEXT NOT NULL,
+                            TotalPrice REAL NOT NULL,
+                            FinalStatus TEXT NOT NULL,
+                            CompletedDate DATETIME DEFAULT CURRENT_TIMESTAMP
+                        );";
+
+                    using (var command = new SQLiteCommand(createOrdersTable, connection))
+                        command.ExecuteNonQuery();
+
+                    using (var command = new SQLiteCommand(createHistoryTable, connection))
+                        command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error initializing SQLite database: " + ex.Message, "SQLite Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+// Designer-loaded event stubs
+private void LoginForm_Load(object sender, EventArgs e) { InitializeDatabase(); }
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e) { }
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e) { }
     }

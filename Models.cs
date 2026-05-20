@@ -25,10 +25,16 @@ namespace adminstaffff
     {
         public string OrderId { get; set; }
         public string Username { get; set; }
-        public string Items { get; set; } // Format: ProdID(Qty),ProdID(Qty)
+
+        public string Items { get; set; }
         public decimal Total { get; set; }
-        public string Status { get; set; } // Pending, Processing, Shipped, Delivered
+
+        public string Status { get; set; }
         public string Date { get; set; }
+
+        // --- UI BINDING GLUE ---
+        public string ItemDetails => Items ?? ""; // Prevents grid crashes if items are blank
+        public decimal TotalPrice => Total;
     }
 
     public class CartItem

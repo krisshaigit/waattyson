@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Data.SQLite; // <-- ADDED FOR SQLITE
 using System.Linq;
+using System.Text; // <-- ADDED FOR STRINGBUILDER
 using System.Windows.Forms;
 
 namespace adminstaffff
@@ -8,10 +10,13 @@ namespace adminstaffff
     public partial class CategoriesPageForm : Form
     {
         private FlowLayoutPanel productGrid;
+        private string loggedInUsername; // <-- ADDED TO TRACK WHO IS ORDERING
 
-        public CategoriesPageForm()
+        // UPDATED CONSTRUCTOR: Now accepts the logged-in username
+        public CategoriesPageForm(string username = "GuestUser")
         {
             InitializeComponent();
+            this.loggedInUsername = username;
             SetupCategoryUI();
         }
 
@@ -40,6 +45,21 @@ namespace adminstaffff
                 pnlCategories.Controls.Add(btnCat);
                 leftOffset += 140;
             }
+
+            // NEW CHECKOUT BUTTON Added to the right side of the category bar
+            Button btnCheckout = new Button()
+            {
+                Text = "🛒 Checkout",
+                Location = new Point(leftOffset + 20, 12),
+                Size = new Size(130, 35),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.DarkOrange,
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold)
+            };
+            btnCheckout.FlatAppearance.BorderSize = 0;
+            btnCheckout.Click += BtnCheckout_Click; // Link to our new SQLite method
+            pnlCategories.Controls.Add(btnCheckout);
 
             productGrid = new FlowLayoutPanel()
             {
@@ -72,7 +92,6 @@ namespace adminstaffff
 
             foreach (var prod in filteredProducts)
             {
-                // Shorter card height since there's no picture box now!
                 Panel card = new Panel()
                 {
                     Size = new Size(220, 160),
@@ -136,25 +155,20 @@ namespace adminstaffff
             Button btn = (Button)sender;
             Product selectedProduct = (Product)btn.Tag;
 
-            // Check if the item has run out of stock before adding it
             if (selectedProduct.Stock <= 0)
             {
                 MessageBox.Show("Sorry, this item is currently out of stock!", "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Check if this product is already in the cart
             var existingCartItem = DataEngine.Cart.FirstOrDefault(c => c.Product.ProductId == selectedProduct.ProductId);
 
             if (existingCartItem != null)
             {
-                // If it's already there, just increase the quantity
                 existingCartItem.Quantity += 1;
             }
             else
             {
-                // Otherwise, create a new cart entry object and add it
-                // Note: Change 'CartItem' to whatever your specific cart class name is!
                 DataEngine.Cart.Add(new CartItem
                 {
                     Product = selectedProduct,
@@ -162,8 +176,71 @@ namespace adminstaffff
                 });
             }
 
-            // Notify the user
+            // Deduct the runtime stock value so the user can visually track it
+            selectedProduct.Stock -= 1;
+
+            // Refresh visual grid card numbers immediately
+            Button clickedBtn = (Button)sender;
+            string dynamicCategory = selectedProduct.Category;
+            DisplayCategoryProducts(dynamicCategory);
+
             MessageBox.Show($"{selectedProduct.Name} added to your cart!", "Cart Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // NEW SQLITE CHECKOUT METHOD
+        private void BtnCheckout_Click(object sender, EventArgs e)
+        {
+            if (DataEngine.Cart == null || DataEngine.Cart.Count == 0)
+            {
+                MessageBox.Show("Your cart is empty!", "Checkout Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Random rand = new Random();
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            string randomSuffix = new string(Enumerable.Repeat(chars, 4).Select(s => s[rand.Next(s.Length)]).ToArray());
+            string generatedTrackingId = $"TRK-{randomSuffix}";
+
+            StringBuilder detailsBuilder = new StringBuilder();
+            double totalOrderPrice = 0;
+            foreach (var item in DataEngine.Cart)
+            {
+                detailsBuilder.Append($"{item.Quantity}x {item.Product.Name}, ");
+                totalOrderPrice += (double)(item.Product.Price * item.Quantity);
+            }
+            string finalItemDetails = detailsBuilder.ToString().TrimEnd(',', ' ');
+
+            string dbConnectionPath = "Data Source=watson_shop.db;Version=3;";
+
+            try
+            {
+                using (var connection = new SQLiteConnection(dbConnectionPath))
+                {
+                    connection.Open();
+
+                    string insertOrderQuery = @"
+                INSERT INTO Orders (OrderId, Username, ItemDetails, TotalPrice, Status) 
+                VALUES (@OrderId, @Username, @ItemDetails, @TotalPrice, 'Pending');";
+
+                    using (var command = new SQLiteCommand(insertOrderQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@OrderId", generatedTrackingId);
+                        command.Parameters.AddWithValue("@Username", this.loggedInUsername);
+                        command.Parameters.AddWithValue("@ItemDetails", finalItemDetails);
+                        command.Parameters.AddWithValue("@TotalPrice", totalOrderPrice);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                DataEngine.Cart.Clear();
+                MessageBox.Show($"Order processed successfully!\nTracking ID: {generatedTrackingId}\nTotal: ₱{totalOrderPrice:N2}", "Checkout Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DisplayCategoryProducts("Baby Care");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"SQL Save Failure: {ex.Message}", "Database Execution Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
