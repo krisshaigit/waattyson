@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.IO;
 
 namespace adminstaffff
@@ -13,150 +14,356 @@ namespace adminstaffff
         public static List<Notification> Notifications = new List<Notification>();
         public static List<CartItem> Cart = new List<CartItem>();
 
-        // Text File paths
+        // SQLite connection path definition
+        private static readonly string DbConnectionPath = "Data Source=watson_shop.db;Version=3;";
+
+        // Text File Fallbacks for initial migration
         private static readonly string UsersFile = "users.txt";
         private static readonly string ProductsFile = "products.txt";
-        private static readonly string OrdersFile = "orders.txt";
-        private static readonly string NotificationsFile = "notifications.txt";
 
         public static void InitializeDatabase()
         {
             try
             {
-                // Ensure files exist and seed them with mock retail data if empty
-                if (!File.Exists(UsersFile)) File.WriteAllLines(UsersFile, new[] { "customer1,password123,Customer,Jane Doe,123 Main St Manila,09171234567" });
-
-                if (!File.Exists(ProductsFile))
+                // 1. Physically create the database file if it was deleted
+                if (!File.Exists("watson_shop.db"))
                 {
-                    File.WriteAllLines(ProductsFile, new[] {
-                        // Format: ProductId, Name, Category, Price, Stock
-                        // FRAGRANCE (7 Items)
-                        "F001,Penshoppe Signature Body Spray,Fragrance,150.00,45",
-                        "F002,Jo Malone English Pear & Freesia,Fragrance,4500.00,12",
-                        "F003,Victoria's Secret Bombshell EDP,Fragrance,3200.00,15",
-                        "F004,Bench Daily Scent Nine to Mine,Fragrance,85.00,60",
-                        "F005,Versace Bright Crystal EDT,Fragrance,4000.00,10",
-                        "F006,Dior Sauvage Eau de Parfum,Fragrance,6500.00,8",
-                        "F007,Chanel No. 5 Eau de Parfum,Fragrance,7500.00,5",
-
-                        // BABY CARE (7 Items)
-                        "B001,Baby Care Plus+ Baby Shampoo,Baby Care,220.00,30",
-                        "B002,Tender Care Baby Powder Pink Soft,Baby Care,95.00,120",
-                        "B003,Tender Care Classic Baby Wash,Baby Care,160.00,80",
-                        "B004,Avon Care Baby Moisturizing Lotion,Baby Care,185.00,65",
-                        "B005,Johnson's Baby Skincare Wipes,Baby Care,120.00,90",
-                        "B006,Johnson's Baby Oil Classic,Baby Care,140.00,75",
-                        "B007,Desitin Diaper Rash Ointment,Baby Care,350.00,40",
-
-                        // MEDICINE (7 Items)
-                        "M001,Decolgen Forte Cold Relief Tablet,Medicine,8.00,500",
-                        "M002,Advil Ibuprofen 200mg Softgel,Medicine,12.00,350",
-                        "M003,Biogesic Paracetamol 500mg,Medicine,6.00,600",
-                        "M004,Neozep Forte Cold Tablet,Medicine,7.00,450",
-                        "M005,Solmux Carbocisteine 500mg,Medicine,11.00,300",
-                        "M006,Gaviscon Double Action Sachet,Medicine,35.00,150",
-                        "M007,Vitamin B-Complex Bextran Tablet,Medicine,10.00,400",
-
-                        // PERSONAL CARE (7 Items)
-                        "P001,Colgate Total Toothpaste,Personal Care,145.00,110",
-                        "P002,Safeguard Pure White Bar Soap,Personal Care,48.00,200",
-                        "P003,Cream Silk Hair Conditioner 180ml,Personal Care,180.00,85",
-                        "P004,Head & Shoulders Shampoo 330ml,Personal Care,250.00,70",
-                        "P005,Nivea Extra White Body Lotion,Personal Care,290.00,55",
-                        "P006,Rexona Men Ice Cool Spray,Personal Care,190.00,95",
-                        "P007,Biore Facial Foam Deep Cleanse,Personal Care,210.00,65",
-
-                        // MAKE UP (7 Items)
-                        "U001,Maybelline Hypercurl Mascara,Make Up,299.00,50",
-                        "U002,Maybelline Fit Me Foundation,Make Up,449.00,35",
-                        "U003,Ever Bilena Matte Lipstick,Make Up,185.00,80",
-                        "U004,Careline Graph-Ink Eyeliner,Make Up,220.00,65",
-                        "U005,Vice Cosmetics Aura Blush,Make Up,195.00,70",
-                        "U006,BLK Cosmetics Skin Tint,Make Up,499.00,25",
-                        "U007,Detail Cosmetics Lip Oil,Make Up,249.00,40"
-                    });
+                    SQLiteConnection.CreateFile("watson_shop.db");
                 }
 
-                if (!File.Exists(OrdersFile)) File.WriteAllText(OrdersFile, "");
-                if (!File.Exists(NotificationsFile)) File.WriteAllLines(NotificationsFile, new[] {
-                    "customer1,Welcome to Watsons! Enjoy 10% off your first checkout.,Promotion,2026-05-18"
-                });
+                using (var connection = new SQLiteConnection(DbConnectionPath))
+                {
+                    connection.Open();
 
-                // Load database files directly into memory lists
+                    // 2. Fallback Drop & Recreate to guarantee the 'Items' column exists cleanly
+                    string checkAndFixOrdersTable = @"
+                CREATE TABLE IF NOT EXISTS Orders (
+                    OrderId TEXT PRIMARY KEY,
+                    Username TEXT,
+                    Items TEXT,
+                    Total REAL,
+                    Status TEXT,
+                    Date TEXT
+                );";
+
+                    // If an old Orders table exists without 'Items', add it safely on the fly
+                    using (var verifyCmd = new SQLiteCommand("PRAGMA table_info(Orders);", connection))
+                    using (var reader = verifyCmd.ExecuteReader())
+                    {
+                        bool hasItemsColumn = false;
+                        while (reader.Read())
+                        {
+                            if (reader["name"].ToString().Equals("Items", StringComparison.OrdinalIgnoreCase))
+                            {
+                                hasItemsColumn = true;
+                                break;
+                            }
+                        }
+
+                        // If table exists but lacks the column, drop it so it can recreate seamlessly
+                        if (!hasItemsColumn)
+                        {
+                            using (var dropCmd = new SQLiteCommand("DROP TABLE IF EXISTS Orders;", connection))
+                            {
+                                dropCmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    string createProductsTable = @"
+                CREATE TABLE IF NOT EXISTS Products (
+                    ProductId TEXT PRIMARY KEY,
+                    Name TEXT,
+                    Category TEXT,
+                    Price REAL,
+                    Stock INTEGER
+                );";
+
+                    string createUsersTable = @"
+                CREATE TABLE IF NOT EXISTS Users (
+                    Username TEXT PRIMARY KEY,
+                    Password TEXT,
+                    Role TEXT,
+                    Name TEXT,
+                    Address TEXT,
+                    ContactNumber TEXT
+                );";
+
+                    using (var cmd = new SQLiteCommand(checkAndFixOrdersTable, connection)) { cmd.ExecuteNonQuery(); }
+                    using (var cmd = new SQLiteCommand(createProductsTable, connection)) { cmd.ExecuteNonQuery(); }
+                    using (var cmd = new SQLiteCommand(createUsersTable, connection)) { cmd.ExecuteNonQuery(); }
+
+                    // 3. Populate empty tables via migrations
+                    string productCountQuery = "SELECT COUNT(*) FROM Products;";
+                    long productCount = 0;
+                    using (var countCmd = new SQLiteCommand(productCountQuery, connection))
+                    {
+                        productCount = (long)countCmd.ExecuteScalar();
+                    }
+
+                    if (productCount == 0)
+                    {
+                        MigrateProductsFromTextFile(connection);
+                    }
+
+                    string userCountQuery = "SELECT COUNT(*) FROM Users;";
+                    long userCount = 0;
+                    using (var countCmd = new SQLiteCommand(userCountQuery, connection))
+                    {
+                        userCount = (long)countCmd.ExecuteScalar();
+                    }
+
+                    if (userCount == 0)
+                    {
+                        MigrateUsersFromTextFile(connection);
+                    }
+                }
+
+                // Sync local cache lists from storage
                 LoadData();
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Database Initialization Error: {ex.Message}");
+                System.Windows.Forms.MessageBox.Show($"Database Initialization Error: {ex.Message}", "SQL Initializer Crash", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
         }
 
         public static void LoadData()
         {
-            Products.Clear();
-            foreach (var line in File.ReadAllLines(ProductsFile))
+            try
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                var parts = line.Split(',');
-                if (parts.Length >= 5)
+                using (var connection = new SQLiteConnection(DbConnectionPath))
                 {
-                    Products.Add(new Product
+                    connection.Open();
+
+                    // --- READ PRODUCTS ---
+                    Products.Clear();
+                    string readProducts = "SELECT ProductId, Name, Category, Price, Stock FROM Products;";
+                    using (var cmd = new SQLiteCommand(readProducts, connection))
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        ProductId = parts[0].Trim(),
-                        Name = parts[1].Trim(),
-                        Category = parts[2].Trim(),
-                        Price = decimal.Parse(parts[3]),
-                        Stock = int.Parse(parts[4])
-                    });
+                        while (reader.Read())
+                        {
+                            Products.Add(new Product
+                            {
+                                ProductId = reader["ProductId"].ToString(),
+                                Name = reader["Name"].ToString(),
+                                Category = reader["Category"].ToString(),
+                                Price = Convert.ToDecimal(reader["Price"]),
+                                Stock = Convert.ToInt32(reader["Stock"])
+                            });
+                        }
+                    }
+
+                    // --- READ ORDERS ---
+                    Orders.Clear();
+                    string readOrders = "SELECT OrderId, Username, Items, Total, Status, Date FROM Orders;";
+                    using (var cmd = new SQLiteCommand(readOrders, connection))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Orders.Add(new Order
+                            {
+                                OrderId = reader["OrderId"].ToString(),
+                                Username = reader["Username"].ToString(),
+                                Items = reader["Items"].ToString(),
+                                Total = Convert.ToDecimal(reader["Total"]),
+                                Status = reader["Status"].ToString(),
+                                Date = reader["Date"].ToString()
+                            });
+                        }
+                    }
                 }
             }
-
-            Orders.Clear();
-            foreach (var line in File.ReadAllLines(OrdersFile))
+            catch (Exception ex)
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                var parts = line.Split(',');
-                if (parts.Length >= 6)
-                    Orders.Add(new Order { OrderId = parts[0], Username = parts[1], Items = parts[2], Total = decimal.Parse(parts[3]), Status = parts[4], Date = parts[5] });
-            }
-
-            Notifications.Clear();
-            foreach (var line in File.ReadAllLines(NotificationsFile))
-            {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                var parts = line.Split(',');
-                if (parts.Length >= 4)
-                    Notifications.Add(new Notification { Username = parts[0], Message = parts[1], Type = parts[2], Date = parts[3] });
+                System.Windows.Forms.MessageBox.Show($"Error loading records via SQLite: {ex.Message}");
             }
         }
 
-        public static void SaveUsers()
-        {
-            if (CurrentUser != null)
-            {
-                string line = $"{CurrentUser.Username},{CurrentUser.Password},{CurrentUser.Role},{CurrentUser.Name},{CurrentUser.Address},{CurrentUser.ContactNumber}";
-                File.WriteAllLines(UsersFile, new[] { line });
-            }
-        }
-
+        // Saves all runtime list orders into SQLite
         public static void SaveOrders()
         {
-            List<string> lines = new List<string>();
-            foreach (var o in Orders)
+            try
             {
-                lines.Add($"{o.OrderId},{o.Username},{o.Items},{o.Total},{o.Status},{o.Date}");
+                using (var connection = new SQLiteConnection(DbConnectionPath))
+                {
+                    connection.Open();
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        foreach (var o in Orders)
+                        {
+                            string insertOrReplaceQuery = @"
+                                INSERT OR REPLACE INTO Orders (OrderId, Username, Items, Total, Status, Date)
+                                VALUES (@OrderId, @Username, @Items, @Total, @Status, @Date);";
+
+                            using (var cmd = new SQLiteCommand(insertOrReplaceQuery, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@OrderId", o.OrderId);
+                                cmd.Parameters.AddWithValue("@Username", o.Username);
+                                cmd.Parameters.AddWithValue("@Items", o.Items);
+                                cmd.Parameters.AddWithValue("@Total", (double)o.Total);
+                                cmd.Parameters.AddWithValue("@Status", o.Status);
+                                cmd.Parameters.AddWithValue("@Date", o.Date);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                        transaction.Commit();
+                    }
+                }
             }
-            File.WriteAllLines(OrdersFile, lines);
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"SQL Order Saving Failure: {ex.Message}");
+            }
         }
 
+        // Saves inventory data adjustments straight down to the SQL local file
         public static void SaveProducts()
         {
-            List<string> lines = new List<string>();
-            foreach (var p in Products)
+            try
             {
-                lines.Add($"{p.ProductId},{p.Name},{p.Category},{p.Price},{p.Stock}");
+                using (var connection = new SQLiteConnection(DbConnectionPath))
+                {
+                    connection.Open();
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        foreach (var p in Products)
+                        {
+                            string updateOrReplaceQuery = @"
+                                INSERT OR REPLACE INTO Products (ProductId, Name, Category, Price, Stock)
+                                VALUES (@ProductId, @Name, @Category, @Price, @Stock);";
+
+                            using (var cmd = new SQLiteCommand(updateOrReplaceQuery, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@ProductId", p.ProductId);
+                                cmd.Parameters.AddWithValue("@Name", p.Name);
+                                cmd.Parameters.AddWithValue("@Category", p.Category);
+                                cmd.Parameters.AddWithValue("@Price", (double)p.Price);
+                                cmd.Parameters.AddWithValue("@Stock", p.Stock);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                        transaction.Commit();
+                    }
+                }
             }
-            File.WriteAllLines(ProductsFile, lines);
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"SQL Product Sync Failure: {ex.Message}");
+            }
+        }
+
+        // NEW: Handles real-time User profile syncs safely to SQLite
+        public static void SaveUsers()
+        {
+            try
+            {
+                if (CurrentUser == null) return;
+
+                using (var connection = new SQLiteConnection(DbConnectionPath))
+                {
+                    connection.Open();
+                    string insertOrReplaceUser = @"
+                        INSERT OR REPLACE INTO Users (Username, Password, Role, Name, Address, ContactNumber)
+                        VALUES (@Username, @Password, @Role, @Name, @Address, @ContactNumber);";
+
+                    using (var cmd = new SQLiteCommand(insertOrReplaceUser, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Username", CurrentUser.Username);
+                        cmd.Parameters.AddWithValue("@Password", CurrentUser.Password);
+                        cmd.Parameters.AddWithValue("@Role", CurrentUser.Role);
+                        cmd.Parameters.AddWithValue("@Name", CurrentUser.Name);
+                        cmd.Parameters.AddWithValue("@Address", CurrentUser.Address);
+                        cmd.Parameters.AddWithValue("@ContactNumber", CurrentUser.ContactNumber);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"SQL User Sync Failure: {ex.Message}");
+            }
+        }
+
+        // --- MIGRATION SUB ROUTINES ---
+
+        private static void MigrateProductsFromTextFile(SQLiteConnection connection)
+        {
+            if (!File.Exists(ProductsFile)) return;
+
+            try
+            {
+                string[] lines = File.ReadAllLines(ProductsFile);
+                using (var transaction = connection.BeginTransaction())
+                {
+                    foreach (var line in lines)
+                    {
+                        if (string.IsNullOrWhiteSpace(line)) continue;
+                        var parts = line.Split(',');
+                        if (parts.Length >= 5)
+                        {
+                            string insertQuery = "INSERT OR IGNORE INTO Products (ProductId, Name, Category, Price, Stock) VALUES (@Id, @Name, @Cat, @Price, @Stock);";
+                            using (var cmd = new SQLiteCommand(insertQuery, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@Id", parts[0].Trim());
+                                cmd.Parameters.AddWithValue("@Name", parts[1].Trim());
+                                cmd.Parameters.AddWithValue("@Cat", parts[2].Trim());
+                                cmd.Parameters.AddWithValue("@Price", double.Parse(parts[3].Trim()));
+                                cmd.Parameters.AddWithValue("@Stock", int.Parse(parts[4].Trim()));
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    transaction.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"Error migrating products.txt data: {ex.Message}");
+            }
+        }
+
+        private static void MigrateUsersFromTextFile(SQLiteConnection connection)
+        {
+            // Seed a fallback record if users.txt doesn't exist yet
+            if (!File.Exists(UsersFile))
+            {
+                File.WriteAllLines(UsersFile, new[] { "customer1,password123,Customer,Jane Doe,123 Main St Manila,09171234567" });
+            }
+
+            try
+            {
+                string[] lines = File.ReadAllLines(UsersFile);
+                using (var transaction = connection.BeginTransaction())
+                {
+                    foreach (var line in lines)
+                    {
+                        if (string.IsNullOrWhiteSpace(line)) continue;
+                        var parts = line.Split(',');
+                        if (parts.Length >= 6)
+                        {
+                            string insertQuery = "INSERT OR IGNORE INTO Users (Username, Password, Role, Name, Address, ContactNumber) VALUES (@User, @Pass, @Role, @Name, @Address, @Contact);";
+                            using (var cmd = new SQLiteCommand(insertQuery, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@User", parts[0].Trim());
+                                cmd.Parameters.AddWithValue("@Pass", parts[1].Trim());
+                                cmd.Parameters.AddWithValue("@Role", parts[2].Trim());
+                                cmd.Parameters.AddWithValue("@Name", parts[3].Trim());
+                                cmd.Parameters.AddWithValue("@Address", parts[4].Trim());
+                                cmd.Parameters.AddWithValue("@Contact", parts[5].Trim());
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    transaction.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"Error migrating users.txt data: {ex.Message}");
+            }
         }
     }
 }

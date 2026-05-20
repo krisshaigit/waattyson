@@ -48,5 +48,5 @@ namespace adminstaffff
         }
         private void HistorySubForm_Load(object sender, EventArgs e) { }
     }
-    
+
 }

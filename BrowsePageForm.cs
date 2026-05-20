@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.Data.SQLite; // <-- ADDED THIS FOR SQLITE
 using System.Linq;
+using System.Text; // <-- ADDED FOR STRINGBUILDER
 using System.Windows.Forms;
 
 namespace adminstaffff
@@ -11,21 +13,30 @@ namespace adminstaffff
         private DataGridView dgvProducts;
         private TextBox txtSearch;
         private ComboBox cbCategoryFilter;
+        private string loggedInUsername; // <-- ADDED TO TRACK WHO IS ORDERING
 
-        public BrowsePageForm()
+        // UPDATED CONSTRUCTOR: Now accepts the logged-in username
+        public BrowsePageForm(string username = "GuestUser")
         {
-            // 1. Setup the UI layout directly here instead of using a conflicting method name
+            this.loggedInUsername = username;
+
+            // 1. Setup the UI layout directly here
             this.txtSearch = new TextBox() { Location = new System.Drawing.Point(20, 20), Width = 250 };
             this.cbCategoryFilter = new ComboBox() { Location = new System.Drawing.Point(290, 20), Width = 150 };
             this.dgvProducts = new DataGridView() { Location = new System.Drawing.Point(20, 60), Size = new System.Drawing.Size(740, 420), ReadOnly = true, SelectionMode = DataGridViewSelectionMode.FullRowSelect };
 
             Button btnAddToCart = new Button() { Text = "Add to Cart", Location = new System.Drawing.Point(20, 500), Size = new System.Drawing.Size(120, 35), BackColor = System.Drawing.Color.FromArgb(0, 161, 155), ForeColor = System.Drawing.Color.White, FlatStyle = FlatStyle.Flat };
 
+            // NEW CHECKOUT BUTTON FOR SQLITE
+            Button btnCheckout = new Button() { Text = "Checkout & Order", Location = new System.Drawing.Point(160, 500), Size = new System.Drawing.Size(150, 35), BackColor = System.Drawing.Color.DarkOrange, ForeColor = System.Drawing.Color.White, FlatStyle = FlatStyle.Flat };
+
             this.txtSearch.TextChanged += SearchOrFilter;
             this.cbCategoryFilter.SelectedIndexChanged += SearchOrFilter;
             btnAddToCart.Click += BtnAddToCart_Click;
+            btnCheckout.Click += BtnCheckout_Click; // <-- LINK THE CHECKOUT EVENT
 
-            this.Controls.AddRange(new Control[] { txtSearch, cbCategoryFilter, dgvProducts, btnAddToCart });
+            // Add all controls including the new Checkout button to the canvas
+            this.Controls.AddRange(new Control[] { txtSearch, cbCategoryFilter, dgvProducts, btnAddToCart, btnCheckout });
 
             // 2. Load runtime components safely
             cbCategoryFilter.Items.Add("All Categories");
@@ -71,6 +82,66 @@ namespace adminstaffff
                     LoadProductData();
                 }
                 else MessageBox.Show("Item out of stock!");
+            }
+        }
+
+        // NEW METHOD: Slices the Cart list and saves it directly to SQLite!
+        private void BtnCheckout_Click(object sender, EventArgs e)
+        {
+            if (DataEngine.Cart == null || DataEngine.Cart.Count == 0)
+            {
+                MessageBox.Show("Your cart is empty!", "Checkout Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 1. Generate a tracking ID that matches your exact format (e.g., TRK-ABCD)
+            Random rand = new Random();
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            string randomSuffix = new string(Enumerable.Repeat(chars, 4).Select(s => s[rand.Next(s.Length)]).ToArray());
+            string generatedTrackingId = $"TRK-{randomSuffix}";
+
+            // 2. Build item details string
+            StringBuilder detailsBuilder = new StringBuilder();
+            double totalOrderPrice = 0;
+            foreach (var item in DataEngine.Cart)
+            {
+                detailsBuilder.Append($"{item.Quantity}x {item.Product.Name}, ");
+                totalOrderPrice += (double)(item.Product.Price * item.Quantity);
+            }
+            string finalItemDetails = detailsBuilder.ToString().TrimEnd(',', ' ');
+
+            string dbConnectionPath = "Data Source=watson_shop.db;Version=3;";
+
+            try
+            {
+                using (var connection = new SQLiteConnection(dbConnectionPath))
+                {
+                    connection.Open();
+
+                    // This query inserts using the exact matching structural schema names
+                    string insertOrderQuery = @"
+                INSERT INTO Orders (OrderId, Username, ItemDetails, TotalPrice, Status) 
+                VALUES (@OrderId, @Username, @ItemDetails, @TotalPrice, 'Pending');";
+
+                    using (var command = new SQLiteCommand(insertOrderQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@OrderId", generatedTrackingId);
+                        command.Parameters.AddWithValue("@Username", this.loggedInUsername);
+                        command.Parameters.AddWithValue("@ItemDetails", finalItemDetails);
+                        command.Parameters.AddWithValue("@TotalPrice", totalOrderPrice);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                // Clear out tracking data lists safely
+                DataEngine.Cart.Clear();
+                MessageBox.Show($"Order processed successfully!\nTracking ID: {generatedTrackingId}\nTotal: ₱{totalOrderPrice:N2}", "Checkout Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadProductData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"SQL Save Failure: {ex.Message}\n\nVerify that your table has columns named: OrderId, Username, ItemDetails, TotalPrice, Status", "Database Execution Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
