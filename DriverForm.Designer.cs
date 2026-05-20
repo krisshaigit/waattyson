@@ -1,116 +1,129 @@
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-
 namespace adminstaffff
 {
     partial class DriverForm
     {
-        private IContainer components = null;
-        private Label lblWelcome;
-        private Label lblRole;
-        private Label lblAssigned;
-        private ListBox lstDeliveries;
-        private Button btnRefresh;
-        private Button btnLogout;
+        private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Panel pnlSidebar;
+        private System.Windows.Forms.Panel pnlDriverContainer;
+        private System.Windows.Forms.Label lblHeaderLogo;
+        private System.Windows.Forms.Button btnActive;
+        private System.Windows.Forms.Button btnConfirmPage;
+        private System.Windows.Forms.Button btnHistory;
+        private System.Windows.Forms.Button btnProfile;
+        private System.Windows.Forms.Button btnNotifications;
+        private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button btnLogout;
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
-            components = new Container();
-
-            lblWelcome = new Label();
-            lblRole = new Label();
-            lblAssigned = new Label();
-            lstDeliveries = new ListBox();
-            btnRefresh = new Button();
-            btnLogout = new Button();
-
+            this.pnlSidebar = new System.Windows.Forms.Panel();
+            this.lblHeaderLogo = new System.Windows.Forms.Label();
+            this.btnActive = new System.Windows.Forms.Button();
+            this.btnConfirmPage = new System.Windows.Forms.Button();
+            this.btnHistory = new System.Windows.Forms.Button();
+            this.btnProfile = new System.Windows.Forms.Button();
+            this.btnNotifications = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.pnlDriverContainer = new System.Windows.Forms.Panel();
+            this.pnlSidebar.SuspendLayout();
+            this.SuspendLayout();
             // 
-            // DriverForm
+            // pnlSidebar
             // 
-            this.Text = "Driver Dashboard";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.ClientSize = new Size(520, 320);
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.Name = "DriverForm";
-
+            this.pnlSidebar.BackColor = System.Drawing.Color.FromArgb(0, 131, 143);
+            this.pnlSidebar.Controls.Add(this.lblHeaderLogo);
+            this.pnlSidebar.Controls.Add(this.btnActive);
+            this.pnlSidebar.Controls.Add(this.btnConfirmPage);
+            this.pnlSidebar.Controls.Add(this.btnHistory);
+            this.pnlSidebar.Controls.Add(this.btnProfile);
+            this.pnlSidebar.Controls.Add(this.btnNotifications);
+            this.pnlSidebar.Controls.Add(this.btnSettings);
+            this.pnlSidebar.Controls.Add(this.btnLogout);
+            this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
+            this.pnlSidebar.Size = new System.Drawing.Size(220, 650);
             // 
-            // lblWelcome
+            // lblHeaderLogo
             // 
-            lblWelcome.AutoSize = true;
-            lblWelcome.Location = new Point(20, 18);
-            lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(240, 20);
-            lblWelcome.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblWelcome.Text = "Welcome, [FullName]";
-
+            this.lblHeaderLogo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblHeaderLogo.ForeColor = System.Drawing.Color.White;
+            this.lblHeaderLogo.Location = new System.Drawing.Point(10, 15);
+            this.lblHeaderLogo.Size = new System.Drawing.Size(200, 45);
+            this.lblHeaderLogo.Text = "watsons RIDER";
+            this.lblHeaderLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblRole
+            // btnActive
             // 
-            lblRole.AutoSize = true;
-            lblRole.Location = new Point(20, 48);
-            lblRole.Name = "lblRole";
-            lblRole.Size = new Size(90, 15);
-            lblRole.Text = "Role: Driver";
-
+            this.ConfigureSidebarButton(this.btnActive, "Active Deliveries", 80);
+            this.btnActive.Click += new System.EventHandler(this.btnActive_Click);
             // 
-            // lblAssigned
+            // btnConfirmPage
             // 
-            lblAssigned.AutoSize = true;
-            lblAssigned.Location = new Point(20, 78);
-            lblAssigned.Name = "lblAssigned";
-            lblAssigned.Size = new Size(160, 15);
-            lblAssigned.Text = "Assigned Deliveries:";
-
+            this.ConfigureSidebarButton(this.btnConfirmPage, "Confirm Drop-off", 135);
+            this.btnConfirmPage.Click += new System.EventHandler(this.btnConfirmPage_Click);
             // 
-            // lstDeliveries
+            // btnHistory
             // 
-            lstDeliveries.Location = new Point(20, 100);
-            lstDeliveries.Name = "lstDeliveries";
-            lstDeliveries.Size = new Size(480, 160);
-
+            this.ConfigureSidebarButton(this.btnHistory, "Delivery History", 190);
+            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
             // 
-            // btnRefresh
+            // btnProfile
             // 
-            btnRefresh.Location = new Point(20, 270);
-            btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(95, 30);
-            btnRefresh.Text = "Refresh";
-            btnRefresh.UseVisualStyleBackColor = true;
-            btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-
+            this.ConfigureSidebarButton(this.btnProfile, "My Profile", 245);
+            this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
+            // 
+            // btnNotifications
+            // 
+            this.ConfigureSidebarButton(this.btnNotifications, "Notifications", 300);
+            this.btnNotifications.Click += new System.EventHandler(this.btnNotifications_Click);
+            // 
+            // btnSettings
+            // 
+            this.ConfigureSidebarButton(this.btnSettings, "Settings", 355);
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(405, 270);
-            btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(95, 30);
-            btnLogout.Text = "Logout";
-            btnLogout.UseVisualStyleBackColor = true;
-            btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
-
-            // Add controls
-            this.Controls.Add(lblWelcome);
-            this.Controls.Add(lblRole);
-            this.Controls.Add(lblAssigned);
-            this.Controls.Add(lstDeliveries);
-            this.Controls.Add(btnRefresh);
-            this.Controls.Add(btnLogout);
+            this.ConfigureSidebarButton(this.btnLogout, "Log Out", 580);
+            this.btnLogout.BackColor = System.Drawing.Color.DarkRed;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // pnlDriverContainer
+            // 
+            this.pnlDriverContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDriverContainer.Location = new System.Drawing.Point(220, 0);
+            this.pnlDriverContainer.Size = new System.Drawing.Size(810, 650);
+            this.pnlDriverContainer.BackColor = System.Drawing.Color.WhiteSmoke;
+            // 
+            // DriverForm
+            // 
+            this.ClientSize = new System.Drawing.Size(1030, 650);
+            this.Controls.Add(this.pnlDriverContainer);
+            this.Controls.Add(this.pnlSidebar);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.pnlSidebar.ResumeLayout(false);
+            this.ResumeLayout(false);
         }
 
-        #endregion
+        private void ConfigureSidebarButton(System.Windows.Forms.Button btn, string text, int top)
+        {
+            btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btn.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btn.ForeColor = System.Drawing.Color.White;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Location = new System.Drawing.Point(10, top);
+            btn.Size = new System.Drawing.Size(200, 45);
+            btn.Text = text;
+            btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btn.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.pnlSidebar.Controls.Add(btn);
+        }
     }
 }
