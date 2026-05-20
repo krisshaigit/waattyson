@@ -6,1555 +6,922 @@
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            panelSidebar = new Panel();
+            pnlSidebar = new Panel();
             lblLogo = new Label();
             btnDashboard = new Button();
-            btnUserMgmt = new Button();
+            btnUsers = new Button();
             btnInventory = new Button();
             btnOrders = new Button();
             btnProfile = new Button();
-            btnLogout = new Button();
-            btnProducts = new Button();
-            panelMainContainer = new Panel();
-            panelProductMgmt = new Panel();
-            dgvProducts = new DataGridView();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
-            txtSearchProduct = new TextBox();
-            txtProdName = new TextBox();
-            txtProdDesc = new TextBox();
-            txtProdPrice = new TextBox();
-            txtProdStock = new TextBox();
-            txtProdCategory = new TextBox();
-            txtProdImagePath = new TextBox();
-            cmbProdStatus = new ComboBox();
-            btnProdClear = new Button();
-            btnProdBrowseImage = new Button();
-            picProductPreview = new PictureBox();
-            lblSearchLabel = new Label();
-            lblN = new Label();
-            lblD = new Label();
-            lblP = new Label();
-            lblS = new Label();
-            lblC = new Label();
-            lblI = new Label();
-            lblSt = new Label();
-            panelUserMgmt = new Panel();
+            pnlMain = new Panel();
+            pnlUsers = new Panel();
+            txtUserSearch = new TextBox();
             dgvUsers = new DataGridView();
-            dataGridViewTextBoxColumn16 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn17 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn18 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn19 = new DataGridViewTextBoxColumn();
-            btnOpenAdd = new Button();
-            btnOpenEdit = new Button();
+            grpUserControls = new GroupBox();
+            btnAddUser = new Button();
+            btnEditUser = new Button();
             btnDeleteUser = new Button();
             btnBanUser = new Button();
-            numBanHours = new NumericUpDown();
-            lblBanHrs = new Label();
-            grpAddUser = new GroupBox();
-            lblAddU = new Label();
-            lblAddP = new Label();
-            lblAddF = new Label();
-            txtAddUsername = new TextBox();
-            txtAddPassword = new TextBox();
-            txtAddFullName = new TextBox();
-            cmbAddRole = new ComboBox();
-            btnConfirmAdd = new Button();
-            btnCancelAdd = new Button();
-            grpEditUser = new GroupBox();
-            lblEditU = new Label();
-            lblEditP = new Label();
-            lblEditR = new Label();
-            lblEditS = new Label();
-            txtEditUsername = new TextBox();
-            txtEditPassword = new TextBox();
-            cmbEditRole = new ComboBox();
-            cmbEditStatus = new ComboBox();
-            btnConfirmEdit = new Button();
-            btnCancelEdit = new Button();
-            panelDashboard = new Panel();
-            lblAdminName = new Label();
-            pnlStat1 = new Panel();
-            lblTotalUsersTitle = new Label();
-            lblTotalUsersVal = new Label();
-            panelInventory = new Panel();
+            pnlInventory = new Panel();
+            panel4 = new Panel();
+            txtProdSearch = new TextBox();
             dgvInventory = new DataGridView();
-            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn11 = new DataGridViewTextBoxColumn();
-            numInventoryStock = new NumericUpDown();
-            cmbInventoryStatus = new ComboBox();
-            btnUpdateInventory = new Button();
-            btnProdAdd = new Button();
-            btnProdUpdate = new Button();
-            btnProdDelete = new Button();
-            lblInvSelectedName = new Label();
-            picInventoryPreview = new PictureBox();
-            lblInvStockLabel = new Label();
-            lblInvAvLabel = new Label();
-            panelOrders = new Panel();
+            grpInvControls = new GroupBox();
+            btnAddProduct = new Button();
+            btnEditProduct = new Button();
+            btnDeleteProduct = new Button();
+            pnlDashboard = new Panel();
+            label1 = new Label();
+            panel3 = new Panel();
+            pictureBox1 = new PictureBox();
+            lblDashTitle = new Label();
+            lblTotalUsers = new Label();
+            lblTotalProducts = new Label();
+            lblTotalOrders = new Label();
+            pnlOrders = new Panel();
             dgvOrders = new DataGridView();
-            dataGridViewTextBoxColumn12 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn13 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn14 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn15 = new DataGridViewTextBoxColumn();
-            lstOrderItemsView = new ListBox();
+            txtOrderDetails = new TextBox();
+            grpOrderControls = new GroupBox();
             cmbOrderStatus = new ComboBox();
-            btnUpdateOrderStatus = new Button();
-            lblOrderSelectedTrack = new Label();
-            lblLineItems = new Label();
-            lblStatusTransition = new Label();
-            panelProfile = new Panel();
-            lblP1 = new Label();
-            lblP2 = new Label();
-            lblP3 = new Label();
-            lblP4 = new Label();
-            txtProfUsername = new TextBox();
-            txtProfFullName = new TextBox();
-            txtProfRole = new TextBox();
-            txtProfPassword = new TextBox();
-            btnSaveProfile = new Button();
-            colUser = new DataGridViewTextBoxColumn();
-            colRole = new DataGridViewTextBoxColumn();
-            colName = new DataGridViewTextBoxColumn();
-            colStatus = new DataGridViewTextBoxColumn();
-            panelSidebar.SuspendLayout();
-            panelMainContainer.SuspendLayout();
-            panelProductMgmt.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picProductPreview).BeginInit();
-            panelUserMgmt.SuspendLayout();
+            btnUpdateOrder = new Button();
+            pnlProfile = new Panel();
+            grpProfile = new GroupBox();
+            lblProf1 = new Label();
+            txtProfName = new TextBox();
+            lblProf2 = new Label();
+            txtProfPass = new TextBox();
+            btnUpdateProfile = new Button();
+            txtUsername = new TextBox();
+            txtPassword = new TextBox();
+            txtFullName = new TextBox();
+            cmbRole = new ComboBox();
+            txtProdName = new TextBox();
+            txtProdCategory = new TextBox();
+            txtProdPrice = new TextBox();
+            txtProdStock = new TextBox();
+            pnlUserPopup = new Panel();
+            panel1 = new Panel();
+            lblPopupTitle = new Label();
+            lblBan = new Label();
+            numBanHours = new NumericUpDown();
+            btnPopupUserSave = new Button();
+            btnPopupUserClose = new Button();
+            pnlProdPopup = new Panel();
+            panel2 = new Panel();
+            lblProdPopupTitle = new Label();
+            btnPopupProdSave = new Button();
+            btnPopupProdClose = new Button();
+            pnlSidebar.SuspendLayout();
+            pnlMain.SuspendLayout();
+            pnlUsers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numBanHours).BeginInit();
-            grpAddUser.SuspendLayout();
-            grpEditUser.SuspendLayout();
-            panelDashboard.SuspendLayout();
-            pnlStat1.SuspendLayout();
-            panelInventory.SuspendLayout();
+            grpUserControls.SuspendLayout();
+            pnlInventory.SuspendLayout();
+            panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvInventory).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numInventoryStock).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picInventoryPreview).BeginInit();
-            panelOrders.SuspendLayout();
+            grpInvControls.SuspendLayout();
+            pnlDashboard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pnlOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
-            panelProfile.SuspendLayout();
+            grpOrderControls.SuspendLayout();
+            pnlProfile.SuspendLayout();
+            grpProfile.SuspendLayout();
+            pnlUserPopup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numBanHours).BeginInit();
+            pnlProdPopup.SuspendLayout();
             SuspendLayout();
             // 
-            // panelSidebar
+            // pnlSidebar
             // 
-            panelSidebar.BackColor = Color.FromArgb(47, 79, 79);
-            panelSidebar.Controls.Add(lblLogo);
-            panelSidebar.Controls.Add(btnDashboard);
-            panelSidebar.Controls.Add(btnUserMgmt);
-            panelSidebar.Controls.Add(btnInventory);
-            panelSidebar.Controls.Add(btnOrders);
-            panelSidebar.Controls.Add(btnProfile);
-            panelSidebar.Controls.Add(btnLogout);
-            panelSidebar.Controls.Add(btnProducts);
-            panelSidebar.Dock = DockStyle.Left;
-            panelSidebar.Location = new Point(0, 0);
-            panelSidebar.Margin = new Padding(3, 4, 3, 4);
-            panelSidebar.Name = "panelSidebar";
-            panelSidebar.Size = new Size(220, 812);
-            panelSidebar.TabIndex = 1;
+            pnlSidebar.BackColor = Color.DarkSlateGray;
+            pnlSidebar.Controls.Add(lblLogo);
+            pnlSidebar.Controls.Add(btnDashboard);
+            pnlSidebar.Controls.Add(btnUsers);
+            pnlSidebar.Controls.Add(btnInventory);
+            pnlSidebar.Controls.Add(btnOrders);
+            pnlSidebar.Controls.Add(btnProfile);
+            pnlSidebar.Dock = DockStyle.Left;
+            pnlSidebar.Location = new Point(0, 0);
+            pnlSidebar.Name = "pnlSidebar";
+            pnlSidebar.Size = new Size(220, 600);
+            pnlSidebar.TabIndex = 0;
             // 
             // lblLogo
             // 
-            lblLogo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblLogo.Dock = DockStyle.Top;
+            lblLogo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblLogo.ForeColor = Color.White;
-            lblLogo.Location = new Point(12, 19);
+            lblLogo.Location = new Point(0, 0);
             lblLogo.Name = "lblLogo";
-            lblLogo.Size = new Size(196, 44);
+            lblLogo.Size = new Size(220, 65);
             lblLogo.TabIndex = 0;
-            lblLogo.Text = "ADMIN SUITE";
+            lblLogo.Text = "SYSTEM CONSOLE";
             lblLogo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnDashboard
             // 
+            btnDashboard.BackColor = Color.Teal;
+            btnDashboard.Cursor = Cursors.Hand;
             btnDashboard.FlatAppearance.BorderSize = 0;
             btnDashboard.FlatStyle = FlatStyle.Flat;
             btnDashboard.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnDashboard.ForeColor = Color.White;
-            btnDashboard.Location = new Point(0, 88);
-            btnDashboard.Margin = new Padding(3, 4, 3, 4);
+            btnDashboard.Location = new Point(10, 80);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Padding = new Padding(15, 0, 0, 0);
-            btnDashboard.Size = new Size(220, 56);
+            btnDashboard.Size = new Size(200, 45);
             btnDashboard.TabIndex = 1;
-            btnDashboard.Text = "Dashboard";
+            btnDashboard.Text = "  Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
-            btnDashboard.Click += btnDashboard_Click;
+            btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += NavButton_Click;
             // 
-            // btnUserMgmt
+            // btnUsers
             // 
-            btnUserMgmt.FlatAppearance.BorderSize = 0;
-            btnUserMgmt.FlatStyle = FlatStyle.Flat;
-            btnUserMgmt.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnUserMgmt.ForeColor = Color.White;
-            btnUserMgmt.Location = new Point(0, 148);
-            btnUserMgmt.Margin = new Padding(3, 4, 3, 4);
-            btnUserMgmt.Name = "btnUserMgmt";
-            btnUserMgmt.Padding = new Padding(15, 0, 0, 0);
-            btnUserMgmt.Size = new Size(220, 56);
-            btnUserMgmt.TabIndex = 2;
-            btnUserMgmt.Text = "User Management";
-            btnUserMgmt.TextAlign = ContentAlignment.MiddleLeft;
-            btnUserMgmt.Click += btnUserMgmt_Click;
+            btnUsers.BackColor = Color.Teal;
+            btnUsers.Cursor = Cursors.Hand;
+            btnUsers.FlatAppearance.BorderSize = 0;
+            btnUsers.FlatStyle = FlatStyle.Flat;
+            btnUsers.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnUsers.ForeColor = Color.White;
+            btnUsers.Location = new Point(10, 135);
+            btnUsers.Name = "btnUsers";
+            btnUsers.Size = new Size(200, 45);
+            btnUsers.TabIndex = 2;
+            btnUsers.Text = "  User Management";
+            btnUsers.TextAlign = ContentAlignment.MiddleLeft;
+            btnUsers.UseVisualStyleBackColor = false;
+            btnUsers.Click += NavButton_Click;
             // 
             // btnInventory
             // 
+            btnInventory.BackColor = Color.Teal;
+            btnInventory.Cursor = Cursors.Hand;
             btnInventory.FlatAppearance.BorderSize = 0;
             btnInventory.FlatStyle = FlatStyle.Flat;
-            btnInventory.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnInventory.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnInventory.ForeColor = Color.White;
-            btnInventory.Location = new Point(0, 200);
-            btnInventory.Margin = new Padding(3, 4, 3, 4);
+            btnInventory.Location = new Point(10, 190);
             btnInventory.Name = "btnInventory";
-            btnInventory.Padding = new Padding(15, 0, 0, 0);
-            btnInventory.Size = new Size(220, 56);
-            btnInventory.TabIndex = 4;
-            btnInventory.Text = "Inventory";
+            btnInventory.Size = new Size(200, 45);
+            btnInventory.TabIndex = 3;
+            btnInventory.Text = "  Inventory Management";
             btnInventory.TextAlign = ContentAlignment.MiddleLeft;
-            btnInventory.Click += btnInventory_Click;
+            btnInventory.UseVisualStyleBackColor = false;
+            btnInventory.Click += NavButton_Click;
             // 
             // btnOrders
             // 
+            btnOrders.BackColor = Color.Teal;
+            btnOrders.Cursor = Cursors.Hand;
             btnOrders.FlatAppearance.BorderSize = 0;
             btnOrders.FlatStyle = FlatStyle.Flat;
             btnOrders.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnOrders.ForeColor = Color.White;
-            btnOrders.Location = new Point(0, 253);
-            btnOrders.Margin = new Padding(3, 4, 3, 4);
+            btnOrders.Location = new Point(10, 245);
             btnOrders.Name = "btnOrders";
-            btnOrders.Padding = new Padding(15, 0, 0, 0);
-            btnOrders.Size = new Size(220, 56);
-            btnOrders.TabIndex = 5;
-            btnOrders.Text = "Orders";
+            btnOrders.Size = new Size(200, 45);
+            btnOrders.TabIndex = 4;
+            btnOrders.Text = "  Order Management";
             btnOrders.TextAlign = ContentAlignment.MiddleLeft;
-            btnOrders.Click += btnOrders_Click;
+            btnOrders.UseVisualStyleBackColor = false;
+            btnOrders.Click += NavButton_Click;
             // 
             // btnProfile
             // 
+            btnProfile.BackColor = Color.Teal;
+            btnProfile.Cursor = Cursors.Hand;
             btnProfile.FlatAppearance.BorderSize = 0;
             btnProfile.FlatStyle = FlatStyle.Flat;
             btnProfile.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnProfile.ForeColor = Color.White;
-            btnProfile.Location = new Point(0, 312);
-            btnProfile.Margin = new Padding(3, 4, 3, 4);
+            btnProfile.Location = new Point(10, 300);
             btnProfile.Name = "btnProfile";
-            btnProfile.Padding = new Padding(15, 0, 0, 0);
-            btnProfile.Size = new Size(220, 56);
-            btnProfile.TabIndex = 6;
-            btnProfile.Text = "Profile Settings";
+            btnProfile.Size = new Size(200, 45);
+            btnProfile.TabIndex = 5;
+            btnProfile.Text = "  Profile Settings";
             btnProfile.TextAlign = ContentAlignment.MiddleLeft;
-            btnProfile.Click += btnProfile_Click;
+            btnProfile.UseVisualStyleBackColor = false;
+            btnProfile.Click += NavButton_Click;
             // 
-            // btnLogout
+            // pnlMain
             // 
-            btnLogout.FlatAppearance.BorderSize = 0;
-            btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnLogout.ForeColor = Color.White;
-            btnLogout.Location = new Point(0, 725);
-            btnLogout.Margin = new Padding(3, 4, 3, 4);
-            btnLogout.Name = "btnLogout";
-            btnLogout.Padding = new Padding(15, 0, 0, 0);
-            btnLogout.Size = new Size(220, 56);
-            btnLogout.TabIndex = 7;
-            btnLogout.Text = "Logout";
-            btnLogout.TextAlign = ContentAlignment.MiddleLeft;
-            btnLogout.Click += btnLogout_Click;
+            pnlMain.BackColor = Color.LightGray;
+            pnlMain.Controls.Add(pnlUsers);
+            pnlMain.Controls.Add(pnlInventory);
+            pnlMain.Controls.Add(pnlDashboard);
+            pnlMain.Controls.Add(pnlOrders);
+            pnlMain.Controls.Add(pnlProfile);
+            pnlMain.Dock = DockStyle.Fill;
+            pnlMain.Location = new Point(220, 0);
+            pnlMain.Name = "pnlMain";
+            pnlMain.Size = new Size(780, 600);
+            pnlMain.TabIndex = 2;
             // 
-            // btnProducts
+            // pnlUsers
             // 
-            btnProducts.FlatAppearance.BorderSize = 0;
-            btnProducts.FlatStyle = FlatStyle.Flat;
-            btnProducts.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnProducts.ForeColor = Color.White;
-            btnProducts.Location = new Point(3, 200);
-            btnProducts.Margin = new Padding(3, 4, 3, 4);
-            btnProducts.Name = "btnProducts";
-            btnProducts.Padding = new Padding(15, 0, 0, 0);
-            btnProducts.Size = new Size(220, 56);
-            btnProducts.TabIndex = 3;
-            btnProducts.Text = "Product Management";
-            btnProducts.TextAlign = ContentAlignment.MiddleLeft;
-            btnProducts.Click += btnProducts_Click;
+            pnlUsers.BackColor = Color.CadetBlue;
+            pnlUsers.Controls.Add(txtUserSearch);
+            pnlUsers.Controls.Add(dgvUsers);
+            pnlUsers.Controls.Add(grpUserControls);
+            pnlUsers.Dock = DockStyle.Fill;
+            pnlUsers.Location = new Point(0, 0);
+            pnlUsers.Name = "pnlUsers";
+            pnlUsers.Size = new Size(780, 600);
+            pnlUsers.TabIndex = 1;
             // 
-            // panelMainContainer
+            // txtUserSearch
             // 
-            panelMainContainer.Controls.Add(panelDashboard);
-            panelMainContainer.Controls.Add(panelUserMgmt);
-            panelMainContainer.Controls.Add(panelInventory);
-            panelMainContainer.Controls.Add(panelOrders);
-            panelMainContainer.Controls.Add(panelProfile);
-            panelMainContainer.Dock = DockStyle.Fill;
-            panelMainContainer.Location = new Point(220, 0);
-            panelMainContainer.Margin = new Padding(3, 4, 3, 4);
-            panelMainContainer.Name = "panelMainContainer";
-            panelMainContainer.Size = new Size(814, 812);
-            panelMainContainer.TabIndex = 0;
-            // 
-            // panelProductMgmt
-            // 
-            panelProductMgmt.BackColor = Color.White;
-            panelProductMgmt.Controls.Add(dgvProducts);
-            panelProductMgmt.Controls.Add(txtSearchProduct);
-            panelProductMgmt.Controls.Add(txtProdName);
-            panelProductMgmt.Controls.Add(txtProdDesc);
-            panelProductMgmt.Controls.Add(txtProdPrice);
-            panelProductMgmt.Controls.Add(txtProdStock);
-            panelProductMgmt.Controls.Add(txtProdCategory);
-            panelProductMgmt.Controls.Add(txtProdImagePath);
-            panelProductMgmt.Controls.Add(cmbProdStatus);
-            panelProductMgmt.Controls.Add(btnProdClear);
-            panelProductMgmt.Controls.Add(btnProdBrowseImage);
-            panelProductMgmt.Controls.Add(picProductPreview);
-            panelProductMgmt.Controls.Add(lblSearchLabel);
-            panelProductMgmt.Controls.Add(lblN);
-            panelProductMgmt.Controls.Add(lblD);
-            panelProductMgmt.Controls.Add(lblP);
-            panelProductMgmt.Controls.Add(lblS);
-            panelProductMgmt.Controls.Add(lblC);
-            panelProductMgmt.Controls.Add(lblI);
-            panelProductMgmt.Controls.Add(lblSt);
-            panelProductMgmt.Dock = DockStyle.Fill;
-            panelProductMgmt.Location = new Point(0, 0);
-            panelProductMgmt.Margin = new Padding(3, 4, 3, 4);
-            panelProductMgmt.Name = "panelProductMgmt";
-            panelProductMgmt.Size = new Size(814, 812);
-            panelProductMgmt.TabIndex = 2;
-            // 
-            // dgvProducts
-            // 
-            dgvProducts.AllowUserToAddRows = false;
-            dgvProducts.BackgroundColor = Color.White;
-            dgvProducts.ColumnHeadersHeight = 29;
-            dgvProducts.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6 });
-            dgvProducts.Location = new Point(20, 88);
-            dgvProducts.Margin = new Padding(3, 4, 3, 4);
-            dgvProducts.MultiSelect = false;
-            dgvProducts.Name = "dgvProducts";
-            dgvProducts.RowHeadersWidth = 51;
-            dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProducts.Size = new Size(460, 525);
-            dgvProducts.TabIndex = 0;
-            dgvProducts.CellClick += dgvProducts_CellClick;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            dataGridViewTextBoxColumn2.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            dataGridViewTextBoxColumn3.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            dataGridViewTextBoxColumn4.MinimumWidth = 6;
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            dataGridViewTextBoxColumn4.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            dataGridViewTextBoxColumn5.MinimumWidth = 6;
-            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            dataGridViewTextBoxColumn5.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            dataGridViewTextBoxColumn6.MinimumWidth = 6;
-            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            dataGridViewTextBoxColumn6.Width = 125;
-            // 
-            // txtSearchProduct
-            // 
-            txtSearchProduct.Location = new Point(20, 31);
-            txtSearchProduct.Margin = new Padding(3, 4, 3, 4);
-            txtSearchProduct.Name = "txtSearchProduct";
-            txtSearchProduct.Size = new Size(460, 27);
-            txtSearchProduct.TabIndex = 1;
-            txtSearchProduct.TextChanged += txtSearchProduct_TextChanged;
-            // 
-            // txtProdName
-            // 
-            txtProdName.Location = new Point(500, 88);
-            txtProdName.Margin = new Padding(3, 4, 3, 4);
-            txtProdName.Name = "txtProdName";
-            txtProdName.Size = new Size(280, 27);
-            txtProdName.TabIndex = 2;
-            // 
-            // txtProdDesc
-            // 
-            txtProdDesc.Location = new Point(500, 88);
-            txtProdDesc.Margin = new Padding(3, 4, 3, 4);
-            txtProdDesc.Name = "txtProdDesc";
-            txtProdDesc.Size = new Size(280, 27);
-            txtProdDesc.TabIndex = 3;
-            // 
-            // txtProdPrice
-            // 
-            txtProdPrice.Location = new Point(500, 88);
-            txtProdPrice.Margin = new Padding(3, 4, 3, 4);
-            txtProdPrice.Name = "txtProdPrice";
-            txtProdPrice.Size = new Size(130, 27);
-            txtProdPrice.TabIndex = 4;
-            // 
-            // txtProdStock
-            // 
-            txtProdStock.Location = new Point(500, 88);
-            txtProdStock.Margin = new Padding(3, 4, 3, 4);
-            txtProdStock.Name = "txtProdStock";
-            txtProdStock.Size = new Size(130, 27);
-            txtProdStock.TabIndex = 5;
-            // 
-            // txtProdCategory
-            // 
-            txtProdCategory.Location = new Point(500, 88);
-            txtProdCategory.Margin = new Padding(3, 4, 3, 4);
-            txtProdCategory.Name = "txtProdCategory";
-            txtProdCategory.Size = new Size(280, 27);
-            txtProdCategory.TabIndex = 6;
-            // 
-            // txtProdImagePath
-            // 
-            txtProdImagePath.Location = new Point(500, 88);
-            txtProdImagePath.Margin = new Padding(3, 4, 3, 4);
-            txtProdImagePath.Name = "txtProdImagePath";
-            txtProdImagePath.Size = new Size(190, 27);
-            txtProdImagePath.TabIndex = 7;
-            // 
-            // cmbProdStatus
-            // 
-            cmbProdStatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbProdStatus.Items.AddRange(new object[] { "Available", "Unavailable" });
-            cmbProdStatus.Location = new Point(500, 88);
-            cmbProdStatus.Margin = new Padding(3, 4, 3, 4);
-            cmbProdStatus.Name = "cmbProdStatus";
-            cmbProdStatus.Size = new Size(280, 28);
-            cmbProdStatus.TabIndex = 8;
-            // 
-            // btnProdClear
-            // 
-            btnProdClear.BackColor = Color.Gray;
-            btnProdClear.FlatStyle = FlatStyle.Flat;
-            btnProdClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnProdClear.ForeColor = Color.White;
-            btnProdClear.Location = new Point(415, 350);
-            btnProdClear.Margin = new Padding(3, 4, 3, 4);
-            btnProdClear.Name = "btnProdClear";
-            btnProdClear.Size = new Size(120, 44);
-            btnProdClear.TabIndex = 12;
-            btnProdClear.Text = "Clear Fields";
-            btnProdClear.UseVisualStyleBackColor = false;
-            btnProdClear.Click += btnProdClear_Click;
-            // 
-            // btnProdBrowseImage
-            // 
-            btnProdBrowseImage.Location = new Point(500, 88);
-            btnProdBrowseImage.Margin = new Padding(3, 4, 3, 4);
-            btnProdBrowseImage.Name = "btnProdBrowseImage";
-            btnProdBrowseImage.Size = new Size(80, 32);
-            btnProdBrowseImage.TabIndex = 13;
-            btnProdBrowseImage.Text = "Browse";
-            btnProdBrowseImage.Click += btnProdBrowseImage_Click;
-            // 
-            // picProductPreview
-            // 
-            picProductPreview.BorderStyle = BorderStyle.FixedSingle;
-            picProductPreview.Location = new Point(500, 425);
-            picProductPreview.Margin = new Padding(3, 4, 3, 4);
-            picProductPreview.Name = "picProductPreview";
-            picProductPreview.Size = new Size(280, 187);
-            picProductPreview.SizeMode = PictureBoxSizeMode.Zoom;
-            picProductPreview.TabIndex = 14;
-            picProductPreview.TabStop = false;
-            // 
-            // lblSearchLabel
-            // 
-            lblSearchLabel.Location = new Point(0, 0);
-            lblSearchLabel.Name = "lblSearchLabel";
-            lblSearchLabel.Size = new Size(100, 29);
-            lblSearchLabel.TabIndex = 15;
-            // 
-            // lblN
-            // 
-            lblN.Location = new Point(0, 0);
-            lblN.Name = "lblN";
-            lblN.Size = new Size(100, 29);
-            lblN.TabIndex = 16;
-            // 
-            // lblD
-            // 
-            lblD.Location = new Point(0, 0);
-            lblD.Name = "lblD";
-            lblD.Size = new Size(100, 29);
-            lblD.TabIndex = 17;
-            // 
-            // lblP
-            // 
-            lblP.Location = new Point(0, 0);
-            lblP.Name = "lblP";
-            lblP.Size = new Size(100, 29);
-            lblP.TabIndex = 18;
-            // 
-            // lblS
-            // 
-            lblS.Location = new Point(0, 0);
-            lblS.Name = "lblS";
-            lblS.Size = new Size(100, 29);
-            lblS.TabIndex = 19;
-            // 
-            // lblC
-            // 
-            lblC.Location = new Point(0, 0);
-            lblC.Name = "lblC";
-            lblC.Size = new Size(100, 29);
-            lblC.TabIndex = 20;
-            // 
-            // lblI
-            // 
-            lblI.Location = new Point(0, 0);
-            lblI.Name = "lblI";
-            lblI.Size = new Size(100, 29);
-            lblI.TabIndex = 21;
-            // 
-            // lblSt
-            // 
-            lblSt.Location = new Point(0, 0);
-            lblSt.Name = "lblSt";
-            lblSt.Size = new Size(100, 29);
-            lblSt.TabIndex = 22;
-            // 
-            // panelUserMgmt
-            // 
-            panelUserMgmt.BackColor = Color.White;
-            panelUserMgmt.Controls.Add(dgvUsers);
-            panelUserMgmt.Controls.Add(btnOpenAdd);
-            panelUserMgmt.Controls.Add(btnOpenEdit);
-            panelUserMgmt.Controls.Add(btnDeleteUser);
-            panelUserMgmt.Controls.Add(btnBanUser);
-            panelUserMgmt.Controls.Add(numBanHours);
-            panelUserMgmt.Controls.Add(lblBanHrs);
-            panelUserMgmt.Controls.Add(grpAddUser);
-            panelUserMgmt.Controls.Add(grpEditUser);
-            panelUserMgmt.Dock = DockStyle.Fill;
-            panelUserMgmt.Location = new Point(0, 0);
-            panelUserMgmt.Margin = new Padding(3, 4, 3, 4);
-            panelUserMgmt.Name = "panelUserMgmt";
-            panelUserMgmt.Size = new Size(814, 812);
-            panelUserMgmt.TabIndex = 1;
+            txtUserSearch.Location = new Point(72, 20);
+            txtUserSearch.Name = "txtUserSearch";
+            txtUserSearch.PlaceholderText = "Search Users...";
+            txtUserSearch.Size = new Size(300, 27);
+            txtUserSearch.TabIndex = 0;
+            txtUserSearch.TextChanged += txtUserSearch_TextChanged;
             // 
             // dgvUsers
             // 
             dgvUsers.AllowUserToAddRows = false;
-            dgvUsers.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn16, dataGridViewTextBoxColumn17, dataGridViewTextBoxColumn18, dataGridViewTextBoxColumn19 });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
-            dgvUsers.Location = new Point(25, 31);
-            dgvUsers.Margin = new Padding(3, 4, 3, 4);
-            dgvUsers.MultiSelect = false;
+            dgvUsers.BackgroundColor = Color.LightCyan;
+            dgvUsers.ColumnHeadersHeight = 29;
+            dgvUsers.GridColor = Color.DarkCyan;
+            dgvUsers.Location = new Point(72, 56);
             dgvUsers.Name = "dgvUsers";
             dgvUsers.RowHeadersWidth = 51;
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUsers.Size = new Size(760, 300);
-            dgvUsers.TabIndex = 0;
+            dgvUsers.Size = new Size(644, 437);
+            dgvUsers.TabIndex = 1;
+            dgvUsers.SelectionChanged += dgvUsers_SelectionChanged;
             // 
-            // dataGridViewTextBoxColumn16
+            // grpUserControls
             // 
-            dataGridViewTextBoxColumn16.HeaderText = "Username";
-            dataGridViewTextBoxColumn16.MinimumWidth = 6;
-            dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            dataGridViewTextBoxColumn16.Width = 125;
+            grpUserControls.BackColor = Color.Teal;
+            grpUserControls.Controls.Add(btnAddUser);
+            grpUserControls.Controls.Add(btnEditUser);
+            grpUserControls.Controls.Add(btnDeleteUser);
+            grpUserControls.Controls.Add(btnBanUser);
+            grpUserControls.Location = new Point(72, 446);
+            grpUserControls.Name = "grpUserControls";
+            grpUserControls.Size = new Size(644, 130);
+            grpUserControls.TabIndex = 2;
+            grpUserControls.TabStop = false;
+            grpUserControls.Text = "Manage User";
             // 
-            // dataGridViewTextBoxColumn17
+            // btnAddUser
             // 
-            dataGridViewTextBoxColumn17.HeaderText = "Role";
-            dataGridViewTextBoxColumn17.MinimumWidth = 6;
-            dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
-            dataGridViewTextBoxColumn17.Width = 125;
+            btnAddUser.BackColor = Color.DarkSlateGray;
+            btnAddUser.FlatStyle = FlatStyle.Flat;
+            btnAddUser.ForeColor = SystemColors.ButtonFace;
+            btnAddUser.Location = new Point(6, 80);
+            btnAddUser.Name = "btnAddUser";
+            btnAddUser.Size = new Size(142, 30);
+            btnAddUser.TabIndex = 4;
+            btnAddUser.Text = "Add";
+            btnAddUser.UseVisualStyleBackColor = false;
+            btnAddUser.Click += btnAddUser_Click;
             // 
-            // dataGridViewTextBoxColumn18
+            // btnEditUser
             // 
-            dataGridViewTextBoxColumn18.HeaderText = "Full Name";
-            dataGridViewTextBoxColumn18.MinimumWidth = 6;
-            dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
-            dataGridViewTextBoxColumn18.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn19
-            // 
-            dataGridViewTextBoxColumn19.HeaderText = "Status";
-            dataGridViewTextBoxColumn19.MinimumWidth = 6;
-            dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
-            dataGridViewTextBoxColumn19.Width = 125;
-            // 
-            // btnOpenAdd
-            // 
-            btnOpenAdd.BackColor = Color.FromArgb(0, 128, 128);
-            btnOpenAdd.FlatStyle = FlatStyle.Flat;
-            btnOpenAdd.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnOpenAdd.ForeColor = Color.White;
-            btnOpenAdd.Location = new Point(25, 350);
-            btnOpenAdd.Margin = new Padding(3, 4, 3, 4);
-            btnOpenAdd.Name = "btnOpenAdd";
-            btnOpenAdd.Size = new Size(120, 44);
-            btnOpenAdd.TabIndex = 1;
-            btnOpenAdd.Text = "Add User";
-            btnOpenAdd.UseVisualStyleBackColor = false;
-            btnOpenAdd.Click += btnOpenAdd_Click;
-            // 
-            // btnOpenEdit
-            // 
-            btnOpenEdit.BackColor = Color.FromArgb(0, 128, 128);
-            btnOpenEdit.FlatStyle = FlatStyle.Flat;
-            btnOpenEdit.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnOpenEdit.ForeColor = Color.White;
-            btnOpenEdit.Location = new Point(155, 350);
-            btnOpenEdit.Margin = new Padding(3, 4, 3, 4);
-            btnOpenEdit.Name = "btnOpenEdit";
-            btnOpenEdit.Size = new Size(120, 44);
-            btnOpenEdit.TabIndex = 2;
-            btnOpenEdit.Text = "Edit User";
-            btnOpenEdit.UseVisualStyleBackColor = false;
-            btnOpenEdit.Click += btnOpenEdit_Click;
+            btnEditUser.BackColor = Color.DarkSlateGray;
+            btnEditUser.FlatStyle = FlatStyle.Flat;
+            btnEditUser.ForeColor = SystemColors.ButtonFace;
+            btnEditUser.Location = new Point(161, 80);
+            btnEditUser.Name = "btnEditUser";
+            btnEditUser.Size = new Size(139, 30);
+            btnEditUser.TabIndex = 5;
+            btnEditUser.Text = "Edit";
+            btnEditUser.UseVisualStyleBackColor = false;
+            btnEditUser.Click += btnEditUser_Click;
             // 
             // btnDeleteUser
             // 
-            btnDeleteUser.BackColor = Color.Firebrick;
+            btnDeleteUser.BackColor = Color.DarkSlateGray;
             btnDeleteUser.FlatStyle = FlatStyle.Flat;
-            btnDeleteUser.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnDeleteUser.ForeColor = Color.White;
-            btnDeleteUser.Location = new Point(285, 350);
-            btnDeleteUser.Margin = new Padding(3, 4, 3, 4);
+            btnDeleteUser.ForeColor = SystemColors.ButtonFace;
+            btnDeleteUser.Location = new Point(306, 80);
             btnDeleteUser.Name = "btnDeleteUser";
-            btnDeleteUser.Size = new Size(120, 44);
-            btnDeleteUser.TabIndex = 3;
-            btnDeleteUser.Text = "Delete User";
+            btnDeleteUser.Size = new Size(142, 30);
+            btnDeleteUser.TabIndex = 6;
+            btnDeleteUser.Text = "Delete";
             btnDeleteUser.UseVisualStyleBackColor = false;
             btnDeleteUser.Click += btnDeleteUser_Click;
             // 
             // btnBanUser
             // 
-            btnBanUser.BackColor = Color.FromArgb(0, 128, 128);
+            btnBanUser.BackColor = Color.DarkSlateGray;
             btnBanUser.FlatStyle = FlatStyle.Flat;
-            btnBanUser.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnBanUser.ForeColor = Color.White;
-            btnBanUser.Location = new Point(665, 350);
-            btnBanUser.Margin = new Padding(3, 4, 3, 4);
+            btnBanUser.ForeColor = SystemColors.ButtonFace;
+            btnBanUser.Location = new Point(487, 80);
             btnBanUser.Name = "btnBanUser";
-            btnBanUser.Size = new Size(120, 44);
-            btnBanUser.TabIndex = 4;
-            btnBanUser.Text = "Apply Ban";
+            btnBanUser.Size = new Size(142, 30);
+            btnBanUser.TabIndex = 7;
+            btnBanUser.Text = "Ban (24 hrs)";
             btnBanUser.UseVisualStyleBackColor = false;
             btnBanUser.Click += btnBanUser_Click;
             // 
-            // numBanHours
+            // pnlInventory
             // 
-            numBanHours.Location = new Point(585, 356);
-            numBanHours.Margin = new Padding(3, 4, 3, 4);
-            numBanHours.Maximum = new decimal(new int[] { 8760, 0, 0, 0 });
-            numBanHours.Name = "numBanHours";
-            numBanHours.Size = new Size(70, 27);
-            numBanHours.TabIndex = 5;
-            numBanHours.Value = new decimal(new int[] { 24, 0, 0, 0 });
+            pnlInventory.Controls.Add(panel4);
+            pnlInventory.Dock = DockStyle.Fill;
+            pnlInventory.Location = new Point(0, 0);
+            pnlInventory.Name = "pnlInventory";
+            pnlInventory.Size = new Size(780, 600);
+            pnlInventory.TabIndex = 2;
             // 
-            // lblBanHrs
+            // panel4
             // 
-            lblBanHrs.Location = new Point(545, 362);
-            lblBanHrs.Name = "lblBanHrs";
-            lblBanHrs.Size = new Size(35, 25);
-            lblBanHrs.TabIndex = 6;
-            lblBanHrs.Text = "Hrs:";
+            panel4.BackColor = Color.DarkCyan;
+            panel4.Controls.Add(txtProdSearch);
+            panel4.Controls.Add(dgvInventory);
+            panel4.Controls.Add(grpInvControls);
+            panel4.Location = new Point(-4, 0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(792, 608);
+            panel4.TabIndex = 3;
             // 
-            // grpAddUser
+            // txtProdSearch
             // 
-            grpAddUser.Controls.Add(lblAddU);
-            grpAddUser.Controls.Add(lblAddP);
-            grpAddUser.Controls.Add(lblAddF);
-            grpAddUser.Controls.Add(txtAddUsername);
-            grpAddUser.Controls.Add(txtAddPassword);
-            grpAddUser.Controls.Add(txtAddFullName);
-            grpAddUser.Controls.Add(cmbAddRole);
-            grpAddUser.Controls.Add(btnConfirmAdd);
-            grpAddUser.Controls.Add(btnCancelAdd);
-            grpAddUser.Location = new Point(25, 412);
-            grpAddUser.Margin = new Padding(3, 4, 3, 4);
-            grpAddUser.Name = "grpAddUser";
-            grpAddUser.Padding = new Padding(3, 4, 3, 4);
-            grpAddUser.Size = new Size(360, 362);
-            grpAddUser.TabIndex = 7;
-            grpAddUser.TabStop = false;
-            grpAddUser.Text = "Create System User";
-            // 
-            // lblAddU
-            // 
-            lblAddU.Location = new Point(20, 31);
-            lblAddU.Name = "lblAddU";
-            lblAddU.Size = new Size(100, 29);
-            lblAddU.TabIndex = 0;
-            lblAddU.Text = "Username:";
-            // 
-            // lblAddP
-            // 
-            lblAddP.Location = new Point(20, 94);
-            lblAddP.Name = "lblAddP";
-            lblAddP.Size = new Size(100, 29);
-            lblAddP.TabIndex = 1;
-            lblAddP.Text = "Password:";
-            // 
-            // lblAddF
-            // 
-            lblAddF.Location = new Point(20, 156);
-            lblAddF.Name = "lblAddF";
-            lblAddF.Size = new Size(100, 29);
-            lblAddF.TabIndex = 2;
-            lblAddF.Text = "Full Name:";
-            // 
-            // txtAddUsername
-            // 
-            txtAddUsername.Location = new Point(20, 56);
-            txtAddUsername.Margin = new Padding(3, 4, 3, 4);
-            txtAddUsername.Name = "txtAddUsername";
-            txtAddUsername.Size = new Size(310, 27);
-            txtAddUsername.TabIndex = 3;
-            // 
-            // txtAddPassword
-            // 
-            txtAddPassword.Location = new Point(20, 119);
-            txtAddPassword.Margin = new Padding(3, 4, 3, 4);
-            txtAddPassword.Name = "txtAddPassword";
-            txtAddPassword.Size = new Size(310, 27);
-            txtAddPassword.TabIndex = 4;
-            // 
-            // txtAddFullName
-            // 
-            txtAddFullName.Location = new Point(20, 181);
-            txtAddFullName.Margin = new Padding(3, 4, 3, 4);
-            txtAddFullName.Name = "txtAddFullName";
-            txtAddFullName.Size = new Size(310, 27);
-            txtAddFullName.TabIndex = 5;
-            // 
-            // cmbAddRole
-            // 
-            cmbAddRole.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbAddRole.Location = new Point(20, 231);
-            cmbAddRole.Margin = new Padding(3, 4, 3, 4);
-            cmbAddRole.Name = "cmbAddRole";
-            cmbAddRole.Size = new Size(310, 28);
-            cmbAddRole.TabIndex = 6;
-            // 
-            // btnConfirmAdd
-            // 
-            btnConfirmAdd.BackColor = Color.FromArgb(0, 128, 128);
-            btnConfirmAdd.FlatStyle = FlatStyle.Flat;
-            btnConfirmAdd.ForeColor = Color.White;
-            btnConfirmAdd.Location = new Point(20, 288);
-            btnConfirmAdd.Margin = new Padding(3, 4, 3, 4);
-            btnConfirmAdd.Name = "btnConfirmAdd";
-            btnConfirmAdd.Size = new Size(140, 44);
-            btnConfirmAdd.TabIndex = 7;
-            btnConfirmAdd.Text = "Save User";
-            btnConfirmAdd.UseVisualStyleBackColor = false;
-            btnConfirmAdd.Click += btnConfirmAdd_Click_1;
-            // 
-            // btnCancelAdd
-            // 
-            btnCancelAdd.FlatStyle = FlatStyle.Flat;
-            btnCancelAdd.Location = new Point(190, 288);
-            btnCancelAdd.Margin = new Padding(3, 4, 3, 4);
-            btnCancelAdd.Name = "btnCancelAdd";
-            btnCancelAdd.Size = new Size(140, 44);
-            btnCancelAdd.TabIndex = 8;
-            btnCancelAdd.Text = "Cancel";
-            // 
-            // grpEditUser
-            // 
-            grpEditUser.Controls.Add(lblEditU);
-            grpEditUser.Controls.Add(lblEditP);
-            grpEditUser.Controls.Add(lblEditR);
-            grpEditUser.Controls.Add(lblEditS);
-            grpEditUser.Controls.Add(txtEditUsername);
-            grpEditUser.Controls.Add(txtEditPassword);
-            grpEditUser.Controls.Add(cmbEditRole);
-            grpEditUser.Controls.Add(cmbEditStatus);
-            grpEditUser.Controls.Add(btnConfirmEdit);
-            grpEditUser.Controls.Add(btnCancelEdit);
-            grpEditUser.Location = new Point(425, 412);
-            grpEditUser.Margin = new Padding(3, 4, 3, 4);
-            grpEditUser.Name = "grpEditUser";
-            grpEditUser.Padding = new Padding(3, 4, 3, 4);
-            grpEditUser.Size = new Size(360, 362);
-            grpEditUser.TabIndex = 8;
-            grpEditUser.TabStop = false;
-            grpEditUser.Text = "Modify User Account";
-            // 
-            // lblEditU
-            // 
-            lblEditU.Location = new Point(20, 31);
-            lblEditU.Name = "lblEditU";
-            lblEditU.Size = new Size(100, 29);
-            lblEditU.TabIndex = 0;
-            lblEditU.Text = "Username:";
-            // 
-            // lblEditP
-            // 
-            lblEditP.Location = new Point(20, 94);
-            lblEditP.Name = "lblEditP";
-            lblEditP.Size = new Size(100, 29);
-            lblEditP.TabIndex = 1;
-            lblEditP.Text = "Password:";
-            // 
-            // lblEditR
-            // 
-            lblEditR.Location = new Point(20, 156);
-            lblEditR.Name = "lblEditR";
-            lblEditR.Size = new Size(100, 29);
-            lblEditR.TabIndex = 2;
-            lblEditR.Text = "Role:";
-            // 
-            // lblEditS
-            // 
-            lblEditS.Location = new Point(20, 219);
-            lblEditS.Name = "lblEditS";
-            lblEditS.Size = new Size(100, 29);
-            lblEditS.TabIndex = 3;
-            lblEditS.Text = "Status:";
-            // 
-            // txtEditUsername
-            // 
-            txtEditUsername.Location = new Point(20, 56);
-            txtEditUsername.Margin = new Padding(3, 4, 3, 4);
-            txtEditUsername.Name = "txtEditUsername";
-            txtEditUsername.Size = new Size(310, 27);
-            txtEditUsername.TabIndex = 4;
-            // 
-            // txtEditPassword
-            // 
-            txtEditPassword.Location = new Point(20, 119);
-            txtEditPassword.Margin = new Padding(3, 4, 3, 4);
-            txtEditPassword.Name = "txtEditPassword";
-            txtEditPassword.Size = new Size(310, 27);
-            txtEditPassword.TabIndex = 5;
-            // 
-            // cmbEditRole
-            // 
-            cmbEditRole.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbEditRole.Location = new Point(20, 181);
-            cmbEditRole.Margin = new Padding(3, 4, 3, 4);
-            cmbEditRole.Name = "cmbEditRole";
-            cmbEditRole.Size = new Size(310, 28);
-            cmbEditRole.TabIndex = 6;
-            // 
-            // cmbEditStatus
-            // 
-            cmbEditStatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbEditStatus.Location = new Point(20, 244);
-            cmbEditStatus.Margin = new Padding(3, 4, 3, 4);
-            cmbEditStatus.Name = "cmbEditStatus";
-            cmbEditStatus.Size = new Size(310, 28);
-            cmbEditStatus.TabIndex = 7;
-            // 
-            // btnConfirmEdit
-            // 
-            btnConfirmEdit.BackColor = Color.FromArgb(0, 128, 128);
-            btnConfirmEdit.FlatStyle = FlatStyle.Flat;
-            btnConfirmEdit.ForeColor = Color.White;
-            btnConfirmEdit.Location = new Point(20, 294);
-            btnConfirmEdit.Margin = new Padding(3, 4, 3, 4);
-            btnConfirmEdit.Name = "btnConfirmEdit";
-            btnConfirmEdit.Size = new Size(140, 44);
-            btnConfirmEdit.TabIndex = 8;
-            btnConfirmEdit.Text = "Update Account";
-            btnConfirmEdit.UseVisualStyleBackColor = false;
-            // 
-            // btnCancelEdit
-            // 
-            btnCancelEdit.FlatStyle = FlatStyle.Flat;
-            btnCancelEdit.Location = new Point(190, 294);
-            btnCancelEdit.Margin = new Padding(3, 4, 3, 4);
-            btnCancelEdit.Name = "btnCancelEdit";
-            btnCancelEdit.Size = new Size(140, 44);
-            btnCancelEdit.TabIndex = 9;
-            btnCancelEdit.Text = "Cancel";
-            // 
-            // panelDashboard
-            // 
-            panelDashboard.BackColor = Color.White;
-            panelDashboard.Controls.Add(lblAdminName);
-            panelDashboard.Controls.Add(pnlStat1);
-            panelDashboard.Dock = DockStyle.Fill;
-            panelDashboard.Location = new Point(0, 0);
-            panelDashboard.Margin = new Padding(3, 4, 3, 4);
-            panelDashboard.Name = "panelDashboard";
-            panelDashboard.Size = new Size(814, 812);
-            panelDashboard.TabIndex = 0;
-            // 
-            // lblAdminName
-            // 
-            lblAdminName.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            lblAdminName.ForeColor = Color.FromArgb(47, 79, 79);
-            lblAdminName.Location = new Point(30, 38);
-            lblAdminName.Name = "lblAdminName";
-            lblAdminName.Size = new Size(500, 50);
-            lblAdminName.TabIndex = 0;
-            // 
-            // pnlStat1
-            // 
-            pnlStat1.BackColor = Color.FromArgb(0, 128, 128);
-            pnlStat1.Controls.Add(lblTotalUsersTitle);
-            pnlStat1.Controls.Add(lblTotalUsersVal);
-            pnlStat1.Location = new Point(35, 138);
-            pnlStat1.Margin = new Padding(3, 4, 3, 4);
-            pnlStat1.Name = "pnlStat1";
-            pnlStat1.Size = new Size(220, 150);
-            pnlStat1.TabIndex = 1;
-            // 
-            // lblTotalUsersTitle
-            // 
-            lblTotalUsersTitle.Font = new Font("Segoe UI", 11F);
-            lblTotalUsersTitle.ForeColor = Color.White;
-            lblTotalUsersTitle.Location = new Point(10, 19);
-            lblTotalUsersTitle.Name = "lblTotalUsersTitle";
-            lblTotalUsersTitle.Size = new Size(200, 31);
-            lblTotalUsersTitle.TabIndex = 0;
-            lblTotalUsersTitle.Text = "Total Registered Users";
-            // 
-            // lblTotalUsersVal
-            // 
-            lblTotalUsersVal.Font = new Font("Segoe UI", 26F, FontStyle.Bold);
-            lblTotalUsersVal.ForeColor = Color.White;
-            lblTotalUsersVal.Location = new Point(10, 62);
-            lblTotalUsersVal.Name = "lblTotalUsersVal";
-            lblTotalUsersVal.Size = new Size(200, 62);
-            lblTotalUsersVal.TabIndex = 1;
-            lblTotalUsersVal.Text = "0";
-            // 
-            // panelInventory
-            // 
-            panelInventory.BackColor = Color.White;
-            panelInventory.Controls.Add(dgvInventory);
-            panelInventory.Controls.Add(numInventoryStock);
-            panelInventory.Controls.Add(cmbInventoryStatus);
-            panelInventory.Controls.Add(btnUpdateInventory);
-            panelInventory.Controls.Add(btnProdAdd);
-            panelInventory.Controls.Add(btnProdUpdate);
-            panelInventory.Controls.Add(btnProdDelete);
-            panelInventory.Controls.Add(lblInvSelectedName);
-            panelInventory.Controls.Add(picInventoryPreview);
-            panelInventory.Controls.Add(lblInvStockLabel);
-            panelInventory.Controls.Add(lblInvAvLabel);
-            panelInventory.Dock = DockStyle.Fill;
-            panelInventory.Location = new Point(0, 0);
-            panelInventory.Margin = new Padding(3, 4, 3, 4);
-            panelInventory.Name = "panelInventory";
-            panelInventory.Size = new Size(814, 812);
-            panelInventory.TabIndex = 3;
+            txtProdSearch.Location = new Point(16, 17);
+            txtProdSearch.Name = "txtProdSearch";
+            txtProdSearch.PlaceholderText = "Search Products...";
+            txtProdSearch.Size = new Size(300, 27);
+            txtProdSearch.TabIndex = 0;
+            txtProdSearch.TextChanged += txtProdSearch_TextChanged;
             // 
             // dgvInventory
             // 
             dgvInventory.AllowUserToAddRows = false;
-            dgvInventory.BackgroundColor = Color.White;
+            dgvInventory.BackgroundColor = Color.MintCream;
             dgvInventory.ColumnHeadersHeight = 29;
-            dgvInventory.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10, dataGridViewTextBoxColumn11 });
-            dgvInventory.Location = new Point(25, 31);
-            dgvInventory.Margin = new Padding(3, 4, 3, 4);
+            dgvInventory.GridColor = Color.LightSeaGreen;
+            dgvInventory.Location = new Point(107, 53);
             dgvInventory.Name = "dgvInventory";
             dgvInventory.RowHeadersWidth = 51;
             dgvInventory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvInventory.Size = new Size(480, 625);
-            dgvInventory.TabIndex = 0;
-            dgvInventory.CellClick += dgvInventory_CellClick;
+            dgvInventory.Size = new Size(565, 460);
+            dgvInventory.TabIndex = 1;
+            dgvInventory.RowPrePaint += dgvInventory_RowPrePaint;
+            dgvInventory.SelectionChanged += dgvInventory_SelectionChanged;
             // 
-            // dataGridViewTextBoxColumn7
+            // grpInvControls
             // 
-            dataGridViewTextBoxColumn7.MinimumWidth = 6;
-            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            dataGridViewTextBoxColumn7.Width = 125;
+            grpInvControls.BackColor = Color.LightSeaGreen;
+            grpInvControls.Controls.Add(btnAddProduct);
+            grpInvControls.Controls.Add(btnEditProduct);
+            grpInvControls.Controls.Add(btnDeleteProduct);
+            grpInvControls.Location = new Point(107, 455);
+            grpInvControls.Name = "grpInvControls";
+            grpInvControls.Size = new Size(565, 130);
+            grpInvControls.TabIndex = 2;
+            grpInvControls.TabStop = false;
+            grpInvControls.Text = "Manage Product";
+            grpInvControls.Enter += grpInvControls_Enter;
             // 
-            // dataGridViewTextBoxColumn8
+            // btnAddProduct
             // 
-            dataGridViewTextBoxColumn8.MinimumWidth = 6;
-            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            dataGridViewTextBoxColumn8.Width = 125;
+            btnAddProduct.BackColor = Color.DarkSlateGray;
+            btnAddProduct.FlatStyle = FlatStyle.Flat;
+            btnAddProduct.ForeColor = SystemColors.ButtonHighlight;
+            btnAddProduct.Location = new Point(6, 88);
+            btnAddProduct.Name = "btnAddProduct";
+            btnAddProduct.Size = new Size(166, 30);
+            btnAddProduct.TabIndex = 4;
+            btnAddProduct.Text = "Add";
+            btnAddProduct.UseVisualStyleBackColor = false;
+            btnAddProduct.Click += btnAddProduct_Click;
             // 
-            // dataGridViewTextBoxColumn9
+            // btnEditProduct
             // 
-            dataGridViewTextBoxColumn9.MinimumWidth = 6;
-            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            dataGridViewTextBoxColumn9.Width = 125;
+            btnEditProduct.BackColor = Color.DarkSlateGray;
+            btnEditProduct.FlatStyle = FlatStyle.Flat;
+            btnEditProduct.ForeColor = SystemColors.ButtonHighlight;
+            btnEditProduct.Location = new Point(195, 88);
+            btnEditProduct.Name = "btnEditProduct";
+            btnEditProduct.Size = new Size(166, 30);
+            btnEditProduct.TabIndex = 5;
+            btnEditProduct.Text = "Edit";
+            btnEditProduct.UseVisualStyleBackColor = false;
+            btnEditProduct.Click += btnEditProduct_Click;
             // 
-            // dataGridViewTextBoxColumn10
+            // btnDeleteProduct
             // 
-            dataGridViewTextBoxColumn10.MinimumWidth = 6;
-            dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            dataGridViewTextBoxColumn10.Width = 125;
+            btnDeleteProduct.BackColor = Color.DarkSlateGray;
+            btnDeleteProduct.FlatStyle = FlatStyle.Flat;
+            btnDeleteProduct.ForeColor = SystemColors.ButtonHighlight;
+            btnDeleteProduct.Location = new Point(386, 88);
+            btnDeleteProduct.Name = "btnDeleteProduct";
+            btnDeleteProduct.Size = new Size(166, 30);
+            btnDeleteProduct.TabIndex = 6;
+            btnDeleteProduct.Text = "Delete";
+            btnDeleteProduct.UseVisualStyleBackColor = false;
+            btnDeleteProduct.Click += btnDeleteProduct_Click;
             // 
-            // dataGridViewTextBoxColumn11
+            // pnlDashboard
             // 
-            dataGridViewTextBoxColumn11.MinimumWidth = 6;
-            dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            dataGridViewTextBoxColumn11.Width = 125;
+            pnlDashboard.BackColor = SystemColors.ButtonHighlight;
+            pnlDashboard.Controls.Add(label1);
+            pnlDashboard.Controls.Add(panel3);
+            pnlDashboard.Controls.Add(pictureBox1);
+            pnlDashboard.Controls.Add(lblDashTitle);
+            pnlDashboard.Controls.Add(lblTotalUsers);
+            pnlDashboard.Controls.Add(lblTotalProducts);
+            pnlDashboard.Controls.Add(lblTotalOrders);
+            pnlDashboard.Dock = DockStyle.Fill;
+            pnlDashboard.Location = new Point(0, 0);
+            pnlDashboard.Name = "pnlDashboard";
+            pnlDashboard.Size = new Size(780, 600);
+            pnlDashboard.TabIndex = 0;
             // 
-            // numInventoryStock
+            // label1
             // 
-            numInventoryStock.Location = new Point(530, 106);
-            numInventoryStock.Margin = new Padding(3, 4, 3, 4);
-            numInventoryStock.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
-            numInventoryStock.Name = "numInventoryStock";
-            numInventoryStock.Size = new Size(250, 27);
-            numInventoryStock.TabIndex = 1;
+            label1.BackColor = Color.LightSeaGreen;
+            label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Location = new Point(20, 167);
+            label1.Name = "label1";
+            label1.Size = new Size(124, 32);
+            label1.TabIndex = 6;
+            label1.Text = "Reports:";
+            label1.Click += label1_Click;
             // 
-            // cmbInventoryStatus
+            // panel3
             // 
-            cmbInventoryStatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbInventoryStatus.Items.AddRange(new object[] { "Available", "Unavailable" });
-            cmbInventoryStatus.Location = new Point(530, 181);
-            cmbInventoryStatus.Margin = new Padding(3, 4, 3, 4);
-            cmbInventoryStatus.Name = "cmbInventoryStatus";
-            cmbInventoryStatus.Size = new Size(250, 28);
-            cmbInventoryStatus.TabIndex = 2;
+            panel3.BackColor = Color.CadetBlue;
+            panel3.Location = new Point(0, 521);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(785, 80);
+            panel3.TabIndex = 5;
             // 
-            // btnUpdateInventory
+            // pictureBox1
             // 
-            btnUpdateInventory.BackColor = Color.FromArgb(0, 128, 128);
-            btnUpdateInventory.FlatStyle = FlatStyle.Flat;
-            btnUpdateInventory.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnUpdateInventory.ForeColor = Color.White;
-            btnUpdateInventory.Location = new Point(530, 445);
-            btnUpdateInventory.Margin = new Padding(3, 4, 3, 4);
-            btnUpdateInventory.Name = "btnUpdateInventory";
-            btnUpdateInventory.Size = new Size(250, 45);
-            btnUpdateInventory.TabIndex = 3;
-            btnUpdateInventory.Text = "Save Records";
-            btnUpdateInventory.UseVisualStyleBackColor = false;
-            btnUpdateInventory.Click += btnUpdateInventory_Click;
+            pictureBox1.Image = Properties.Resources.Watsons_logotype2;
+            pictureBox1.Location = new Point(200, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(385, 61);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 4;
+            pictureBox1.TabStop = false;
             // 
-            // btnProdAdd
+            // lblDashTitle
             // 
-            btnProdAdd.BackColor = Color.FromArgb(0, 128, 128);
-            btnProdAdd.FlatStyle = FlatStyle.Flat;
-            btnProdAdd.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnProdAdd.ForeColor = Color.White;
-            btnProdAdd.Location = new Point(530, 500);
-            btnProdAdd.Margin = new Padding(3, 4, 3, 4);
-            btnProdAdd.Name = "btnProdAdd";
-            btnProdAdd.Size = new Size(250, 45);
-            btnProdAdd.TabIndex = 8;
-            btnProdAdd.Text = "Add Product";
-            btnProdAdd.UseVisualStyleBackColor = false;
-            btnProdAdd.Click += btnProdAdd_Click;
+            lblDashTitle.BackColor = Color.LightSeaGreen;
+            lblDashTitle.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            lblDashTitle.ForeColor = SystemColors.ButtonHighlight;
+            lblDashTitle.Location = new Point(247, 90);
+            lblDashTitle.Name = "lblDashTitle";
+            lblDashTitle.Size = new Size(283, 40);
+            lblDashTitle.TabIndex = 0;
+            lblDashTitle.Text = "Welcome Admin";
+            lblDashTitle.TextAlign = ContentAlignment.MiddleCenter;
+            lblDashTitle.Click += lblDashTitle_Click;
             // 
-            // btnProdUpdate
+            // lblTotalUsers
             // 
-            btnProdUpdate.BackColor = Color.FromArgb(0, 128, 128);
-            btnProdUpdate.FlatStyle = FlatStyle.Flat;
-            btnProdUpdate.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnProdUpdate.ForeColor = Color.White;
-            btnProdUpdate.Location = new Point(530, 555);
-            btnProdUpdate.Margin = new Padding(3, 4, 3, 4);
-            btnProdUpdate.Name = "btnProdUpdate";
-            btnProdUpdate.Size = new Size(250, 45);
-            btnProdUpdate.TabIndex = 9;
-            btnProdUpdate.Text = "Edit Product";
-            btnProdUpdate.UseVisualStyleBackColor = false;
-            btnProdUpdate.Click += btnProdUpdate_Click;
+            lblTotalUsers.BackColor = Color.Teal;
+            lblTotalUsers.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTotalUsers.ForeColor = Color.White;
+            lblTotalUsers.Location = new Point(18, 216);
+            lblTotalUsers.Name = "lblTotalUsers";
+            lblTotalUsers.Size = new Size(246, 155);
+            lblTotalUsers.TabIndex = 1;
+            lblTotalUsers.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // btnProdDelete
+            // lblTotalProducts
             // 
-            btnProdDelete.BackColor = Color.Firebrick;
-            btnProdDelete.FlatStyle = FlatStyle.Flat;
-            btnProdDelete.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnProdDelete.ForeColor = Color.White;
-            btnProdDelete.Location = new Point(530, 610);
-            btnProdDelete.Margin = new Padding(3, 4, 3, 4);
-            btnProdDelete.Name = "btnProdDelete";
-            btnProdDelete.Size = new Size(250, 45);
-            btnProdDelete.TabIndex = 10;
-            btnProdDelete.Text = "Delete Product";
-            btnProdDelete.UseVisualStyleBackColor = false;
-            btnProdDelete.Click += btnProdDelete_Click;
+            lblTotalProducts.BackColor = Color.Teal;
+            lblTotalProducts.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTotalProducts.ForeColor = Color.White;
+            lblTotalProducts.Location = new Point(270, 216);
+            lblTotalProducts.Name = "lblTotalProducts";
+            lblTotalProducts.Size = new Size(250, 155);
+            lblTotalProducts.TabIndex = 2;
+            lblTotalProducts.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblInvSelectedName
+            // lblTotalOrders
             // 
-            lblInvSelectedName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblInvSelectedName.Location = new Point(530, 31);
-            lblInvSelectedName.Name = "lblInvSelectedName";
-            lblInvSelectedName.Size = new Size(260, 31);
-            lblInvSelectedName.TabIndex = 4;
-            lblInvSelectedName.Text = "Selected Item: None";
+            lblTotalOrders.BackColor = Color.Teal;
+            lblTotalOrders.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTotalOrders.ForeColor = Color.White;
+            lblTotalOrders.Location = new Point(526, 216);
+            lblTotalOrders.Name = "lblTotalOrders";
+            lblTotalOrders.Size = new Size(250, 155);
+            lblTotalOrders.TabIndex = 3;
+            lblTotalOrders.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // picInventoryPreview
+            // pnlOrders
             // 
-            picInventoryPreview.BorderStyle = BorderStyle.FixedSingle;
-            picInventoryPreview.Location = new Point(530, 238);
-            picInventoryPreview.Margin = new Padding(3, 4, 3, 4);
-            picInventoryPreview.Name = "picInventoryPreview";
-            picInventoryPreview.Size = new Size(250, 187);
-            picInventoryPreview.SizeMode = PictureBoxSizeMode.Zoom;
-            picInventoryPreview.TabIndex = 5;
-            picInventoryPreview.TabStop = false;
-            // 
-            // lblInvStockLabel
-            // 
-            lblInvStockLabel.Location = new Point(530, 78);
-            lblInvStockLabel.Name = "lblInvStockLabel";
-            lblInvStockLabel.Size = new Size(120, 25);
-            lblInvStockLabel.TabIndex = 6;
-            lblInvStockLabel.Text = "Stock Level:";
-            // 
-            // lblInvAvLabel
-            // 
-            lblInvAvLabel.Location = new Point(530, 153);
-            lblInvAvLabel.Name = "lblInvAvLabel";
-            lblInvAvLabel.Size = new Size(120, 25);
-            lblInvAvLabel.TabIndex = 7;
-            lblInvAvLabel.Text = "Status:";
-            // 
-            // panelOrders
-            // 
-            panelOrders.BackColor = Color.White;
-            panelOrders.Controls.Add(dgvOrders);
-            panelOrders.Controls.Add(lstOrderItemsView);
-            panelOrders.Controls.Add(cmbOrderStatus);
-            panelOrders.Controls.Add(btnUpdateOrderStatus);
-            panelOrders.Controls.Add(lblOrderSelectedTrack);
-            panelOrders.Controls.Add(lblLineItems);
-            panelOrders.Controls.Add(lblStatusTransition);
-            panelOrders.Dock = DockStyle.Fill;
-            panelOrders.Location = new Point(0, 0);
-            panelOrders.Margin = new Padding(3, 4, 3, 4);
-            panelOrders.Name = "panelOrders";
-            panelOrders.Size = new Size(814, 812);
-            panelOrders.TabIndex = 4;
+            pnlOrders.Controls.Add(dgvOrders);
+            pnlOrders.Controls.Add(txtOrderDetails);
+            pnlOrders.Controls.Add(grpOrderControls);
+            pnlOrders.Dock = DockStyle.Fill;
+            pnlOrders.Location = new Point(0, 0);
+            pnlOrders.Name = "pnlOrders";
+            pnlOrders.Size = new Size(780, 600);
+            pnlOrders.TabIndex = 3;
             // 
             // dgvOrders
             // 
             dgvOrders.AllowUserToAddRows = false;
             dgvOrders.BackgroundColor = Color.White;
             dgvOrders.ColumnHeadersHeight = 29;
-            dgvOrders.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn12, dataGridViewTextBoxColumn13, dataGridViewTextBoxColumn14, dataGridViewTextBoxColumn15 });
-            dgvOrders.Location = new Point(25, 31);
-            dgvOrders.Margin = new Padding(3, 4, 3, 4);
+            dgvOrders.Location = new Point(20, 20);
             dgvOrders.Name = "dgvOrders";
             dgvOrders.RowHeadersWidth = 51;
             dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvOrders.Size = new Size(460, 625);
+            dgvOrders.Size = new Size(500, 250);
             dgvOrders.TabIndex = 0;
-            dgvOrders.CellClick += dgvOrders_CellClick;
+            dgvOrders.SelectionChanged += dgvOrders_SelectionChanged;
             // 
-            // dataGridViewTextBoxColumn12
+            // txtOrderDetails
             // 
-            dataGridViewTextBoxColumn12.MinimumWidth = 6;
-            dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            dataGridViewTextBoxColumn12.Width = 125;
+            txtOrderDetails.Location = new Point(540, 20);
+            txtOrderDetails.Multiline = true;
+            txtOrderDetails.Name = "txtOrderDetails";
+            txtOrderDetails.ReadOnly = true;
+            txtOrderDetails.ScrollBars = ScrollBars.Vertical;
+            txtOrderDetails.Size = new Size(230, 250);
+            txtOrderDetails.TabIndex = 1;
             // 
-            // dataGridViewTextBoxColumn13
+            // grpOrderControls
             // 
-            dataGridViewTextBoxColumn13.MinimumWidth = 6;
-            dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            dataGridViewTextBoxColumn13.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            dataGridViewTextBoxColumn14.MinimumWidth = 6;
-            dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            dataGridViewTextBoxColumn14.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            dataGridViewTextBoxColumn15.MinimumWidth = 6;
-            dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            dataGridViewTextBoxColumn15.Width = 125;
-            // 
-            // lstOrderItemsView
-            // 
-            lstOrderItemsView.Location = new Point(505, 106);
-            lstOrderItemsView.Margin = new Padding(3, 4, 3, 4);
-            lstOrderItemsView.Name = "lstOrderItemsView";
-            lstOrderItemsView.Size = new Size(280, 244);
-            lstOrderItemsView.TabIndex = 1;
+            grpOrderControls.Controls.Add(cmbOrderStatus);
+            grpOrderControls.Controls.Add(btnUpdateOrder);
+            grpOrderControls.Location = new Point(20, 290);
+            grpOrderControls.Name = "grpOrderControls";
+            grpOrderControls.Size = new Size(750, 80);
+            grpOrderControls.TabIndex = 2;
+            grpOrderControls.TabStop = false;
+            grpOrderControls.Text = "Update Order Status";
             // 
             // cmbOrderStatus
             // 
-            cmbOrderStatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbOrderStatus.Items.AddRange(new object[] { "Pending", "Preparing", "Packed", "Out for Delivery", "Completed", "Cancelled" });
-            cmbOrderStatus.Location = new Point(505, 406);
-            cmbOrderStatus.Margin = new Padding(3, 4, 3, 4);
+            cmbOrderStatus.Items.AddRange(new object[] { "Packed", "To Receive", "Cancelled", "Completed" });
+            cmbOrderStatus.Location = new Point(20, 30);
             cmbOrderStatus.Name = "cmbOrderStatus";
-            cmbOrderStatus.Size = new Size(280, 28);
-            cmbOrderStatus.TabIndex = 2;
+            cmbOrderStatus.Size = new Size(150, 28);
+            cmbOrderStatus.TabIndex = 0;
             // 
-            // btnUpdateOrderStatus
+            // btnUpdateOrder
             // 
-            btnUpdateOrderStatus.BackColor = Color.FromArgb(0, 128, 128);
-            btnUpdateOrderStatus.FlatStyle = FlatStyle.Flat;
-            btnUpdateOrderStatus.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btnUpdateOrderStatus.ForeColor = Color.White;
-            btnUpdateOrderStatus.Location = new Point(505, 462);
-            btnUpdateOrderStatus.Margin = new Padding(3, 4, 3, 4);
-            btnUpdateOrderStatus.Name = "btnUpdateOrderStatus";
-            btnUpdateOrderStatus.Size = new Size(280, 52);
-            btnUpdateOrderStatus.TabIndex = 3;
-            btnUpdateOrderStatus.Text = "Update Order Matrix";
-            btnUpdateOrderStatus.UseVisualStyleBackColor = false;
-            btnUpdateOrderStatus.Click += btnUpdateOrderStatus_Click;
+            btnUpdateOrder.Location = new Point(180, 28);
+            btnUpdateOrder.Name = "btnUpdateOrder";
+            btnUpdateOrder.Size = new Size(120, 30);
+            btnUpdateOrder.TabIndex = 1;
+            btnUpdateOrder.Text = "Update Status";
+            btnUpdateOrder.Click += btnUpdateOrder_Click;
             // 
-            // lblOrderSelectedTrack
+            // pnlProfile
             // 
-            lblOrderSelectedTrack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblOrderSelectedTrack.Location = new Point(505, 31);
-            lblOrderSelectedTrack.Name = "lblOrderSelectedTrack";
-            lblOrderSelectedTrack.Size = new Size(280, 31);
-            lblOrderSelectedTrack.TabIndex = 4;
-            lblOrderSelectedTrack.Text = "Tracking vector: None Selected";
+            pnlProfile.Controls.Add(grpProfile);
+            pnlProfile.Dock = DockStyle.Fill;
+            pnlProfile.Location = new Point(0, 0);
+            pnlProfile.Name = "pnlProfile";
+            pnlProfile.Size = new Size(780, 600);
+            pnlProfile.TabIndex = 4;
             // 
-            // lblLineItems
+            // grpProfile
             // 
-            lblLineItems.Location = new Point(0, 0);
-            lblLineItems.Name = "lblLineItems";
-            lblLineItems.Size = new Size(100, 29);
-            lblLineItems.TabIndex = 5;
+            grpProfile.Controls.Add(lblProf1);
+            grpProfile.Controls.Add(txtProfName);
+            grpProfile.Controls.Add(lblProf2);
+            grpProfile.Controls.Add(txtProfPass);
+            grpProfile.Controls.Add(btnUpdateProfile);
+            grpProfile.Location = new Point(20, 20);
+            grpProfile.Name = "grpProfile";
+            grpProfile.Size = new Size(400, 200);
+            grpProfile.TabIndex = 0;
+            grpProfile.TabStop = false;
+            grpProfile.Text = "Admin Profile Settings";
             // 
-            // lblStatusTransition
+            // lblProf1
             // 
-            lblStatusTransition.Location = new Point(0, 0);
-            lblStatusTransition.Name = "lblStatusTransition";
-            lblStatusTransition.Size = new Size(100, 29);
-            lblStatusTransition.TabIndex = 6;
+            lblProf1.Location = new Point(20, 40);
+            lblProf1.Name = "lblProf1";
+            lblProf1.Size = new Size(100, 25);
+            lblProf1.TabIndex = 0;
             // 
-            // panelProfile
+            // txtProfName
             // 
-            panelProfile.BackColor = Color.White;
-            panelProfile.Controls.Add(panelProductMgmt);
-            panelProfile.Controls.Add(lblP1);
-            panelProfile.Controls.Add(lblP2);
-            panelProfile.Controls.Add(lblP3);
-            panelProfile.Controls.Add(lblP4);
-            panelProfile.Controls.Add(txtProfUsername);
-            panelProfile.Controls.Add(txtProfFullName);
-            panelProfile.Controls.Add(txtProfRole);
-            panelProfile.Controls.Add(txtProfPassword);
-            panelProfile.Controls.Add(btnSaveProfile);
-            panelProfile.Dock = DockStyle.Fill;
-            panelProfile.Location = new Point(0, 0);
-            panelProfile.Margin = new Padding(3, 4, 3, 4);
-            panelProfile.Name = "panelProfile";
-            panelProfile.Size = new Size(814, 812);
-            panelProfile.TabIndex = 5;
+            txtProfName.Location = new Point(130, 40);
+            txtProfName.Name = "txtProfName";
+            txtProfName.Size = new Size(200, 27);
+            txtProfName.TabIndex = 1;
             // 
-            // lblP1
+            // lblProf2
             // 
-            lblP1.Location = new Point(40, 50);
-            lblP1.Name = "lblP1";
-            lblP1.Size = new Size(300, 25);
-            lblP1.TabIndex = 0;
-            lblP1.Text = "Account Username (Editable)";
+            lblProf2.Location = new Point(20, 80);
+            lblProf2.Name = "lblProf2";
+            lblProf2.Size = new Size(100, 25);
+            lblProf2.TabIndex = 2;
             // 
-            // lblP2
+            // txtProfPass
             // 
-            lblP2.Location = new Point(40, 144);
-            lblP2.Name = "lblP2";
-            lblP2.Size = new Size(300, 25);
-            lblP2.TabIndex = 1;
-            lblP2.Text = "Administrative Role (Read-Only)";
+            txtProfPass.Location = new Point(130, 80);
+            txtProfPass.Name = "txtProfPass";
+            txtProfPass.PasswordChar = '*';
+            txtProfPass.Size = new Size(200, 27);
+            txtProfPass.TabIndex = 3;
             // 
-            // lblP3
+            // btnUpdateProfile
             // 
-            lblP3.Location = new Point(40, 238);
-            lblP3.Name = "lblP3";
-            lblP3.Size = new Size(300, 25);
-            lblP3.TabIndex = 2;
-            lblP3.Text = "Display Full Name (Read-Only)";
+            btnUpdateProfile.BackColor = Color.Teal;
+            btnUpdateProfile.FlatStyle = FlatStyle.Flat;
+            btnUpdateProfile.ForeColor = Color.White;
+            btnUpdateProfile.Location = new Point(130, 130);
+            btnUpdateProfile.Name = "btnUpdateProfile";
+            btnUpdateProfile.Size = new Size(150, 35);
+            btnUpdateProfile.TabIndex = 4;
+            btnUpdateProfile.Text = "Save Changes";
+            btnUpdateProfile.UseVisualStyleBackColor = false;
+            btnUpdateProfile.Click += btnUpdateProfile_Click;
             // 
-            // lblP4
+            // txtUsername
             // 
-            lblP4.Location = new Point(40, 331);
-            lblP4.Name = "lblP4";
-            lblP4.Size = new Size(300, 25);
-            lblP4.TabIndex = 3;
-            lblP4.Text = "Update Security Password (Editable)";
+            txtUsername.Location = new Point(30, 99);
+            txtUsername.Name = "txtUsername";
+            txtUsername.PlaceholderText = "Username";
+            txtUsername.Size = new Size(340, 27);
+            txtUsername.TabIndex = 0;
             // 
-            // txtProfUsername
+            // txtPassword
             // 
-            txtProfUsername.Location = new Point(40, 81);
-            txtProfUsername.Margin = new Padding(3, 4, 3, 4);
-            txtProfUsername.Name = "txtProfUsername";
-            txtProfUsername.Size = new Size(400, 27);
-            txtProfUsername.TabIndex = 4;
+            txtPassword.Location = new Point(30, 142);
+            txtPassword.Name = "txtPassword";
+            txtPassword.PlaceholderText = "Password";
+            txtPassword.Size = new Size(340, 27);
+            txtPassword.TabIndex = 1;
             // 
-            // txtProfFullName
+            // txtFullName
             // 
-            txtProfFullName.Location = new Point(40, 269);
-            txtProfFullName.Margin = new Padding(3, 4, 3, 4);
-            txtProfFullName.Name = "txtProfFullName";
-            txtProfFullName.ReadOnly = true;
-            txtProfFullName.Size = new Size(400, 27);
-            txtProfFullName.TabIndex = 5;
+            txtFullName.Location = new Point(30, 189);
+            txtFullName.Name = "txtFullName";
+            txtFullName.PlaceholderText = "Full Name";
+            txtFullName.Size = new Size(340, 27);
+            txtFullName.TabIndex = 2;
             // 
-            // txtProfRole
+            // cmbRole
             // 
-            txtProfRole.Location = new Point(40, 175);
-            txtProfRole.Margin = new Padding(3, 4, 3, 4);
-            txtProfRole.Name = "txtProfRole";
-            txtProfRole.ReadOnly = true;
-            txtProfRole.Size = new Size(400, 27);
-            txtProfRole.TabIndex = 6;
+            cmbRole.Items.AddRange(new object[] { "Admin", "User", "Driver" });
+            cmbRole.Location = new Point(500, 30);
+            cmbRole.Name = "cmbRole";
+            cmbRole.Size = new Size(120, 28);
+            cmbRole.TabIndex = 3;
             // 
-            // txtProfPassword
+            // txtProdName
             // 
-            txtProfPassword.Location = new Point(40, 362);
-            txtProfPassword.Margin = new Padding(3, 4, 3, 4);
-            txtProfPassword.Name = "txtProfPassword";
-            txtProfPassword.Size = new Size(400, 27);
-            txtProfPassword.TabIndex = 7;
+            txtProdName.Location = new Point(20, 56);
+            txtProdName.Name = "txtProdName";
+            txtProdName.PlaceholderText = "Product Name";
+            txtProdName.Size = new Size(371, 27);
+            txtProdName.TabIndex = 0;
             // 
-            // btnSaveProfile
+            // txtProdCategory
             // 
-            btnSaveProfile.BackColor = Color.FromArgb(0, 128, 128);
-            btnSaveProfile.FlatStyle = FlatStyle.Flat;
-            btnSaveProfile.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnSaveProfile.ForeColor = Color.White;
-            btnSaveProfile.Location = new Point(40, 438);
-            btnSaveProfile.Margin = new Padding(3, 4, 3, 4);
-            btnSaveProfile.Name = "btnSaveProfile";
-            btnSaveProfile.Size = new Size(180, 50);
-            btnSaveProfile.TabIndex = 8;
-            btnSaveProfile.Text = "Save Changes";
-            btnSaveProfile.UseVisualStyleBackColor = false;
-            btnSaveProfile.Click += btnSaveProfile_Click;
+            txtProdCategory.Location = new Point(20, 106);
+            txtProdCategory.Name = "txtProdCategory";
+            txtProdCategory.PlaceholderText = "Category";
+            txtProdCategory.Size = new Size(371, 27);
+            txtProdCategory.TabIndex = 1;
             // 
-            // colUser
+            // txtProdPrice
             // 
-            colUser.MinimumWidth = 6;
-            colUser.Name = "colUser";
-            colUser.Width = 125;
+            txtProdPrice.Location = new Point(20, 161);
+            txtProdPrice.Name = "txtProdPrice";
+            txtProdPrice.PlaceholderText = "Price";
+            txtProdPrice.Size = new Size(371, 27);
+            txtProdPrice.TabIndex = 2;
             // 
-            // colRole
+            // txtProdStock
             // 
-            colRole.MinimumWidth = 6;
-            colRole.Name = "colRole";
-            colRole.Width = 125;
+            txtProdStock.Location = new Point(480, 30);
+            txtProdStock.Name = "txtProdStock";
+            txtProdStock.PlaceholderText = "Stock";
+            txtProdStock.Size = new Size(100, 27);
+            txtProdStock.TabIndex = 3;
             // 
-            // colName
+            // pnlUserPopup
             // 
-            colName.MinimumWidth = 6;
-            colName.Name = "colName";
-            colName.Width = 125;
+            pnlUserPopup.BackColor = Color.White;
+            pnlUserPopup.BorderStyle = BorderStyle.FixedSingle;
+            pnlUserPopup.Controls.Add(panel1);
+            pnlUserPopup.Controls.Add(lblPopupTitle);
+            pnlUserPopup.Controls.Add(lblBan);
+            pnlUserPopup.Controls.Add(numBanHours);
+            pnlUserPopup.Controls.Add(txtUsername);
+            pnlUserPopup.Controls.Add(txtPassword);
+            pnlUserPopup.Controls.Add(txtFullName);
+            pnlUserPopup.Controls.Add(cmbRole);
+            pnlUserPopup.Controls.Add(btnPopupUserSave);
+            pnlUserPopup.Controls.Add(btnPopupUserClose);
+            pnlUserPopup.Location = new Point(166, 140);
+            pnlUserPopup.Name = "pnlUserPopup";
+            pnlUserPopup.Size = new Size(400, 380);
+            pnlUserPopup.TabIndex = 0;
+            pnlUserPopup.Visible = false;
             // 
-            // colStatus
+            // panel1
             // 
-            colStatus.MinimumWidth = 6;
-            colStatus.Name = "colStatus";
-            colStatus.Width = 125;
+            panel1.BackColor = Color.DarkSlateGray;
+            panel1.Location = new Point(-1, -1);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(400, 67);
+            panel1.TabIndex = 6;
+            // 
+            // lblPopupTitle
+            // 
+            lblPopupTitle.Location = new Point(-1, 0);
+            lblPopupTitle.Name = "lblPopupTitle";
+            lblPopupTitle.Size = new Size(300, 30);
+            lblPopupTitle.TabIndex = 0;
+            // 
+            // lblBan
+            // 
+            lblBan.Location = new Point(30, 255);
+            lblBan.Name = "lblBan";
+            lblBan.Size = new Size(150, 20);
+            lblBan.TabIndex = 1;
+            // 
+            // numBanHours
+            // 
+            numBanHours.Location = new Point(180, 253);
+            numBanHours.Name = "numBanHours";
+            numBanHours.Size = new Size(190, 27);
+            numBanHours.TabIndex = 2;
+            // 
+            // btnPopupUserSave
+            // 
+            btnPopupUserSave.BackColor = Color.DarkSlateGray;
+            btnPopupUserSave.ForeColor = SystemColors.ButtonHighlight;
+            btnPopupUserSave.Location = new Point(30, 310);
+            btnPopupUserSave.Name = "btnPopupUserSave";
+            btnPopupUserSave.Size = new Size(160, 40);
+            btnPopupUserSave.TabIndex = 4;
+            btnPopupUserSave.Text = "Confirm";
+            btnPopupUserSave.UseVisualStyleBackColor = false;
+            btnPopupUserSave.Click += btnPopupUserSave_Click;
+            // 
+            // btnPopupUserClose
+            // 
+            btnPopupUserClose.BackColor = Color.LightSeaGreen;
+            btnPopupUserClose.ForeColor = SystemColors.ButtonFace;
+            btnPopupUserClose.Location = new Point(210, 310);
+            btnPopupUserClose.Name = "btnPopupUserClose";
+            btnPopupUserClose.Size = new Size(160, 40);
+            btnPopupUserClose.TabIndex = 5;
+            btnPopupUserClose.Text = "Cancel";
+            btnPopupUserClose.UseVisualStyleBackColor = false;
+            btnPopupUserClose.Click += btnPopupUserClose_Click;
+            // 
+            // pnlProdPopup
+            // 
+            pnlProdPopup.BackColor = Color.White;
+            pnlProdPopup.BorderStyle = BorderStyle.FixedSingle;
+            pnlProdPopup.Controls.Add(panel2);
+            pnlProdPopup.Controls.Add(lblProdPopupTitle);
+            pnlProdPopup.Controls.Add(txtProdName);
+            pnlProdPopup.Controls.Add(txtProdCategory);
+            pnlProdPopup.Controls.Add(txtProdPrice);
+            pnlProdPopup.Controls.Add(txtProdStock);
+            pnlProdPopup.Controls.Add(btnPopupProdSave);
+            pnlProdPopup.Controls.Add(btnPopupProdClose);
+            pnlProdPopup.Location = new Point(169, 177);
+            pnlProdPopup.Name = "pnlProdPopup";
+            pnlProdPopup.Size = new Size(400, 320);
+            pnlProdPopup.TabIndex = 1;
+            pnlProdPopup.Visible = false;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.Teal;
+            panel2.Location = new Point(-1, -1);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(400, 41);
+            panel2.TabIndex = 6;
+            // 
+            // lblProdPopupTitle
+            // 
+            lblProdPopupTitle.Location = new Point(20, 15);
+            lblProdPopupTitle.Name = "lblProdPopupTitle";
+            lblProdPopupTitle.Size = new Size(300, 30);
+            lblProdPopupTitle.TabIndex = 0;
+            // 
+            // btnPopupProdSave
+            // 
+            btnPopupProdSave.BackColor = Color.DarkSlateGray;
+            btnPopupProdSave.ForeColor = SystemColors.ButtonFace;
+            btnPopupProdSave.Location = new Point(30, 260);
+            btnPopupProdSave.Name = "btnPopupProdSave";
+            btnPopupProdSave.Size = new Size(160, 40);
+            btnPopupProdSave.TabIndex = 4;
+            btnPopupProdSave.Text = "Confirm";
+            btnPopupProdSave.UseVisualStyleBackColor = false;
+            btnPopupProdSave.Click += btnPopupProdSave_Click;
+            // 
+            // btnPopupProdClose
+            // 
+            btnPopupProdClose.BackColor = Color.LightSeaGreen;
+            btnPopupProdClose.ForeColor = Color.Snow;
+            btnPopupProdClose.Location = new Point(210, 260);
+            btnPopupProdClose.Name = "btnPopupProdClose";
+            btnPopupProdClose.Size = new Size(160, 40);
+            btnPopupProdClose.TabIndex = 5;
+            btnPopupProdClose.Text = "Cancel";
+            btnPopupProdClose.UseVisualStyleBackColor = false;
+            btnPopupProdClose.Click += btnPopupProdClose_Click;
             // 
             // AdminForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1034, 812);
-            Controls.Add(panelMainContainer);
-            Controls.Add(panelSidebar);
+            ClientSize = new Size(1000, 600);
+            Controls.Add(pnlUserPopup);
+            Controls.Add(pnlProdPopup);
+            Controls.Add(pnlMain);
+            Controls.Add(pnlSidebar);
             Font = new Font("Segoe UI", 9F);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            Margin = new Padding(3, 4, 3, 4);
-            MaximizeBox = false;
             Name = "AdminForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "System Management Console Workspace";
+            Text = "System Management Console";
             Load += AdminForm_Load;
-            panelSidebar.ResumeLayout(false);
-            panelMainContainer.ResumeLayout(false);
-            panelProductMgmt.ResumeLayout(false);
-            panelProductMgmt.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picProductPreview).EndInit();
-            panelUserMgmt.ResumeLayout(false);
+            pnlSidebar.ResumeLayout(false);
+            pnlMain.ResumeLayout(false);
+            pnlUsers.ResumeLayout(false);
+            pnlUsers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numBanHours).EndInit();
-            grpAddUser.ResumeLayout(false);
-            grpAddUser.PerformLayout();
-            grpEditUser.ResumeLayout(false);
-            grpEditUser.PerformLayout();
-            panelDashboard.ResumeLayout(false);
-            pnlStat1.ResumeLayout(false);
-            panelInventory.ResumeLayout(false);
+            grpUserControls.ResumeLayout(false);
+            pnlInventory.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvInventory).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numInventoryStock).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picInventoryPreview).EndInit();
-            panelOrders.ResumeLayout(false);
+            grpInvControls.ResumeLayout(false);
+            pnlDashboard.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            pnlOrders.ResumeLayout(false);
+            pnlOrders.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
-            panelProfile.ResumeLayout(false);
-            panelProfile.PerformLayout();
+            grpOrderControls.ResumeLayout(false);
+            pnlProfile.ResumeLayout(false);
+            grpProfile.ResumeLayout(false);
+            grpProfile.PerformLayout();
+            pnlUserPopup.ResumeLayout(false);
+            pnlUserPopup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numBanHours).EndInit();
+            pnlProdPopup.ResumeLayout(false);
+            pnlProdPopup.PerformLayout();
             ResumeLayout(false);
         }
-
         #endregion
 
-        private System.Windows.Forms.Panel panelSidebar;
-        private System.Windows.Forms.Label lblLogo;
-        private System.Windows.Forms.Button btnDashboard;
-        private System.Windows.Forms.Button btnUserMgmt;
-        private System.Windows.Forms.Button btnProducts;
-        private System.Windows.Forms.Button btnInventory;
-        private System.Windows.Forms.Button btnOrders;
-        private System.Windows.Forms.Button btnProfile;
-        private System.Windows.Forms.Button btnLogout;
-        private System.Windows.Forms.Panel panelMainContainer;
-        private System.Windows.Forms.Panel panelDashboard;
-        private System.Windows.Forms.Label lblAdminName;
-        private System.Windows.Forms.Panel pnlStat1;
-        private System.Windows.Forms.Label lblTotalUsersTitle;
-        private System.Windows.Forms.Label lblTotalUsersVal;
-        private System.Windows.Forms.Panel panelUserMgmt;
+        // Variable Declarations
+        private System.Windows.Forms.Panel pnlSidebar, pnlMain, pnlDashboard, pnlUsers, pnlInventory, pnlOrders, pnlProfile;
+        private System.Windows.Forms.Button btnDashboard, btnUsers, btnInventory, btnOrders, btnProfile;
+        private System.Windows.Forms.Label lblLogo, lblDashTitle, lblTotalUsers, lblTotalProducts, lblTotalOrders;
+
         private System.Windows.Forms.DataGridView dgvUsers;
-        private System.Windows.Forms.Button btnOpenAdd;
-        private System.Windows.Forms.Button btnOpenEdit;
-        private System.Windows.Forms.Button btnDeleteUser;
-        private System.Windows.Forms.Button btnBanUser;
-        private System.Windows.Forms.NumericUpDown numBanHours;
-        private System.Windows.Forms.Label lblBanHrs;
-        private System.Windows.Forms.GroupBox grpAddUser;
-        private System.Windows.Forms.Label lblAddU;
-        private System.Windows.Forms.Label lblAddP;
-        private System.Windows.Forms.Label lblAddF;
-        private System.Windows.Forms.TextBox txtAddUsername;
-        private System.Windows.Forms.TextBox txtAddPassword;
-        private System.Windows.Forms.TextBox txtAddFullName;
-        private System.Windows.Forms.ComboBox cmbAddRole;
-        private System.Windows.Forms.Button btnConfirmAdd;
-        private System.Windows.Forms.Button btnCancelAdd;
-        private System.Windows.Forms.GroupBox grpEditUser;
-        private System.Windows.Forms.Label lblEditU;
-        private System.Windows.Forms.Label lblEditP;
-        private System.Windows.Forms.Label lblEditR;
-        private System.Windows.Forms.Label lblEditS;
-        private System.Windows.Forms.TextBox txtEditUsername;
-        private System.Windows.Forms.TextBox txtEditPassword;
-        private System.Windows.Forms.ComboBox cmbEditRole;
-        private System.Windows.Forms.ComboBox cmbEditStatus;
-        private System.Windows.Forms.Button btnConfirmEdit;
-        private System.Windows.Forms.Button btnCancelEdit;
-        private System.Windows.Forms.Panel panelProfile;
-        private System.Windows.Forms.Label lblP1;
-        private System.Windows.Forms.Label lblP2;
-        private System.Windows.Forms.Label lblP3;
-        private System.Windows.Forms.Label lblP4;
-        private System.Windows.Forms.TextBox txtProfUsername;
-        private System.Windows.Forms.TextBox txtProfFullName;
-        private System.Windows.Forms.TextBox txtProfRole;
-        private System.Windows.Forms.TextBox txtProfPassword;
-        private System.Windows.Forms.Button btnSaveProfile;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colUser;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colRole;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
+        private System.Windows.Forms.TextBox txtUserSearch, txtUsername, txtPassword, txtFullName;
+        private System.Windows.Forms.ComboBox cmbRole;
+        private System.Windows.Forms.GroupBox grpUserControls;
 
-        // New Submodule Canvas Forms UI Control Mappings
-        private System.Windows.Forms.Panel panelProductMgmt;
-        private System.Windows.Forms.DataGridView dgvProducts;
-        private System.Windows.Forms.TextBox txtSearchProduct;
-        private System.Windows.Forms.TextBox txtProdName;
-        private System.Windows.Forms.TextBox txtProdDesc;
-        private System.Windows.Forms.TextBox txtProdPrice;
-        private System.Windows.Forms.TextBox txtProdStock;
-        private System.Windows.Forms.TextBox txtProdCategory;
-        private System.Windows.Forms.TextBox txtProdImagePath;
-        private System.Windows.Forms.ComboBox cmbProdStatus;
-        private System.Windows.Forms.Button btnProdAdd;
-        private System.Windows.Forms.Button btnProdUpdate;
-        private System.Windows.Forms.Button btnProdDelete;
-        private System.Windows.Forms.Button btnProdClear;
-        private System.Windows.Forms.Button btnProdBrowseImage;
-        private System.Windows.Forms.PictureBox picProductPreview;
-
-        private System.Windows.Forms.Panel panelInventory;
         private System.Windows.Forms.DataGridView dgvInventory;
-        private System.Windows.Forms.NumericUpDown numInventoryStock;
-        private System.Windows.Forms.ComboBox cmbInventoryStatus;
-        private System.Windows.Forms.Button btnUpdateInventory;
-        private System.Windows.Forms.Label lblInvSelectedName;
-        private System.Windows.Forms.PictureBox picInventoryPreview;
+        private System.Windows.Forms.TextBox txtProdSearch, txtProdName, txtProdCategory, txtProdPrice, txtProdStock;
+        private System.Windows.Forms.Button btnAddProduct, btnEditProduct, btnDeleteProduct;
+        private System.Windows.Forms.GroupBox grpInvControls;
 
-        private System.Windows.Forms.Panel panelOrders;
         private System.Windows.Forms.DataGridView dgvOrders;
-        private System.Windows.Forms.ListBox lstOrderItemsView;
         private System.Windows.Forms.ComboBox cmbOrderStatus;
-        private System.Windows.Forms.Button btnUpdateOrderStatus;
-        private System.Windows.Forms.Label lblOrderSelectedTrack;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private Label lblSearchLabel;
-        private Label lblN;
-        private Label lblD;
-        private Label lblP;
-        private Label lblS;
-        private Label lblC;
-        private Label lblI;
-        private Label lblSt;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private Label lblInvStockLabel;
-        private Label lblInvAvLabel;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
-        private Label lblLineItems;
-        private Label lblStatusTransition;
+        private System.Windows.Forms.Button btnUpdateOrder;
+        private System.Windows.Forms.GroupBox grpOrderControls;
+        private System.Windows.Forms.TextBox txtOrderDetails;
+
+        private System.Windows.Forms.TextBox txtProfName, txtProfPass;
+        private System.Windows.Forms.Button btnUpdateProfile;
+        private System.Windows.Forms.GroupBox grpProfile;
+        private System.Windows.Forms.Panel pnlUserPopup;
+        private System.Windows.Forms.Panel pnlProdPopup;
+        private System.Windows.Forms.NumericUpDown numBanHours;
+        private System.Windows.Forms.Label lblPopupTitle;
+        private System.Windows.Forms.Label lblProdPopupTitle;
+        private Label lblProf1;
+        private Label lblProf2;
+        private Button btnBanUser;
+        private Label lblBan;
+        private Button btnPopupUserSave;
+        private Button btnPopupUserClose;
+        private Button btnPopupProdSave;
+        private Button btnPopupProdClose;
+        private System.Windows.Forms.Button btnAddUser;
+        private System.Windows.Forms.Button btnEditUser;
+        private System.Windows.Forms.Button btnDeleteUser;
+        private Panel panel1;
+        private Panel panel2;
+        private PictureBox pictureBox1;
+        private Label label1;
+        private Panel panel3;
+        private Panel panel4;
     }
 }

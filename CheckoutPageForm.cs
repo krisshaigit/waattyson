@@ -48,9 +48,18 @@ namespace adminstaffff
 
             Order newOrder = new Order
             {
-                OrderId = "WTS" + new Random().Next(10000, 99999),
-                Username = DataEngine.CurrentUser.Username,
-                Items = string.Join("|", DataEngine.Cart.Select(c => $"{c.Product.ProductId}({c.Quantity})")),
+                OrderId = "TRK-" + new Random().Next(1000, 9999).ToString("X"),
+
+                // Fallback if CurrentUser is null
+                Username = $"{(DataEngine.CurrentUser != null ? DataEngine.CurrentUser.Username : "Guest")}|Address:{txtAddress.Text}",
+
+                // Fallback if Product details are missing from products.txt
+                Items = string.Join(Environment.NewLine, DataEngine.Cart.Select(c =>
+                    c.Product != null
+                        ? $"{c.Quantity}x|{c.Product.ProductId}|{c.Product.Name}|₱{c.Product.Price:N2}"
+                        : $"{c.Quantity}x|UNKNOWN_ID|Unknown Product Name|₱0.00"
+    )),
+
                 Total = DataEngine.Cart.Sum(c => c.TotalPrice),
                 Status = "Pending",
                 Date = DateTime.Now.ToString("yyyy-MM-dd")
@@ -65,4 +74,4 @@ namespace adminstaffff
             RefreshCartDisplay();
         }
     }
-}
+    }

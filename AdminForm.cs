@@ -2,975 +2,638 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace adminstaffff
 {
     public partial class AdminForm : Form
     {
-        // State Properties
-        private string currentAdminUsername;
-        private string currentAdminRole;
+        // File paths (Will be created in the application debug/release folder)
+        private readonly string usersFile = "users.txt";
+        private readonly string productsFile = "products.txt";
+        private readonly string ordersFile = "orders.txt";
 
-        private List<UserItem> usersList = new List<UserItem>();
-        private List<ProductItem> productsList = new List<ProductItem>();
-        private List<OrderGroupItem> ordersList = new List<OrderGroupItem>();
+        // Lists to hold our data in memory
+        private List<User> usersList = new List<User>();
+        private List<Product> productsList = new List<Product>();
+        private List<Order> ordersList = new List<Order>();
 
-        private UserItem selectedUserForEdit = null;
-        private ProductItem selectedProduct = null;
-        private OrderGroupItem selectedOrderGroup = null;
+        // Add these two properties at the top of your class fields
+        private string loggedInUsername;
+        private string loggedInRole;
+        private string currentActionMode = ""; // Tracks "Add" vs "Edit"
 
-        // Constructor accepting the logged-in admin credentials
-        public AdminForm(string adminUsername, string adminRole)
+        // Replace your old public AdminForm() constructor with this one:
+        public AdminForm(string username, string role)
         {
             InitializeComponent();
-            this.currentAdminUsername = adminUsername;
-            this.currentAdminRole = adminRole;
 
-            // Populate the Add User role drop-down safely
-            if (cmbAddRole.Items.Count == 0)
-            {
-                cmbAddRole.Items.Add("Admin");   // Index 0
-                cmbAddRole.Items.Add("User");    // Index 1
-                cmbAddRole.Items.Add("Driver");  // Index 2
-            }
-
-            // Populate the Edit User role drop-down safely too
-            if (cmbEditRole.Items.Count == 0)
-            {
-                cmbEditRole.Items.Add("Admin");
-                cmbEditRole.Items.Add("User");
-                cmbEditRole.Items.Add("Driver");
-            }
-
-            // Populate the Edit User status drop-down safely
-            if (cmbEditStatus.Items.Count == 0)
-            {
-                cmbEditStatus.Items.Add("Active");
-                cmbEditStatus.Items.Add("Suspended");
-            }
-     
-          
+            // Save the credentials passed from the login form
+            loggedInUsername = username;
+            loggedInRole = role;
         }
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            InitializeFileSystem();
+            EnsureFilesExist();
+            LoadAllData();
+            ShowPanel(pnlDashboard); // Show dashboard by default
+        }
 
-            // Load all text databases
+        #region --- FILE I/O & DATA LOADING ---
+
+        private void EnsureFilesExist()
+        {
+            // Create dummy files if they don't exist
+            if (!File.Exists(usersFile)) File.WriteAllText(usersFile, "1|admin01|admin123|Main Admin|Admin||Active\n");
+            if (!File.Exists(productsFile)) File.WriteAllText(productsFile, "F001,Penshoppe Signature Body Spray,Fragrance,150.00,45\n");
+            if (!File.Exists(ordersFile))
+            {
+                string dummyOrder = "Order|2026-05-18T12:06:55|Tracking:TRK-14DF0F2D37|Status:To Receive|FirstName:Juan|LastName:Dela Cruz|Address:Philippines\n" +
+                                    "1x|P001|Advanced HA Serum|₱1,249.00\nEndOrder\n";
+                File.WriteAllText(ordersFile, dummyOrder);
+            }
+        }
+
+        private void LoadAllData()
+        {
             LoadUsers();
             LoadProducts();
             LoadOrders();
+            UpdateDashboardCounts();
 
-            // Refresh presentation elements
-            RefreshUserGrid();
-            RefreshProductGrid("");
-            RefreshInventoryGrid();
-            RefreshOrderGrid();
-            LoadAdminProfileData();
-
-            // Setup default visual panel states
-            ShowPanel(panelDashboard);
-            grpAddUser.Visible = false;
-            grpEditUser.Visible = false;
-
-            UpdateDashboardStats();
-
-            // Apply Role-Based Security Locks for Staff Members
-            if (this.currentAdminRole.Equals("Staff", StringComparison.OrdinalIgnoreCase))
+            // Match the user by the username passed from the login form
+            var currentAdmin = usersList.FirstOrDefault(u => u.Username.Equals(loggedInUsername, StringComparison.OrdinalIgnoreCase));
+            if (currentAdmin != null)
             {
-                lblLogo.Text = "STAFF PORTAL";
-                this.Text = "System Staff Workspace Console";
-
-                btnDeleteUser.Visible = false;
-                btnBanUser.Visible = false;
-                numBanHours.Visible = false;
-                lblBanHrs.Visible = false;
-
-                // Inventory/Product staff limits can be configured here if necessary
-                btnProdDelete.Visible = false;
+                txtProfName.Text = currentAdmin.FullName;
+                txtProfPass.Text = currentAdmin.Password;
             }
         }
 
-        #region FILE HANDLING (HELPER ENGINE)
-
-        private void InitializeFileSystem()
+        private void UpdateDashboardCounts()
         {
-            try
-            {
-                if (!File.Exists("users.txt"))
-                {
-                    File.WriteAllLines("users.txt", new string[] { "1|admin01|Admin123!|Main Admin|Admin||Active" });
-                }
-                if (!File.Exists("products.txt"))
-                {
-                    File.WriteAllLines("products.txt", new string[] {
-                        "1|Laptop|Gaming Laptop RTX 4060|55000|10|Electronics|images/laptop.jpg|Available",
-                        "2|Mouse|Wireless Mouse RGB|1200|25|Accessories|images/mouse.jpg|Available"
-                    });
-                }
-                if (!File.Exists("orders.txt"))
-                {
-                    // Create base placeholder format template if orders are missing
-                    string defaultOrder =
-                        "Order|2026-05-18T12:06:55.4049536+08:00|Tracking:TRK-14DF0F2D37|Status:Pending|FirstName:Juan|LastName:Dela Cruz|Address:Philippines\n" +
-                        "1x|1|Laptop|55000|pending\n" +
-                        "EndOrder";
-                    File.WriteAllText("orders.txt", defaultOrder);
-                }
-
-                // Ensure default local system asset path directory folder exists
-                if (!Directory.Exists("images"))
-                {
-                    Directory.CreateDirectory("images");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error initializing filesystem paths: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            lblTotalUsers.Text = $"TOTAL USERS\n{usersList.Count}";
+            lblTotalProducts.Text = $"TOTAL PRODUCTS\n{productsList.Count}";
+            lblTotalOrders.Text = $"TOTAL ORDERS\n{ordersList.Count}";
         }
 
+        #endregion
+
+        #region --- NAVIGATION ---
+        private void NavButton_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn == btnDashboard) ShowPanel(pnlDashboard);
+            else if (btn == btnUsers) ShowPanel(pnlUsers);
+            else if (btn == btnInventory) ShowPanel(pnlInventory);
+            else if (btn == btnOrders) ShowPanel(pnlOrders);
+            else if (btn == btnProfile) ShowPanel(pnlProfile);
+        }
+
+        private void ShowPanel(Panel panelToShow)
+        {
+            pnlDashboard.Visible = false;
+            pnlUsers.Visible = false;
+            pnlInventory.Visible = false;
+            pnlOrders.Visible = false;
+            pnlProfile.Visible = false;
+
+            panelToShow.Visible = true;
+            panelToShow.BringToFront();
+        }
+        #endregion
+
+        #region --- USER MANAGEMENT ---
         private void LoadUsers()
         {
             usersList.Clear();
-            if (!File.Exists("users.txt")) return;
+            bool requiresSave = false;
 
-            string[] lines = File.ReadAllLines("users.txt");
-            foreach (string line in lines)
+            using (StreamReader reader = new StreamReader(usersFile))
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                string[] parts = line.Split('|');
-                if (parts.Length >= 5)
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    usersList.Add(new UserItem
-                    {
-                        Id = parts[0],
-                        Username = parts[1],
-                        Password = parts[2],
-                        FullName = parts[3],
-                        Role = parts[4],
-                        Extra = parts.Length > 5 ? parts[5] : "",
-                        Status = parts.Length > 6 ? parts[6] : "Active"
-                    });
-                }
-            }
-        }
-
-        private void SaveUsers()
-        {
-            try
-            {
-                List<string> lines = new List<string>();
-                foreach (var u in usersList)
-                {
-                    lines.Add($"{u.Id}|{u.Username}|{u.Password}|{u.FullName}|{u.Role}|{u.Extra}|{u.Status}");
-                }
-                File.WriteAllLines("users.txt", lines.ToArray());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error writing user records: {ex.Message}", "Write Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void LoadProducts()
-        {
-            productsList.Clear();
-            if (!File.Exists("products.txt")) return;
-
-            string[] lines = File.ReadAllLines("products.txt");
-            foreach (string line in lines)
-            {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                string[] parts = line.Split('|');
-                if (parts.Length >= 8)
-                {
-                    productsList.Add(new ProductItem
-                    {
-                        Id = parts[0],
-                        Name = parts[1],
-                        Description = parts[2],
-                        Price = double.TryParse(parts[3], out double pr) ? pr : 0.0,
-                        Stock = int.TryParse(parts[4], out int st) ? st : 0,
-                        Category = parts[5],
-                        ImagePath = parts[6],
-                        Availability = parts[7]
-                    });
-                }
-            }
-        }
-
-        private void SaveProducts()
-        {
-            try
-            {
-                List<string> lines = new List<string>();
-                foreach (var p in productsList)
-                {
-                    lines.Add($"{p.Id}|{p.Name}|{p.Description}|{p.Price}|{p.Stock}|{p.Category}|{p.ImagePath}|{p.Availability}");
-                }
-                File.WriteAllLines("products.txt", lines.ToArray());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error writing product catalog database: {ex.Message}", "Write Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void LoadOrders()
-        {
-            ordersList.Clear();
-            if (!File.Exists("orders.txt")) return;
-
-            string[] lines = File.ReadAllLines("orders.txt");
-            OrderGroupItem activeGroup = null;
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string line = lines[i].Trim();
-                if (string.IsNullOrEmpty(line)) continue;
-
-                if (line.StartsWith("Order|"))
-                {
-                    string[] parts = line.Split('|');
+                    if (string.IsNullOrWhiteSpace(line)) continue;
+                    var parts = line.Split('|');
                     if (parts.Length >= 7)
                     {
-                        activeGroup = new OrderGroupItem
+                        var user = new User
                         {
-                            Timestamp = parts[1],
-                            TrackingId = parts[2].Replace("Tracking:", ""),
-                            Status = parts[3].Replace("Status:", ""),
-                            CustomerFirstName = parts[4].Replace("FirstName:", ""),
-                            CustomerLastName = parts[5].Replace("LastName:", ""),
-                            Address = parts[6].Replace("Address:", ""),
-                            LineItems = new List<OrderItem>()
+                            Id = parts[0],
+                            Username = parts[1],
+                            Password = parts[2],
+                            FullName = parts[3],
+                            Role = parts[4],
+                            BanExpiration = parts[5],
+                            Status = parts[6]
                         };
-                    }
-                }
-                else if (line.Equals("EndOrder", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (activeGroup != null)
-                    {
-                        ordersList.Add(activeGroup);
-                        activeGroup = null;
-                    }
-                }
-                else if (!line.StartsWith("CartAdd|") && activeGroup != null)
-                {
-                    string[] itemParts = line.Split('|');
-                    if (itemParts.Length >= 5)
-                    {
-                        activeGroup.LineItems.Add(new OrderItem
+
+                        // Auto unban logic
+                        if (user.Status == "Banned" && DateTime.TryParse(user.BanExpiration, out DateTime banDate))
                         {
-                            QuantityString = itemParts[0],
-                            ProductId = itemParts[1],
-                            ProductName = itemParts[2],
-                            PriceString = itemParts[3],
-                            ItemStatus = itemParts[4]
-                        });
+                            if (DateTime.Now >= banDate)
+                            {
+                                user.Status = "Active";
+                                user.BanExpiration = "";
+                                requiresSave = true;
+                            }
+                        }
+                        usersList.Add(user);
                     }
+                }
+            }
+
+            if (requiresSave) SaveUsersFile();
+            RefreshUserGrid(usersList);
+        }
+
+        private void RefreshUserGrid(List<User> list)
+        {
+            dgvUsers.DataSource = null;
+            dgvUsers.DataSource = list.Select(u => new { u.Id, u.Username, u.FullName, u.Role, u.Status, u.BanExpiration }).ToList();
+        }
+
+        private void SaveUsersFile()
+        {
+            using (StreamWriter writer = new StreamWriter(usersFile, false))
+            {
+                foreach (var u in usersList)
+                {
+                    writer.WriteLine($"{u.Id}|{u.Username}|{u.Password}|{u.FullName}|{u.Role}|{u.BanExpiration}|{u.Status}");
                 }
             }
         }
 
-        private void SaveOrders()
+        private void btnAddUser_Click(object sender, EventArgs e)
         {
-            try
+            currentActionMode = "Add";
+            lblPopupTitle.Text = "Register New User Matrix";
+
+            // Clear old text values
+            txtUsername.Text = ""; txtPassword.Text = ""; txtFullName.Text = ""; cmbRole.SelectedIndex = 1; numBanHours.Value = 0;
+            txtUsername.ReadOnly = false;
+
+            // FORCE-BIND TO POPUP PANEL TO PREVENT LAYOUT GLITCHES
+            if (!pnlUserPopup.Controls.Contains(txtUsername))
             {
-                List<string> output = new List<string>();
-                foreach (var og in ordersList)
+                pnlUserPopup.Controls.AddRange(new Control[] { txtUsername, txtPassword, txtFullName, cmbRole });
+            }
+
+            // Bring inputs to the absolute front of the white panel
+            txtUsername.BringToFront();
+            txtPassword.BringToFront();
+            txtFullName.BringToFront();
+            cmbRole.BringToFront();
+
+            pnlUserPopup.Visible = true;
+            pnlUserPopup.BringToFront();
+        }
+
+        private void btnEditUser_Click(object sender, EventArgs e)
+        {
+            if (dgvUsers.CurrentRow == null) { MessageBox.Show("Please select a target user line first."); return; }
+            currentActionMode = "Edit";
+            lblPopupTitle.Text = "Edit Existing User Record";
+
+            string id = dgvUsers.CurrentRow.Cells["Id"].Value.ToString();
+            var user = usersList.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                txtUsername.Text = user.Username;
+                txtUsername.ReadOnly = true;
+                txtPassword.Text = user.Password;
+                txtFullName.Text = user.FullName;
+                cmbRole.Text = user.Role;
+                numBanHours.Value = 0;
+
+                // FORCE-BIND TO POPUP PANEL TO PREVENT LAYOUT GLITCHES
+                if (!pnlUserPopup.Controls.Contains(txtUsername))
                 {
-                    output.Add($"Order|{og.Timestamp}|Tracking:{og.TrackingId}|Status:{og.Status}|FirstName:{og.CustomerFirstName}|LastName:{og.CustomerLastName}|Address:{og.Address}");
-                    foreach (var li in og.LineItems)
+                    pnlUserPopup.Controls.AddRange(new Control[] { txtUsername, txtPassword, txtFullName, cmbRole });
+                }
+
+                // Bring inputs to the absolute front of the white panel
+                txtUsername.BringToFront();
+                txtPassword.BringToFront();
+                txtFullName.BringToFront();
+                cmbRole.BringToFront();
+
+                pnlUserPopup.Visible = true;
+                pnlUserPopup.BringToFront();
+            }
+        }
+
+        private void btnPopupUserSave_Click(object sender, EventArgs e)
+        {
+            string pass = txtPassword.Text.Trim();
+
+            // STRICT PASSWORD SECURITY COMPLIANCE RULES CHECK
+            if (pass.Length < 8 || !pass.Any(char.IsUpper) || !pass.Any(char.IsDigit) || !pass.Any(ch => !char.IsLetterOrDigit(ch)))
+            {
+                MessageBox.Show("Security Matrix Error: Password requires an 8 character configuration minimum containing 1 uppercase letter, 1 digit, and 1 symbolic item descriptor.", "Weak Password Specified", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (currentActionMode == "Add")
+            {
+                string newId = usersList.Count > 0 ? (int.Parse(usersList.Last().Id) + 1).ToString() : "1";
+                string status = numBanHours.Value > 0 ? "Banned" : "Active";
+                string expiration = numBanHours.Value > 0 ? DateTime.Now.AddHours((double)numBanHours.Value).ToString("yyyy-MM-dd HH:mm:ss") : "";
+
+                usersList.Add(new User
+                {
+                    Id = newId,
+                    Username = txtUsername.Text,
+                    Password = pass,
+                    FullName = txtFullName.Text,
+                    Role = cmbRole.Text,
+                    Status = status,
+                    BanExpiration = expiration
+                });
+            }
+            else if (currentActionMode == "Edit")
+            {
+                string id = dgvUsers.CurrentRow.Cells["Id"].Value.ToString();
+                var user = usersList.FirstOrDefault(u => u.Id == id);
+                if (user != null)
+                {
+                    user.Password = pass;
+                    user.FullName = txtFullName.Text;
+                    user.Role = cmbRole.Text;
+                    if (numBanHours.Value > 0)
                     {
-                        output.Add($"{li.QuantityString}|{li.ProductId}|{li.ProductName}|{li.PriceString}|{li.ItemStatus}");
+                        user.Status = "Banned";
+                        user.BanExpiration = DateTime.Now.AddHours((double)numBanHours.Value).ToString("yyyy-MM-dd HH:mm:ss");
                     }
-                    output.Add("EndOrder");
-                }
-                File.WriteAllLines("orders.txt", output.ToArray());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error writing order registers: {ex.Message}", "Write Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        #endregion
-
-        #region UTILITIES & GRID REFRESH CONTROLLERS
-
-        public bool ValidatePassword(string password)
-        {
-            if (password.Length < 8) return false;
-            bool hasUpper = false;
-            bool hasLower = false;
-            bool hasDigit = false;
-
-            foreach (char c in password)
-            {
-                if (char.IsUpper(c)) hasUpper = true;
-                if (char.IsLower(c)) hasLower = true;
-                if (char.IsDigit(c)) hasDigit = true;
-            }
-            return hasUpper && hasLower && hasDigit;
-        }
-
-        private void RefreshUserGrid()
-        {
-            dgvUsers.Rows.Clear();
-            foreach (var u in usersList)
-            {
-                dgvUsers.Rows.Add(u.Username, u.Role, u.FullName, u.Status);
-            }
-        }
-
-        private void RefreshProductGrid(string filterText)
-        {
-            dgvProducts.Rows.Clear();
-            foreach (var p in productsList)
-            {
-                if (string.IsNullOrEmpty(filterText) || p.Name.IndexOf(filterText, StringComparison.OrdinalIgnoreCase) >= 0 || p.Category.IndexOf(filterText, StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    dgvProducts.Rows.Add(p.Id, p.Name, p.Category, p.Price.ToString("F2"), p.Stock, p.Availability);
                 }
             }
-        }
 
-        private void RefreshInventoryGrid()
-        {
-            dgvInventory.Rows.Clear();
-            foreach (var p in productsList)
-            {
-                string warning = p.Stock <= 5 ? "LOW STOCK" : "OK";
-                dgvInventory.Rows.Add(p.Id, p.Name, p.Stock, p.Availability, warning);
-            }
-        }
-
-        private void RefreshOrderGrid()
-        {
-            dgvOrders.Rows.Clear();
-            foreach (var o in ordersList)
-            {
-                string customerName = $"{o.CustomerFirstName} {o.CustomerLastName}";
-                dgvOrders.Rows.Add(o.TrackingId, o.Timestamp, customerName, o.Status);
-            }
-        }
-
-        private void UpdateDashboardStats()
-        {
-            lblTotalUsersVal.Text = usersList.Count.ToString();
-            lblAdminName.Text = $"Welcome, {currentAdminUsername} ({currentAdminRole})!";
-        }
-
-        private void LoadAdminProfileData()
-        {
-            UserItem admin = usersList.Find(u => u.Username.Equals(currentAdminUsername, StringComparison.OrdinalIgnoreCase));
-            if (admin != null)
-            {
-                txtProfUsername.Text = admin.Username;
-                txtProfPassword.Text = admin.Password;
-                txtProfFullName.Text = admin.FullName;
-                txtProfRole.Text = admin.Role;
-            }
-        }
-
-        private void SetProductImage(string path)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(path) && File.Exists(path))
-                {
-                    picProductPreview.Image = Image.FromFile(path);
-                    picInventoryPreview.Image = Image.FromFile(path);
-                }
-                else
-                {
-                    picProductPreview.Image = null;
-                    picInventoryPreview.Image = null;
-                }
-            }
-            catch
-            {
-                picProductPreview.Image = null;
-                picInventoryPreview.Image = null;
-            }
-        }
-
-        #endregion
-
-        #region NAVIGATION SYSTEM LAYER
-
-        private void ShowPanel(Panel targetPanel)
-        {
-            panelDashboard.Visible = false;
-            panelUserMgmt.Visible = false;
-            panelProfile.Visible = false;
-            panelProductMgmt.Visible = false;
-            panelInventory.Visible = false;
-            panelOrders.Visible = false;
-
-            targetPanel.Visible = true;
-            UpdateDashboardStats();
-        }
-
-        private void btnDashboard_Click(object sender, EventArgs e) => ShowPanel(panelDashboard);
-        private void btnUserMgmt_Click(object sender, EventArgs e) => ShowPanel(panelUserMgmt);
-        private void btnProducts_Click(object sender, EventArgs e) => ShowPanel(panelProductMgmt);
-        private void btnInventory_Click(object sender, EventArgs e) => ShowPanel(panelInventory);
-        private void btnOrders_Click(object sender, EventArgs e) => ShowPanel(panelOrders);
-        private void btnProfile_Click(object sender, EventArgs e) => ShowPanel(panelProfile);
-
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to log out of the console application context workspace session?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
-            {
-                this.Close();
-            }
-        }
-
-        #endregion
-
-        #region MODULE 1: USER MANAGEMENT CONTROL LAYER
-
-        private void btnOpenAdd_Click(object sender, EventArgs e)
-        {
-            grpEditUser.Visible = false;
-            grpAddUser.Visible = true;
-            txtAddUsername.Clear();
-            txtAddPassword.Clear();
-            txtAddFullName.Clear();
-
-            // Check if the ComboBox actually has items before setting the index
-            if (cmbAddRole.Items.Count > 2)
-            {
-                cmbAddRole.SelectedIndex = 2; // Safely sets to the 3rd item (e.g., Driver)
-            }
-            else if (cmbAddRole.Items.Count > 0)
-            {
-                cmbAddRole.SelectedIndex = 0;
-            }
-            else
-            {
-
-                cmbAddRole.SelectedIndex = -1;
-                cmbAddRole.Items.Add("User");
-                cmbAddRole.SelectedIndex = 0;
-            }
-        }
-
-        private void btnConfirmAdd_Click(object sender, EventArgs e)
-        {
-            string username = txtAddUsername.Text.Trim();
-            string password = txtAddPassword.Text.Trim();
-            string fullname = txtAddFullName.Text.Trim();
-            string role = cmbAddRole.SelectedItem?.ToString() ?? "User";
-
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullname))
-            {
-                MessageBox.Show("All basic user context definition fields are strictly mandatory.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (usersList.Exists(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
-            {
-                MessageBox.Show("Account identity variant signature collision: Username already registered.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (!ValidatePassword(password))
-            {
-                MessageBox.Show("Security credential threshold violation: Passwords require 8+ characters matching combined alphanumeric attributes.", "Security Threshold Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int maxId = 0;
-            foreach (var u in usersList)
-            {
-                if (int.TryParse(u.Id, out int id) && id > maxId) maxId = id;
-            }
-
-            usersList.Add(new UserItem
-            {
-                Id = (maxId + 1).ToString(),
-                Username = username,
-                Password = password,
-                FullName = fullname,
-                Role = role,
-                Extra = "",
-                Status = "Active"
-            });
-
-            SaveUsers();
-            RefreshUserGrid();
-            grpAddUser.Visible = false;
-            MessageBox.Show("User added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnOpenEdit_Click(object sender, EventArgs e)
-        {
-            if (dgvUsers.CurrentRow == null)
-            {
-                MessageBox.Show("Select an account register index element vector to open parameters panel.", "Selection Missing", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            string targetUsername = dgvUsers.CurrentRow.Cells[0].Value?.ToString();
-            selectedUserForEdit = usersList.Find(u => u.Username.Equals(targetUsername, StringComparison.OrdinalIgnoreCase));
-
-            if (selectedUserForEdit != null)
-            {
-                grpAddUser.Visible = false;
-                grpEditUser.Visible = true;
-                txtEditUsername.Text = selectedUserForEdit.Username;
-                txtEditPassword.Text = selectedUserForEdit.Password;
-                cmbEditRole.SelectedItem = selectedUserForEdit.Role;
-                cmbEditStatus.SelectedItem = selectedUserForEdit.Status;
-            }
-        }
-
-        private void btnConfirmAdd_Click_1(object sender, EventArgs e)
-        {
-            if (selectedUserForEdit == null) return;
-
-            string newUsername = txtEditUsername.Text.Trim();
-            string newPassword = txtEditPassword.Text.Trim();
-            string newRole = cmbEditRole.SelectedItem?.ToString();
-            string newStatus = cmbEditStatus.SelectedItem?.ToString();
-
-            if (string.IsNullOrEmpty(newUsername) || string.IsNullOrEmpty(newPassword))
-            {
-                MessageBox.Show("Mandatory identity configuration parameters cannot be blank.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!newUsername.Equals(selectedUserForEdit.Username, StringComparison.OrdinalIgnoreCase) && usersList.Exists(u => u.Username.Equals(newUsername, StringComparison.OrdinalIgnoreCase)))
-            {
-                MessageBox.Show("Collision error: Destination identifier path string signature vector already taken.", "Conflict Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (!ValidatePassword(newPassword))
-            {
-                MessageBox.Show("Security credential threshold checking violation.", "Security Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (selectedUserForEdit.Username.Equals(currentAdminUsername, StringComparison.OrdinalIgnoreCase) && !newStatus.Equals("Active", StringComparison.OrdinalIgnoreCase))
-            {
-                MessageBox.Show("Self-deactivation restriction validation exception rule triggered.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-
-            bool editingSelf = selectedUserForEdit.Username.Equals(currentAdminUsername, StringComparison.OrdinalIgnoreCase);
-
-            selectedUserForEdit.Username = newUsername;
-            selectedUserForEdit.Password = newPassword;
-            selectedUserForEdit.Role = newRole;
-            selectedUserForEdit.Status = newStatus;
-
-            SaveUsers();
-
-            if (editingSelf)
-            {
-                currentAdminUsername = newUsername;
-                LoadAdminProfileData();
-            }
-
-            RefreshUserGrid();
-            grpEditUser.Visible = false;
-            selectedUserForEdit = null;
-            MessageBox.Show("Account modifications stored successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            SaveUsersFile(); LoadUsers(); UpdateDashboardCounts();
+            pnlUserPopup.Visible = false;
+            MessageBox.Show("User configuration file base systematically saved!");
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
             if (dgvUsers.CurrentRow == null) return;
-            string targetUsername = dgvUsers.CurrentRow.Cells[0].Value?.ToString();
-
-            if (targetUsername.Equals(currentAdminUsername, StringComparison.OrdinalIgnoreCase))
+            if (MessageBox.Show("Delete this user?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                MessageBox.Show("Destruction engine operation exception: Self target deletion restricted.", "Access Control Violation", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-
-            UserItem targetUser = usersList.Find(u => u.Username.Equals(targetUsername, StringComparison.OrdinalIgnoreCase));
-            if (targetUser != null)
-            {
-                if (targetUser.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase) && usersList.FindAll(u => u.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase)).Count <= 1)
-                {
-                    MessageBox.Show("Root master failure prevention: System requires at least one operating runtime root Admin.", "Constraint Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (MessageBox.Show($"Purge entry {targetUsername} data tree vectors?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    usersList.Remove(targetUser);
-                    SaveUsers();
-                    RefreshUserGrid();
-                }
+                string id = dgvUsers.CurrentRow.Cells["Id"].Value.ToString();
+                usersList.RemoveAll(u => u.Id == id);
+                SaveUsersFile(); LoadUsers(); UpdateDashboardCounts();
             }
         }
 
         private void btnBanUser_Click(object sender, EventArgs e)
         {
             if (dgvUsers.CurrentRow == null) return;
-            string targetUsername = dgvUsers.CurrentRow.Cells[0].Value?.ToString();
-
-            if (targetUsername.Equals(currentAdminUsername, StringComparison.OrdinalIgnoreCase))
+            string id = dgvUsers.CurrentRow.Cells["Id"].Value.ToString();
+            var user = usersList.FirstOrDefault(u => u.Id == id);
+            if (user != null)
             {
-                MessageBox.Show("Banning the currently active session operator matrix configuration is disallowed.", "Operation Denied", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-
-            UserItem targetUser = usersList.Find(u => u.Username.Equals(targetUsername, StringComparison.OrdinalIgnoreCase));
-            if (targetUser != null)
-            {
-                targetUser.Status = $"Banned ({numBanHours.Value} Hours)";
-                SaveUsers();
-                RefreshUserGrid();
-                MessageBox.Show("Account restriction vector stored successfully.", "Operation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                user.Status = "Banned";
+                user.BanExpiration = DateTime.Now.AddHours(24).ToString("yyyy-MM-dd HH:mm:ss");
+                SaveUsersFile(); LoadUsers();
+                MessageBox.Show("User Banned for 24 Hours!");
             }
         }
 
-        private void btnCancelAdd_Click(object sender, EventArgs e) => grpAddUser.Visible = false;
-        private void btnCancelEdit_Click(object sender, EventArgs e) => grpEditUser.Visible = false;
-
-        #endregion
-
-        #region MODULE 2: PRODUCT MANAGEMENT MODULE
-
-        private void btnProdBrowseImage_Click(object sender, EventArgs e)
+        private void txtUserSearch_TextChanged(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                ofd.Filter = "Image Files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    string filename = Path.GetFileName(ofd.FileName);
-                    string targetPath = Path.Combine("images", filename);
+            var search = txtUserSearch.Text.ToLower();
+            RefreshUserGrid(usersList.Where(u => u.Username.ToLower().Contains(search) || u.FullName.ToLower().Contains(search)).ToList());
+        }
 
-                    try
-                    {
-                        if (!File.Exists(targetPath))
-                        {
-                            File.Copy(ofd.FileName, targetPath, true);
-                        }
-                        txtProdImagePath.Text = targetPath;
-                        SetProductImage(targetPath);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"File asset staging IO error: {ex.Message}");
-                    }
+        private void dgvUsers_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvUsers.CurrentRow != null)
+            {
+                string id = dgvUsers.CurrentRow.Cells["Id"].Value.ToString();
+                var user = usersList.FirstOrDefault(u => u.Id == id);
+                if (user != null)
+                {
+                    txtUsername.Text = user.Username;
+                    txtPassword.Text = user.Password;
+                    txtFullName.Text = user.FullName;
+                    cmbRole.Text = user.Role;
                 }
             }
         }
-
-        private void btnProdAdd_Click(object sender, EventArgs e)
-        {
-            string name = txtProdName.Text.Trim();
-            string desc = txtProdDesc.Text.Trim();
-            string cat = txtProdCategory.Text.Trim();
-            string img = txtProdImagePath.Text.Trim();
-
-            if (string.IsNullOrEmpty(name) || !double.TryParse(txtProdPrice.Text, out double pr) || !int.TryParse(txtProdStock.Text, out int st))
-            {
-                MessageBox.Show("Product definition parameters parse mismatch error.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int maxId = 0;
-            foreach (var p in productsList)
-            {
-                if (int.TryParse(p.Id, out int id) && id > maxId) maxId = id;
-            }
-
-            productsList.Add(new ProductItem
-            {
-                Id = (maxId + 1).ToString(),
-                Name = name,
-                Description = desc,
-                Price = pr,
-                Stock = st,
-                Category = cat,
-                ImagePath = string.IsNullOrEmpty(img) ? "images/placeholder.jpg" : img,
-                Availability = cmbProdStatus.SelectedItem?.ToString() ?? "Available"
-            });
-
-            SaveProducts();
-            RefreshProductGrid("");
-            RefreshInventoryGrid();
-            ClearProductForm();
-            MessageBox.Show("Catalog modifications stored successfully.");
-        }
-
-        private void dgvProducts_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dgvProducts.CurrentRow == null) return;
-            string id = dgvProducts.CurrentRow.Cells[0].Value?.ToString();
-            selectedProduct = productsList.Find(p => p.Id == id);
-
-            if (selectedProduct != null)
-            {
-                txtProdName.Text = selectedProduct.Name;
-                txtProdDesc.Text = selectedProduct.Description;
-                txtProdPrice.Text = selectedProduct.Price.ToString();
-                txtProdStock.Text = selectedProduct.Stock.ToString();
-                txtProdCategory.Text = selectedProduct.Category;
-                txtProdImagePath.Text = selectedProduct.ImagePath;
-                cmbProdStatus.SelectedItem = selectedProduct.Availability;
-                SetProductImage(selectedProduct.ImagePath);
-            }
-        }
-
-        private void btnProdUpdate_Click(object sender, EventArgs e)
-        {
-            if (selectedProduct == null)
-            {
-                MessageBox.Show("Please select a catalog item element row target first.");
-                return;
-            }
-
-            selectedProduct.Name = txtProdName.Text.Trim();
-            selectedProduct.Description = txtProdDesc.Text.Trim();
-            selectedProduct.Category = txtProdCategory.Text.Trim();
-            selectedProduct.ImagePath = txtProdImagePath.Text.Trim();
-            selectedProduct.Availability = cmbProdStatus.SelectedItem?.ToString() ?? "Available";
-
-            if (double.TryParse(txtProdPrice.Text, out double pr)) selectedProduct.Price = pr;
-            if (int.TryParse(txtProdStock.Text, out int st)) selectedProduct.Stock = st;
-
-            SaveProducts();
-            RefreshProductGrid("");
-            RefreshInventoryGrid();
-            ClearProductForm();
-            MessageBox.Show("Product configurations saved.");
-        }
-
-        private void btnProdDelete_Click(object sender, EventArgs e)
-        {
-            if (selectedProduct == null) return;
-            if (MessageBox.Show("Purge entry?", "Confirm Deletion", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                productsList.Remove(selectedProduct);
-                SaveProducts();
-                RefreshProductGrid("");
-                RefreshInventoryGrid();
-                ClearProductForm();
-            }
-        }
-
-        private void btnProdClear_Click(object sender, EventArgs e) => ClearProductForm();
-
-        private void ClearProductForm()
-        {
-            selectedProduct = null;
-            txtProdName.Clear();
-            txtProdDesc.Clear();
-            txtProdPrice.Clear();
-            txtProdStock.Clear();
-            txtProdCategory.Clear();
-            txtProdImagePath.Clear();
-            cmbProdStatus.SelectedIndex = 0;
-            picProductPreview.Image = null;
-        }
-
-        private void txtSearchProduct_TextChanged(object sender, EventArgs e)
-        {
-            RefreshProductGrid(txtSearchProduct.Text.Trim());
-        }
-
         #endregion
 
-        #region MODULE 3: INVENTORY MANAGEMENT MODULE
+        #region --- INVENTORY MANAGEMENT ---
+        private void LoadProducts()
+        {
+            productsList.Clear();
+            using (StreamReader reader = new StreamReader(productsFile))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (string.IsNullOrWhiteSpace(line)) continue;
+                    var parts = line.Split(',');
+                    if (parts.Length >= 5)
+                    {
+                        productsList.Add(new Product
+                        {
+                            Id = parts[0],
+                            Name = parts[1],
+                            Category = parts[2],
+                            Price = decimal.Parse(parts[3]),
+                            Stock = int.Parse(parts[4])
+                        });
+                    }
+                }
+            }
+            RefreshProductGrid(productsList.OrderBy(p => p.Category).ToList());
+        }
 
-        private void dgvInventory_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void RefreshProductGrid(List<Product> list)
+        {
+            dgvInventory.DataSource = null;
+            dgvInventory.DataSource = list;
+        }
+
+        private void SaveProductsFile()
+        {
+            using (StreamWriter writer = new StreamWriter(productsFile, false))
+            {
+                foreach (var p in productsList)
+                    writer.WriteLine($"{p.Id},{p.Name},{p.Category},{p.Price},{p.Stock}");
+            }
+        }
+
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {
+            currentActionMode = "Add";
+            lblProdPopupTitle.Text = "Initialize New Product SKU";
+            txtProdName.Text = ""; txtProdCategory.Text = ""; txtProdPrice.Text = ""; txtProdStock.Text = "";
+
+            if (!pnlProdPopup.Controls.Contains(txtProdName))
+            {
+                pnlProdPopup.Controls.AddRange(new Control[] { txtProdName, txtProdCategory, txtProdPrice, txtProdStock });
+            }
+
+            txtProdName.BringToFront();
+            txtProdCategory.BringToFront();
+            txtProdPrice.BringToFront();
+            txtProdStock.BringToFront();
+
+            pnlProdPopup.Visible = true;
+            pnlProdPopup.BringToFront();
+        }
+
+        private void btnEditProduct_Click(object sender, EventArgs e)
+        {
+            if (dgvInventory.CurrentRow == null) { MessageBox.Show("Select a catalog item line to adjust."); return; }
+            currentActionMode = "Edit";
+            lblProdPopupTitle.Text = "Update Product Specifications";
+
+            string id = dgvInventory.CurrentRow.Cells["Id"].Value.ToString();
+            var prod = productsList.FirstOrDefault(p => p.Id == id);
+            if (prod != null)
+            {
+                txtProdName.Text = prod.Name;
+                txtProdCategory.Text = prod.Category;
+                txtProdPrice.Text = prod.Price.ToString();
+                txtProdStock.Text = prod.Stock.ToString();
+
+                if (!pnlProdPopup.Controls.Contains(txtProdName))
+                {
+                    pnlProdPopup.Controls.AddRange(new Control[] { txtProdName, txtProdCategory, txtProdPrice, txtProdStock });
+                }
+
+                txtProdName.BringToFront();
+                txtProdCategory.BringToFront();
+                txtProdPrice.BringToFront();
+                txtProdStock.BringToFront();
+
+                pnlProdPopup.Visible = true;
+                pnlProdPopup.BringToFront();
+            }
+        }
+        private void btnPopupUserClose_Click(object sender, EventArgs e)
+        {
+            this.pnlUserPopup.Visible = false;
+        }
+
+        private void btnPopupProdClose_Click(object sender, EventArgs e)
+        {
+            this.pnlProdPopup.Visible = false;
+        }
+
+        private void btnPopupProdSave_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtProdName.Text)) return;
+
+            decimal.TryParse(txtProdPrice.Text, out decimal targetPrice);
+            int.TryParse(txtProdStock.Text, out int targetStock);
+
+            if (currentActionMode == "Add")
+            {
+                string newId = "F" + (productsList.Count > 0 ? (int.Parse(productsList.Last().Id.Replace("F", "")) + 1).ToString("D3") : "001");
+                productsList.Add(new Product { Id = newId, Name = txtProdName.Text, Category = txtProdCategory.Text, Price = targetPrice, Stock = targetStock });
+            }
+            else if (currentActionMode == "Edit")
+            {
+                string id = dgvInventory.CurrentRow.Cells["Id"].Value.ToString();
+                var prod = productsList.FirstOrDefault(p => p.Id == id);
+                if (prod != null)
+                {
+                    prod.Name = txtProdName.Text;
+                    prod.Category = txtProdCategory.Text;
+                    prod.Price = targetPrice;
+                    prod.Stock = targetStock;
+                }
+            }
+
+            SaveProductsFile(); LoadProducts(); UpdateDashboardCounts();
+            pnlProdPopup.Visible = false;
+            MessageBox.Show("Inventory catalog changes applied!");
+        }
+
+        private void btnDeleteProduct_Click(object sender, EventArgs e)
         {
             if (dgvInventory.CurrentRow == null) return;
-            string id = dgvInventory.CurrentRow.Cells[0].Value?.ToString();
-            selectedProduct = productsList.Find(p => p.Id == id);
-
-            if (selectedProduct != null)
+            if (MessageBox.Show("Delete this product?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                lblInvSelectedName.Text = "Selected: " + selectedProduct.Name;
-                numInventoryStock.Value = selectedProduct.Stock;
-                cmbInventoryStatus.SelectedItem = selectedProduct.Availability;
-                SetProductImage(selectedProduct.ImagePath);
+                string id = dgvInventory.CurrentRow.Cells["Id"].Value.ToString();
+                productsList.RemoveAll(p => p.Id == id);
+                SaveProductsFile(); LoadProducts(); UpdateDashboardCounts();
             }
         }
 
-        private void btnUpdateInventory_Click(object sender, EventArgs e)
+        private void txtProdSearch_TextChanged(object sender, EventArgs e)
         {
-            if (selectedProduct == null) return;
-
-            selectedProduct.Stock = (int)numInventoryStock.Value;
-            selectedProduct.Availability = cmbInventoryStatus.SelectedItem?.ToString() ?? "Available";
-
-            SaveProducts();
-            RefreshProductGrid("");
-            RefreshInventoryGrid();
-            MessageBox.Show("Inventory control parameters recorded cleanly.");
+            var search = txtProdSearch.Text.ToLower();
+            RefreshProductGrid(productsList.Where(p => p.Name.ToLower().Contains(search) || p.Category.ToLower().Contains(search)).ToList());
         }
 
+        private void dgvInventory_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (Convert.ToInt32(dgvInventory.Rows[e.RowIndex].Cells["Stock"].Value) < 10)
+            {
+                dgvInventory.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
+                dgvInventory.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+            }
+        }
+
+        private void dgvInventory_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvInventory.CurrentRow != null)
+            {
+                txtProdName.Text = dgvInventory.CurrentRow.Cells["Name"].Value.ToString();
+                txtProdCategory.Text = dgvInventory.CurrentRow.Cells["Category"].Value.ToString();
+                txtProdPrice.Text = dgvInventory.CurrentRow.Cells["Price"].Value.ToString();
+                txtProdStock.Text = dgvInventory.CurrentRow.Cells["Stock"].Value.ToString();
+            }
+        }
         #endregion
 
-        #region MODULE 4: ORDER PROCESSING QUEUE LAYERS
-
-        private void dgvOrders_CellClick(object sender, DataGridViewCellEventArgs e)
+        #region --- ORDER MANAGEMENT ---
+        private void LoadOrders()
         {
-            if (dgvOrders.CurrentRow == null) return;
-            string trackingId = dgvOrders.CurrentRow.Cells[0].Value?.ToString();
-            selectedOrderGroup = ordersList.Find(o => o.TrackingId == trackingId);
-
-            if (selectedOrderGroup != null)
+            ordersList.Clear();
+            using (StreamReader reader = new StreamReader(ordersFile))
             {
-                lblOrderSelectedTrack.Text = "Order: " + selectedOrderGroup.TrackingId;
-                cmbOrderStatus.SelectedItem = selectedOrderGroup.Status;
-
-                lstOrderItemsView.Items.Clear();
-                foreach (var li in selectedOrderGroup.LineItems)
+                string line;
+                Order currentOrder = null;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    lstOrderItemsView.Items.Add($"{li.QuantityString} x {li.ProductName} [{li.PriceString}] - {li.ItemStatus}");
-                }
-            }
-        }
-
-        private void btnUpdateOrderStatus_Click(object sender, EventArgs e)
-        {
-            if (selectedOrderGroup == null) return;
-
-            string targetStatus = cmbOrderStatus.SelectedItem?.ToString();
-            string oldStatus = selectedOrderGroup.Status;
-            selectedOrderGroup.Status = targetStatus;
-
-            // Automation rule tracking constraint setup
-            // Deduct inventory when status updates to Preparing from Pending
-            if (targetStatus.Equals("Preparing", StringComparison.OrdinalIgnoreCase) &&
-                !oldStatus.Equals("Preparing", StringComparison.OrdinalIgnoreCase) &&
-                !oldStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase))
-            {
-                foreach (var li in selectedOrderGroup.LineItems)
-                {
-                    ProductItem catalogProd = productsList.Find(p => p.Id == li.ProductId || p.Name.Equals(li.ProductName, StringComparison.OrdinalIgnoreCase));
-                    if (catalogProd != null)
+                    if (line.StartsWith("Order|"))
                     {
-                        // Clean numeric quantities parse extraction
-                        int qty = 1;
-                        string cleanQty = li.QuantityString.Replace("x", "").Replace("Qty", "").Trim();
-                        if (int.TryParse(cleanQty, out int parsedQty)) qty = parsedQty;
-
-                        catalogProd.Stock = Math.Max(0, catalogProd.Stock - qty);
-                        li.ItemStatus = "preparing";
+                        var parts = line.Split(',');
+                        currentOrder = new Order
+                        {
+                            Date = parts[1],
+                            Tracking = parts[2].Split(',')[1],
+                            Status = parts[3].Split(',')[1],
+                            CustomerName = parts[4].Split(',')[1] + " " + parts[5].Split(',')[1],
+                            Address = parts[6].Split(',')[1],
+                            Details = ""
+                        };
+                    }
+                    else if (line == "EndOrder")
+                    {
+                        if (currentOrder != null) ordersList.Add(currentOrder);
+                    }
+                    else if (currentOrder != null && line.Contains("x|"))
+                    {
+                        currentOrder.Details += line + Environment.NewLine;
                     }
                 }
-                SaveProducts();
-                RefreshProductGrid("");
-                RefreshInventoryGrid();
             }
-
-            // Sync specific item status logs natively if tracking individual states
-            if (targetStatus.Equals("Packed", StringComparison.OrdinalIgnoreCase))
-                foreach (var li in selectedOrderGroup.LineItems) li.ItemStatus = "packed";
-            if (targetStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase))
-                foreach (var li in selectedOrderGroup.LineItems) li.ItemStatus = "completed";
-
-            SaveOrders();
-            RefreshOrderGrid();
-            MessageBox.Show("Order processing queue status matrix recorded successfully.");
+            dgvOrders.DataSource = null;
+            dgvOrders.DataSource = ordersList.Select(o => new { o.Tracking, o.CustomerName, o.Status, o.Date }).ToList();
         }
 
+        private void dgvOrders_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvOrders.CurrentRow != null)
+            {
+                string tracking = dgvOrders.CurrentRow.Cells["Tracking"].Value.ToString();
+                var order = ordersList.FirstOrDefault(o => o.Tracking == tracking);
+                if (order != null)
+                {
+                    txtOrderDetails.Text = $"Customer: {order.CustomerName}\r\nAddress: {order.Address}\r\n\r\nItems:\r\n{order.Details}";
+                    cmbOrderStatus.Text = order.Status;
+                }
+            }
+        }
+
+        private void btnUpdateOrder_Click(object sender, EventArgs e)
+        {
+            if (dgvOrders.CurrentRow == null || string.IsNullOrEmpty(cmbOrderStatus.Text)) return;
+            string trackingToUpdate = dgvOrders.CurrentRow.Cells["Tracking"].Value.ToString();
+            string newStatus = cmbOrderStatus.Text;
+
+            // Update file contents
+            var allLines = File.ReadAllLines(ordersFile).ToList();
+            for (int i = 0; i < allLines.Count; i++)
+            {
+                if (allLines[i].StartsWith("Order|") && allLines[i].Contains("Tracking:" + trackingToUpdate))
+                {
+                    var parts = allLines[i].Split('|');
+                    parts[3] = "Status:" + newStatus;
+                    allLines[i] = string.Join("|", parts);
+                    break;
+                }
+            }
+
+            // Strictly write back using StreamWriter to fulfill requirements
+            using (StreamWriter writer = new StreamWriter(ordersFile, false))
+            {
+                foreach (var line in allLines) writer.WriteLine(line);
+            }
+
+            MessageBox.Show("Order Status Updated!");
+            LoadOrders();
+        }
         #endregion
 
-        #region PROFILE SETTINGS PROCESSORS
-
-        private void btnSaveProfile_Click(object sender, EventArgs e)
+        #region --- PROFILE SETTINGS ---
+        private void btnUpdateProfile_Click(object sender, EventArgs e)
         {
-            string newUsername = txtProfUsername.Text.Trim();
-            string newPassword = txtProfPassword.Text.Trim();
-
-            if (string.IsNullOrEmpty(newUsername) || string.IsNullOrEmpty(newPassword))
-            {
-                MessageBox.Show("Profile parameter definition strings cannot be null.", "Validation Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!ValidatePassword(newPassword))
-            {
-                MessageBox.Show("Alphanumeric complexity failure metrics exception.", "Validation Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            UserItem admin = usersList.Find(u => u.Username.Equals(currentAdminUsername, StringComparison.OrdinalIgnoreCase));
+            // Match by the logged-in username
+            var admin = usersList.FirstOrDefault(u => u.Username.Equals(loggedInUsername, StringComparison.OrdinalIgnoreCase));
             if (admin != null)
             {
-                if (!newUsername.Equals(currentAdminUsername, StringComparison.OrdinalIgnoreCase) && usersList.Exists(u => u.Username.Equals(newUsername, StringComparison.OrdinalIgnoreCase)))
-                {
-                    MessageBox.Show("Collision constraint violation error.", "Conflict Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                admin.Username = newUsername;
-                admin.Password = newPassword;
-                SaveUsers();
-
-                currentAdminUsername = newUsername;
-                RefreshUserGrid();
-                UpdateDashboardStats();
-
-                MessageBox.Show("Profile attributes written successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                admin.FullName = txtProfName.Text;
+                admin.Password = txtProfPass.Text;
+                SaveUsersFile();
+                LoadUsers();
+                MessageBox.Show("Profile updated successfully!");
             }
         }
-
         #endregion
 
-       
+        #region --- DATA MODELS ---
+        public class User
+        {
+            public string Id { get; set; }
+            public string Username { get; set; }
+            public string Password { get; set; }
+            public string FullName { get; set; }
+            public string Role { get; set; }
+            public string BanExpiration { get; set; }
+            public string Status { get; set; }
+        }
+
+        public class Product
+        {
+            public string Id { get; set; }
+            public string Name { get; set; }
+            public string Category { get; set; }
+            public decimal Price { get; set; }
+            public int Stock { get; set; }
+        }
+
+        public class Order
+        {
+            public string Tracking { get; set; }
+            public string Date { get; set; }
+            public string Status { get; set; }
+            public string CustomerName { get; set; }
+            public string Address { get; set; }
+            public string Details { get; set; }
+        }
+        #endregion
+
+        private void lblDashTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grpInvControls_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
-
-    #region UNIFIED ENTITY DEFINITIONS DATA LAYERS
-
-    public class UserItem
-    {
-        public string Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string FullName { get; set; }
-        public string Role { get; set; }
-        public string Extra { get; set; }
-        public string Status { get; set; }
-    }
-
-    public class ProductItem
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public double Price { get; set; }
-        public int Stock { get; set; }
-        public string Category { get; set; }
-        public string ImagePath { get; set; }
-        public string Availability { get; set; }
-    }
-
-    public class OrderGroupItem
-    {
-        public string Timestamp { get; set; }
-        public string TrackingId { get; set; }
-        public string Status { get; set; }
-        public string CustomerFirstName { get; set; }
-        public string CustomerLastName { get; set; }
-        public string Address { get; set; }
-        public List<OrderItem> LineItems { get; set; }
-    }
-
-    public class OrderItem
-    {
-        public string QuantityString { get; set; }
-        public string ProductId { get; set; }
-        public string ProductName { get; set; }
-        public string PriceString { get; set; }
-        public string ItemStatus { get; set; }
-    }
-
-    #endregion
 }

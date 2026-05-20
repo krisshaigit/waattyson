@@ -45,7 +45,8 @@ namespace adminstaffff
         private void btnBrowse_Click(object sender, EventArgs e) => OpenChildForm(new BrowsePageForm());
         private void btnCategories_Click(object sender, EventArgs e) => OpenChildForm(new CategoriesPageForm());
         private void btnCheckout_Click(object sender, EventArgs e) => OpenChildForm(new CheckoutPageForm());
-        private void btnHistory_Click(object sender, EventArgs e) => OpenChildForm(new HistoryPageForm());
+        private void btnHistory_Click(object sender, EventArgs e) =>
+            OpenChildForm(new HistoryPageForm(DataEngine.CurrentUser?.Username ?? "Guest"));
         private void btnProfile_Click(object sender, EventArgs e) => OpenChildForm(new ProfilePageForm());
         private void btnSettings_Click(object sender, EventArgs e) => OpenChildForm(new SettingsPageForm());
     }

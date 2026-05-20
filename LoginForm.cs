@@ -175,18 +175,16 @@ namespace adminstaffff
                 switch (foundRole)
                 {
                     case "Admin":
-                        OpenFormByName("adminstaffff.AdminForm", new object[] { foundUsername, foundRole });
+                      
+                        adminstaffff.AdminForm adminPanel = new adminstaffff.AdminForm(foundUsername, foundRole);
+                        adminPanel.Show();
+                        this.Hide(); 
                         break;
 
                     case "User":
-                        // 1. Create the MainDashboard instance and pass the user's full name
                         MainDashboard dashboard = new MainDashboard(foundFullName);
-
-                        // 2. Open an existing form (like BrowsePageForm) as the landing page
                         BrowsePageForm browseForm = new BrowsePageForm();
                         dashboard.OpenChildForm(browseForm);
-
-                        // 3. Show the dashboard and hide this login form
                         dashboard.Show();
                         this.Hide();
 

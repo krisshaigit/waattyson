@@ -135,6 +135,34 @@ namespace adminstaffff
         {
             Button btn = (Button)sender;
             Product selectedProduct = (Product)btn.Tag;
+
+            // Check if the item has run out of stock before adding it
+            if (selectedProduct.Stock <= 0)
+            {
+                MessageBox.Show("Sorry, this item is currently out of stock!", "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Check if this product is already in the cart
+            var existingCartItem = DataEngine.Cart.FirstOrDefault(c => c.Product.ProductId == selectedProduct.ProductId);
+
+            if (existingCartItem != null)
+            {
+                // If it's already there, just increase the quantity
+                existingCartItem.Quantity += 1;
+            }
+            else
+            {
+                // Otherwise, create a new cart entry object and add it
+                // Note: Change 'CartItem' to whatever your specific cart class name is!
+                DataEngine.Cart.Add(new CartItem
+                {
+                    Product = selectedProduct,
+                    Quantity = 1
+                });
+            }
+
+            // Notify the user
             MessageBox.Show($"{selectedProduct.Name} added to your cart!", "Cart Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
