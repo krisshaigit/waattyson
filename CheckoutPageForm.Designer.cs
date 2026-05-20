@@ -37,6 +37,7 @@
             ClientSize = new Size(800, 450);
             Name = "CheckoutPageForm";
             Text = "CheckoutPageForm";
+            Load += CheckoutPageForm_Load;
             ResumeLayout(false);
         }
 

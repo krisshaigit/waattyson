@@ -21,7 +21,7 @@ namespace adminstaffff
 
             Label lblPay = new Label() { Text = "Payment Method:", Location = new System.Drawing.Point(450, 120) };
             cbPayment = new ComboBox() { Location = new System.Drawing.Point(450, 145), Width = 180 };
-            cbPayment.Items.AddRange(new[] { "Cash on Delivery", "GCash", "Credit Card" });
+            cbPayment.Items.AddRange(new[] { "GCash" });
             cbPayment.SelectedIndex = 0;
 
             Button btnCheckout = new Button() { Text = "Place Order", Location = new System.Drawing.Point(450, 220), Size = new System.Drawing.Size(150, 40), BackColor = System.Drawing.Color.Green, ForeColor = System.Drawing.Color.White };
@@ -73,5 +73,10 @@ namespace adminstaffff
             MessageBox.Show($"Order processed successfully!\nTracking ID: {newOrder.OrderId}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             RefreshCartDisplay();
         }
+
+        private void CheckoutPageForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
-    }
+}

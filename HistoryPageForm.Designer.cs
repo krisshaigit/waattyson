@@ -37,6 +37,7 @@
             ClientSize = new Size(800, 450);
             Name = "HistoryPageForm";
             Text = "HistoryPageForm";
+            Load += HistoryPageForm_Load;
             ResumeLayout(false);
         }
 

@@ -46,5 +46,10 @@ namespace adminstaffff
                 MessageBox.Show($"Error loading history: {ex.Message}", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void HistoryPageForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
